@@ -1,17 +1,18 @@
 //
-//  KittyWidgetV2App.swift
-//  KittyWidgetV2
+//  KittyWidgetApp.swift
+//  KittyWidget
 //
-//  Created by SORA on 2020/9/26.
+//  Created by SORA on 2020/9/25.
 //
 
 import SwiftUI
 
 @main
-struct KittyWidgetV2App: App {
+struct KittyWidgetApp: App {
+    @StateObject var data = MyData()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(data)
         }
     }
 }

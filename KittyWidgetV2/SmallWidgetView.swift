@@ -11,7 +11,6 @@ import WidgetKit
 struct SmallWidgetView: View {
     @Environment(\.editMode) var editMode
     @State var isCheck = false
-    
     var basicData: BasicData
     var color = MyColor.blue
     var body: some View {
@@ -45,24 +44,17 @@ struct SmallWidgetView: View {
             }
             Kitty(uiImage: basicData.kitty)
                 .frame(width: 70, height:100)
+            if editMode?.wrappedValue == .active{
+                Button(action: {self.isCheck.toggle()}){
+                    Color(.clear)
+                }
+            }
         }
         .frame(width: 170, height: 170)
         //.background(Image(uiImage: basicData.background).resizable()).scaledToFill()
         .background(Color(.yellow))
         .environment(\.sizeCategory, .extraExtraExtraLarge)
         .cornerRadius(CGFloat(Coefficients.cornerRadius))
-        .overlay(
-            Group{
-//                if self.editMode?.wrappedValue != .inactive {
-                    Color(.clear)
-                        .onTapGesture {
-                            self.isCheck = true
-                        }
-//                } else {
-//                    EmptyView()
-//                }
-            }
-        )
     }
 }
 
@@ -130,13 +122,13 @@ struct Kitty: View{
 }
 
 //MARK: - Preview
-//
-//struct SmallWidgetView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group{
-//            SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!))
-//                .previewContext(WidgetPreviewContext(family: .systemSmall))
-//                //.previewLayout(.sizeThatFits)
-//        }
-//    }
-//}
+
+struct SmallWidgetView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group{
+            SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!))
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
+                //.previewLayout(.sizeThatFits)
+        }
+    }
+}

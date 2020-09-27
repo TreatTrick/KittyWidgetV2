@@ -11,46 +11,58 @@ import WidgetKit
 struct SmallWidgetView: View {
     @Environment(\.editMode) var editMode
     @State var isCheck = false
-
+    
     var basicData: BasicData
     var color = MyColor.blue
     var body: some View {
         ZStack(alignment: .bottomTrailing){
-                VStack(alignment: .leading){
-                    VStack(alignment:.center){
-                        HStack{
-                            Time(dateSetting: .time)
-                                .font(Font.system(size: 50, weight:.semibold, design: .default))
-                                .foregroundColor(color.heavy)
-                            if editMode?.wrappedValue != .inactive{
-                                    Image(systemName: withAnimation(.none){self.isCheck ? "checkmark.circle.fill" :  "circle"})
-                                            .foregroundColor(.blue)
-                            }
-                        }
-                        .animation(.easeInOut)
-                        HStack{
-                            Time(dateSetting: .date)
-                                .font(Font.system(size: 20, weight:.medium, design: .default))
-                                .foregroundColor(color.light)
-                                .padding(.leading, 7)
-                            Spacer()
+            VStack(alignment: .leading){
+                VStack(alignment:.center){
+                    HStack{
+                        Time(dateSetting: .time)
+                            .font(Font.system(size: 50, weight:.semibold, design: .default))
+                            .foregroundColor(color.heavy)
+                        if editMode?.wrappedValue != .inactive{
+                            Image(systemName: withAnimation(.none){self.isCheck ? "checkmark.circle.fill" :  "circle"})
+                                .foregroundColor(.blue)
                         }
                     }
-                    Spacer()
-                    Time(dateSetting: .week)
-                        .font(Font.system(size: 20, weight:.medium, design: .default))
-                        .foregroundColor(color.light)
-                        .padding(.leading,7)
-                    Spacer()
+                    .animation(.easeInOut)
+                    HStack{
+                        Time(dateSetting: .date)
+                            .font(Font.system(size: 20, weight:.medium, design: .default))
+                            .foregroundColor(color.light)
+                            .padding(.leading, 7)
+                        Spacer()
+                    }
                 }
-                Kitty(uiImage: basicData.kitty)
-                    .frame(width: 70, height:100)
+                Spacer()
+                Time(dateSetting: .week)
+                    .font(Font.system(size: 20, weight:.medium, design: .default))
+                    .foregroundColor(color.light)
+                    .padding(.leading,7)
+                Spacer()
             }
-            .frame(width: 170, height: 170)
-            //.background(Image(uiImage: basicData.background).resizable()).scaledToFill()
-            .background(Color(.yellow))
-            .environment(\.sizeCategory, .extraExtraExtraLarge)
-            .cornerRadius(20)
+            Kitty(uiImage: basicData.kitty)
+                .frame(width: 70, height:100)
+        }
+        .frame(width: 170, height: 170)
+        //.background(Image(uiImage: basicData.background).resizable()).scaledToFill()
+        .background(Color(.yellow))
+        .environment(\.sizeCategory, .extraExtraExtraLarge)
+        .cornerRadius(20)
+        .overlay(
+            Group{
+                if self.editMode?.wrappedValue != .active {
+                    Color(.clear)
+                        .onTapGesture {
+                            self.isCheck = true
+                        }
+                } else {
+                    EmptyView()
+                }
+            }
+        )
     }
 }
 
@@ -68,32 +80,32 @@ struct Time: View{
         print(date)
         dateFormatter.locale = Locale(identifier: "ja_JP")
         switch timeOrDate{
-            case .date:
-                dateFormatter.dateStyle = .medium
-                dateFormatter.timeStyle = .none
-                let dateString = dateFormatter.string(from: date) // 2001/01/02
-                let ymd = dateString.split(separator: "/")
-                displayString = ymd[1] + "月" + ymd[2] + "日"
-            case .time:
-                dateFormatter.dateStyle = .none
-                dateFormatter.timeStyle = .medium
-                let dateString = dateFormatter.string(from: date) // 2001/01/02
-                let ymd = dateString.split(separator: ":")
-                displayString = ymd[0] + ":" + ymd[1]
-            case .week:
-                let weekid = Calendar.current.component(.weekday, from: date)
-                var weekday: String
-                switch weekid{
-                    case 1: weekday = "周日"
-                    case 2: weekday = "周一"
-                    case 3: weekday = "周二"
-                    case 4: weekday = "周三"
-                    case 5: weekday = "周四"
-                    case 6: weekday = "周五"
-                    default: weekday = "周六"
-                }
-                displayString = weekday
-                
+        case .date:
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .none
+            let dateString = dateFormatter.string(from: date) // 2001/01/02
+            let ymd = dateString.split(separator: "/")
+            displayString = ymd[1] + "月" + ymd[2] + "日"
+        case .time:
+            dateFormatter.dateStyle = .none
+            dateFormatter.timeStyle = .medium
+            let dateString = dateFormatter.string(from: date) // 2001/01/02
+            let ymd = dateString.split(separator: ":")
+            displayString = ymd[0] + ":" + ymd[1]
+        case .week:
+            let weekid = Calendar.current.component(.weekday, from: date)
+            var weekday: String
+            switch weekid{
+            case 1: weekday = "周日"
+            case 2: weekday = "周一"
+            case 3: weekday = "周二"
+            case 4: weekday = "周三"
+            case 5: weekday = "周四"
+            case 6: weekday = "周五"
+            default: weekday = "周六"
+            }
+            displayString = weekday
+            
             
         }
         return displayString

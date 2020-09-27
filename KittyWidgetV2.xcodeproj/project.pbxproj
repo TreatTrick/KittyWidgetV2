@@ -27,8 +27,6 @@
 		97C2A446251F262D003BF5DE /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A407251F2553003BF5DE /* SmallWidgetView.swift */; };
 		97C2A456251F2877003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
 		97C2A46A251F3F55003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
-		97C2A470251F4720003BF5DE /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A46F251F4720003BF5DE /* Grid.swift */; };
-		97C2A476251F4759003BF5DE /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A475251F4759003BF5DE /* GridLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,8 +91,6 @@
 		97C2A434251F2609003BF5DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C2A436251F2609003BF5DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97C2A455251F2877003BF5DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		97C2A46F251F4720003BF5DE /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
-		97C2A475251F4759003BF5DE /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,8 +158,6 @@
 				97C2A407251F2553003BF5DE /* SmallWidgetView.swift */,
 				9771D1C1251FA60B004E1E15 /* SmallSetting.swift */,
 				97C2A411251F2560003BF5DE /* ImagePicker.swift */,
-				97C2A46F251F4720003BF5DE /* Grid.swift */,
-				97C2A475251F4759003BF5DE /* GridLayout.swift */,
 				97C2A3DB251F24F4003BF5DE /* ContentView.swift */,
 				97C2A455251F2877003BF5DE /* Assets.xcassets */,
 				97C2A3E2251F24F6003BF5DE /* Info.plist */,
@@ -390,10 +384,8 @@
 				97C2A438251F2609003BF5DE /* kittyWidgetExtension.intentdefinition in Sources */,
 				97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */,
 				97C2A41F251F258F003BF5DE /* MyData.swift in Sources */,
-				97C2A470251F4720003BF5DE /* Grid.swift in Sources */,
 				97C2A408251F2553003BF5DE /* SmallWidgetView.swift in Sources */,
 				97C2A412251F2560003BF5DE /* ImagePicker.swift in Sources */,
-				97C2A476251F4759003BF5DE /* GridLayout.swift in Sources */,
 				9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */,
 				97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */,
 			);

@@ -104,7 +104,7 @@ struct ContentView: View {
 
 //MARK: - small widget grid
 struct SmallWidgetGrid: View{
-    @State var isCheck = false
+    @Environment(\.editMode) var editMode
     @State var destination = false
     var dataStream: [BasicData]
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
@@ -112,8 +112,13 @@ struct SmallWidgetGrid: View{
         ScrollView(.vertical){
             LazyVGrid(columns: columns){
                 ForEach(dataStream, id: \.self){ basicData in
-                    NavigationLink(destination: SmallSetting(), isActive: $destination){
+                    NavigationLink(destination: SmallSetting()){
                         SmallWidgetView(basicData: basicData)
+//                            .onTapGesture{
+//                                if self.editMode?.wrappedValue == .inactive{
+//                                    self.destination = true
+//                                }
+//                            }
                     }
                 }
             }

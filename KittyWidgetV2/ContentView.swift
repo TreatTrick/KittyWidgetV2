@@ -20,9 +20,8 @@ struct ContentView: View {
                     if isEdit == .active{
                         EditButtons
                     }
-                    SmallWidgetGrid(dataStream: myData.dataStream)
+                    SmallWidgetGrid(dataStream: myData.dataStream, isEdit: $isEdit)
                         .padding()
-                        .cornerRadius(CGFloat(Coefficients.cornerRadius))
                 }
                 
                 .navigationBarTitle("Small Widget", displayMode: .automatic)
@@ -104,9 +103,9 @@ struct ContentView: View {
 
 //MARK: - small widget grid
 struct SmallWidgetGrid: View{
-    @Environment(\.editMode) var editMode
     @State var destination = false
     var dataStream: [BasicData]
+    @Binding var isEdit: EditMode
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var body: some View{
         ScrollView(.vertical){
@@ -115,7 +114,7 @@ struct SmallWidgetGrid: View{
                     NavigationLink(destination: SmallSetting()){
                         SmallWidgetView(basicData: basicData)
 //                            .onTapGesture{
-//                                if self.editMode?.wrappedValue == .inactive{
+//                                if self.isEdit == .inactive{
 //                                    self.destination = true
 //                                }
 //                            }

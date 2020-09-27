@@ -50,17 +50,17 @@ struct SmallWidgetView: View {
         //.background(Image(uiImage: basicData.background).resizable()).scaledToFill()
         .background(Color(.yellow))
         .environment(\.sizeCategory, .extraExtraExtraLarge)
-        .cornerRadius(20)
+        .cornerRadius(CGFloat(Coefficients.cornerRadius))
         .overlay(
             Group{
-                if self.editMode?.wrappedValue != .active {
+//                if self.editMode?.wrappedValue != .inactive {
                     Color(.clear)
                         .onTapGesture {
                             self.isCheck = true
                         }
-                } else {
-                    EmptyView()
-                }
+//                } else {
+//                    EmptyView()
+//                }
             }
         )
     }

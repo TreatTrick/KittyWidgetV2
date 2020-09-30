@@ -9,6 +9,7 @@ import SwiftUI
 import WidgetKit
 
 struct SmallWidgetView: View {
+    @EnvironmentObject var myData: MyData
     @Environment(\.editMode) var editMode
     @State var isCheck = false
     var basicData: BasicData
@@ -42,10 +43,11 @@ struct SmallWidgetView: View {
                     .padding(.leading,7)
                 Spacer()
             }
-            Kitty(uiImage: basicData.kitty)
+            Kitty(uiImage: UIImage(data: Data(base64Encoded:self.basicData.kitty)!)!)
                 .frame(width: 70, height:100)
+            
             if editMode?.wrappedValue == .active{
-                Button(action: {self.isCheck.toggle()}){
+                Button(action: { self.selectItem() } ){
                     Color(.clear)
                 }
             }
@@ -55,6 +57,12 @@ struct SmallWidgetView: View {
         .background(Color(.yellow))
         .environment(\.sizeCategory, .extraExtraExtraLarge)
         .cornerRadius(CGFloat(Coefficients.cornerRadius))
+    }
+    
+    func selectItem(){
+        self.isCheck.toggle()
+        let num =  self.myData.dataStream.firstIndex(where: {$0 == basicData})!
+        myData.isSelected[num].toggle()
     }
 }
 
@@ -125,10 +133,7 @@ struct Kitty: View{
 
 struct SmallWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        Group{
-            SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!))
-                .previewContext(WidgetPreviewContext(family: .systemSmall))
-                //.previewLayout(.sizeThatFits)
-        }
+        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!.pngData()!.base64EncodedString(), display: .date, kitty: UIImage(named: "kitty1")!.pngData()!.base64EncodedString()))
+            .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

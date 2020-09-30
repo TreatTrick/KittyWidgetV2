@@ -38,7 +38,7 @@ struct Provider: IntentTimelineProvider {
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let configuration: ConfigurationIntent
-    let basicData: BasicData = BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!)
+    let basicData: BasicData = BasicData(background: UIImage(named:"img1")!.pngData()!.base64EncodedString(), display: .date, kitty: UIImage(named:"kitty1")!.pngData()!.base64EncodedString())
 }
 
 struct kittyWidgetExtensionEntryView : View {

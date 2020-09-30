@@ -53,6 +53,16 @@ struct ContentView: View {
                 Label("large", systemImage: "l.square.fill")
             }
             .tag(Tabs.largeWidget)
+            
+            NavigationView{
+                NavigationLink(destination: SmallSetting()){
+                    Text("hello")
+                }
+            }
+            .tabItem {
+                Label("setting", systemImage: "gearshape.fill")
+            }
+            .tag(Tabs.setting)
         }
     }
     
@@ -89,12 +99,19 @@ struct ContentView: View {
     
     
     func addData(){
-        let bd = BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!)
+        let background = self.myData.imgToString(img: UIImage(named: "img1")!)
+        let kitty = self.myData.imgToString(img: UIImage(named: "kitty1")!)
+        let bd = BasicData(background: background, display: .date, kitty: kitty)
         self.myData.dataStream.append(bd)
+        self.myData.isSelected.append(false)
     }
     
     func delData(){
-        
+        while  self.myData.isSelected.first(where: {$0 == true}) != nil{
+            let num = self.myData.isSelected.firstIndex(where: {$0 == true})!
+            self.myData.isSelected.remove(at: num)
+            self.myData.dataStream.remove(at: num)
+        }
     }
 }
 
@@ -132,6 +149,7 @@ extension ContentView{
         case smallWidget
         case middleWidget
         case largeWidget
+        case setting
     }
 }
 

@@ -15,9 +15,9 @@ class MyData: ObservableObject{
 //        }
 //        return try? JSONEncoder().encode(self.dataStream)
 //    }
+    @Published var isSaving = false
     @Published var dataStream: [BasicData] = []
     private var storedData: [StoredData] = []
-    var isSelected: [Bool] = []
     init(){
         if let jsonData = UserDefaults.standard.data(forKey: UserDataKeys.storedData){
             do{
@@ -26,7 +26,7 @@ class MyData: ObservableObject{
                 for data in storedData{
                     let background = UIImage(data:data.background)!
                     let kitty = UIImage(data: data.kitty)!
-                    let bd = BasicData(id: data.id, background: background, display: .date, kitty: kitty)
+                    let bd = BasicData(background: background, display: .date, kitty: kitty)
                     self.dataStream.append(bd)
                 }
             } catch let error as Error?{
@@ -37,53 +37,26 @@ class MyData: ObservableObject{
                 let basicData = BasicData(background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!)
                 dataStream.append(basicData)
                 print("img\(i)")
-                isSelected.append(false)
             }
         }
     }
     
-    func storeAddedData(){
-        DispatchQueue.global(qos: .default).async{
-            for data in self.dataStream{
-                if !self.storedData.contains(where: {$0.id == data.id}){
-                    let background = data.background.pngData()!
-                    let kitty = data.kitty.pngData()!
-                    let storeData = StoredData(id: data.id, background: background, display: .date, kitty: kitty)
-                    self.storedData.append(storeData)
-                }
-            }
-            let jsonData = try? JSONEncoder().encode(self.storedData)
-            UserDefaults.standard.set(jsonData, forKey: UserDataKeys.storedData)
-            UserDefaults.standard.set(self.isSelected,forKey: UserDataKeys.isSelected)
-        }
-    }
     
-    func storeDelData(){
+    func syncData(completion:  @escaping  ()->Void ){
+        self.isSaving = true
         DispatchQueue.global(qos: .default).async {
-            for (i,data) in self.storedData.enumerated(){
-                if !self.dataStream.contains(where: {$0.id == data.id}){
-                    self.storedData.remove(at: i)
-                }
-            }
-            let jsonData = try? JSONEncoder().encode(self.storedData)
-            UserDefaults.standard.set(jsonData, forKey: UserDataKeys.storedData)
-            UserDefaults.standard.set(self.isSelected,forKey: UserDataKeys.isSelected)
-        }
-    }
-    
-    func syncData(){
-//        DispatchQueue.global(qos: .default).async {
             self.storedData = []
-            for data in self.dataStream{
+            for (i,data) in self.dataStream.enumerated(){
                 let background = data.background.pngData()!
                 let kitty = data.kitty.pngData()!
-                let sd = StoredData(id: data.id, background: background, display: .date, kitty: kitty)
+                let sd = StoredData(background: background, display: .date, kitty: kitty)
                 self.storedData.append(sd)
+                self.dataStream[i].isChecked = false
             }
             let jsonData = try? JSONEncoder().encode(self.storedData)
             UserDefaults.standard.set(jsonData, forKey: UserDataKeys.storedData)
-            
-//        }
+            completion()
+        }
     }
 
 }
@@ -99,7 +72,6 @@ struct MyColor{
 }
 
  struct StoredData:Hashable, Codable{
-    var id = UUID()
     var background: Data
     var display: displayMode
     var kitty: Data
@@ -115,7 +87,7 @@ struct MyColor{
 struct BasicData:Hashable{
    var id = UUID()
    var background: UIImage
-   var display: displayMode
+    var display: displayMode = .date
    var kitty: UIImage
    var isChecked: Bool = false
    
@@ -127,16 +99,8 @@ struct BasicData:Hashable{
    }
 }
 
-extension BasicData{
-    mutating func checkToggle(){
-        isChecked.toggle()
-    }
-}
-
-
 struct UserDataKeys{
     static var storedData = "dataStream"
-    static var isSelected = "isSelected"
 }
 
 struct Coefficients{

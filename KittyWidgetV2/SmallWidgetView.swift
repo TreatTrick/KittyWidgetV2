@@ -11,7 +11,6 @@ import WidgetKit
 struct SmallWidgetView: View {
     @EnvironmentObject var myData: MyData
     @Environment(\.editMode) var editMode
-    @State var isCheck = false
     var basicData: BasicData
     var color = MyColor.blue
     var body: some View {
@@ -23,7 +22,7 @@ struct SmallWidgetView: View {
                             .font(Font.system(size: 50, weight:.semibold, design: .default))
                             .foregroundColor(color.heavy)
                         if editMode?.wrappedValue != .inactive{
-                            Image(systemName: withAnimation(.none){self.isCheck ? "checkmark.circle.fill" :  "circle"})
+                            Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
                                 .foregroundColor(.blue)
                         }
                     }
@@ -60,9 +59,8 @@ struct SmallWidgetView: View {
     }
     
     func selectItem(){
-        self.isCheck.toggle()
-        let num =  self.myData.dataStream.firstIndex(where: {$0.id == basicData.id})!
-        myData.isSelected[num].toggle()
+        let ind = self.myData.dataStream.firstIndex(where: {$0.id == basicData.id})!
+        self.myData.dataStream[ind].isChecked.toggle()
     }
 }
 

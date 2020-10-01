@@ -85,7 +85,7 @@ struct ContentView: View {
     var EditMode: some View{
         Group{
             if isEdit == .active{
-                Button(action: { self.isEdit = .inactive } ) {
+                Button(action: { doneFunc() } ) {
                     Text("Done")
                 }
             } else {
@@ -99,9 +99,7 @@ struct ContentView: View {
     
     
     func addData(){
-        let background = self.myData.imgToString(img: UIImage(named: "img1")!)
-        let kitty = self.myData.imgToString(img: UIImage(named: "kitty1")!)
-        let bd = BasicData(background: background, display: .date, kitty: kitty)
+        let bd = BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!)
         self.myData.dataStream.append(bd)
         self.myData.isSelected.append(false)
     }
@@ -112,6 +110,11 @@ struct ContentView: View {
             self.myData.isSelected.remove(at: num)
             self.myData.dataStream.remove(at: num)
         }
+    }
+    
+    func doneFunc(){
+        self.isEdit = .inactive
+        self.myData.syncData()
     }
 }
 
@@ -130,11 +133,6 @@ struct SmallWidgetGrid: View{
                 ForEach(dataStream, id: \.self){ basicData in
                     NavigationLink(destination: SmallSetting()){
                         SmallWidgetView(basicData: basicData)
-//                            .onTapGesture{
-//                                if self.isEdit == .inactive{
-//                                    self.destination = true
-//                                }
-//                            }
                     }
                 }
             }

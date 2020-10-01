@@ -6,33 +6,86 @@ import UIKit
 import SwiftUI
 
 class MyData: ObservableObject{
-    var jsonDataStream: Data?{
-        return try? JSONEncoder().encode(self.dataStream)
-    }
+//    var jsonDataStream: Data?{
+//        for data in dataStream{
+//            if !storedData.contains(where: {data.id == $0.id}){
+//                let background = data.background.pngData()
+//                storedData.append()
+//            }
+//        }
+//        return try? JSONEncoder().encode(self.dataStream)
+//    }
     @Published var dataStream: [BasicData] = []
+    private var storedData: [StoredData] = []
     var isSelected: [Bool] = []
     init(){
-        for i in 0..<4{
-            let background = self.imgToString(img: UIImage(named: "img" + String(i+1))!)
-            let kitty = self.imgToString(img: UIImage(named: "kitty" + String(i+1))!)
-            let basicData = BasicData(background: background, display: .date, kitty: kitty)
-            dataStream.append(basicData)
-            print("img\(i)")
-            isSelected.append(false)
+        if let jsonData = UserDefaults.standard.data(forKey: UserDataKeys.storedData){
+            do{
+                self.storedData = try JSONDecoder().decode([StoredData].self, from: jsonData)
+                self.dataStream = []
+                for data in storedData{
+                    let background = UIImage(data:data.background)!
+                    let kitty = UIImage(data: data.kitty)!
+                    let bd = BasicData(id: data.id, background: background, display: .date, kitty: kitty)
+                    self.dataStream.append(bd)
+                }
+            } catch let error as Error?{
+                print("读取本地数据出现错误!",error as Any)
+            }
+        } else {
+            for i in 0..<4{
+                let basicData = BasicData(background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!)
+                dataStream.append(basicData)
+                print("img\(i)")
+                isSelected.append(false)
+            }
         }
-//       let basicData = BasicData(background: UIImage(named: "img" + String(4))!, display: .date,kitty: UIImage(named: "kitty" + String(4))!)
-//        dataStream.append(basicData)
     }
     
-    func imgToString(img: UIImage) -> String{
-        let imgPng = img.pngData()
-        return imgPng!.base64EncodedString()
+    func storeAddedData(){
+        DispatchQueue.global(qos: .default).async{
+            for data in self.dataStream{
+                if !self.storedData.contains(where: {$0.id == data.id}){
+                    let background = data.background.pngData()!
+                    let kitty = data.kitty.pngData()!
+                    let storeData = StoredData(id: data.id, background: background, display: .date, kitty: kitty)
+                    self.storedData.append(storeData)
+                }
+            }
+            let jsonData = try? JSONEncoder().encode(self.storedData)
+            UserDefaults.standard.set(jsonData, forKey: UserDataKeys.storedData)
+            UserDefaults.standard.set(self.isSelected,forKey: UserDataKeys.isSelected)
+        }
     }
     
-    func stringToImg(s: String) -> UIImage{
-        let data = Data(base64Encoded: s)!
-        return UIImage(data: data)!
+    func storeDelData(){
+        DispatchQueue.global(qos: .default).async {
+            for (i,data) in self.storedData.enumerated(){
+                if !self.dataStream.contains(where: {$0.id == data.id}){
+                    self.storedData.remove(at: i)
+                }
+            }
+            let jsonData = try? JSONEncoder().encode(self.storedData)
+            UserDefaults.standard.set(jsonData, forKey: UserDataKeys.storedData)
+            UserDefaults.standard.set(self.isSelected,forKey: UserDataKeys.isSelected)
+        }
     }
+    
+    func syncData(){
+//        DispatchQueue.global(qos: .default).async {
+            self.storedData = []
+            for data in self.dataStream{
+                let background = data.background.pngData()!
+                let kitty = data.kitty.pngData()!
+                let sd = StoredData(id: data.id, background: background, display: .date, kitty: kitty)
+                self.storedData.append(sd)
+            }
+            let jsonData = try? JSONEncoder().encode(self.storedData)
+            UserDefaults.standard.set(jsonData, forKey: UserDataKeys.storedData)
+            
+//        }
+    }
+
 }
 
 struct MyColor{
@@ -45,11 +98,11 @@ struct MyColor{
     }
 }
 
- struct BasicData:Hashable, Codable{
+ struct StoredData:Hashable, Codable{
     var id = UUID()
-    var background: String
+    var background: Data
     var display: displayMode
-    var kitty: String
+    var kitty: Data
     
     enum displayMode: String, Codable{
         case date = "date"
@@ -59,11 +112,30 @@ struct MyColor{
     }
 }
 
+struct BasicData:Hashable{
+   var id = UUID()
+   var background: UIImage
+   var display: displayMode
+   var kitty: UIImage
+   var isChecked: Bool = false
+   
+   enum displayMode: String, Codable{
+       case date = "date"
+       case time = "time"
+       case customize = "customize"
+       case weekday = "weekday"
+   }
+}
 
+extension BasicData{
+    mutating func checkToggle(){
+        isChecked.toggle()
+    }
+}
 
 
 struct UserDataKeys{
-    static var dataStream = "dataStream"
+    static var storedData = "dataStream"
     static var isSelected = "isSelected"
 }
 

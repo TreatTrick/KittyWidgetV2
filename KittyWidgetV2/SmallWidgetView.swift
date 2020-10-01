@@ -43,7 +43,7 @@ struct SmallWidgetView: View {
                     .padding(.leading,7)
                 Spacer()
             }
-            Kitty(uiImage: UIImage(data: Data(base64Encoded:self.basicData.kitty)!)!)
+            Kitty(uiImage: basicData.kitty)
                 .frame(width: 70, height:100)
             
             if editMode?.wrappedValue == .active{
@@ -61,7 +61,7 @@ struct SmallWidgetView: View {
     
     func selectItem(){
         self.isCheck.toggle()
-        let num =  self.myData.dataStream.firstIndex(where: {$0 == basicData})!
+        let num =  self.myData.dataStream.firstIndex(where: {$0.id == basicData.id})!
         myData.isSelected[num].toggle()
     }
 }
@@ -133,7 +133,7 @@ struct Kitty: View{
 
 struct SmallWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!.pngData()!.base64EncodedString(), display: .date, kitty: UIImage(named: "kitty1")!.pngData()!.base64EncodedString()))
+        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

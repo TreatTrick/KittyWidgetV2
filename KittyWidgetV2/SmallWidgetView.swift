@@ -12,39 +12,44 @@ struct SmallWidgetView: View {
     @EnvironmentObject var myData: MyData
     @Environment(\.editMode) var editMode
     var basicData: BasicData
-    var color = MyColor.blue
+    var isKitty: Bool
     var body: some View {
         ZStack(alignment: .bottomTrailing){
-            VStack(alignment: .leading){
-                VStack(alignment:.center){
+            VStack(alignment:.center){
+                ZStack {
                     HStack{
                         Time(dateSetting: .time)
                             .font(Font.system(size: 50, weight:.semibold, design: .default))
-                            .foregroundColor(color.heavy)
+                            .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                            .opacity(0.6)
                         if editMode?.wrappedValue != .inactive{
                             Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
                                 .foregroundColor(.blue)
                         }
                     }
+                    .padding(.top)
                     .animation(.easeInOut)
-                    HStack{
-                        Time(dateSetting: .date)
-                            .font(Font.system(size: 20, weight:.medium, design: .default))
-                            .foregroundColor(color.light)
-                            .padding(.leading, 7)
-                        Spacer()
+                    
+                    Time(dateSetting: .date)
+                        .font(Font.system(size: 15, weight:.semibold, design:.rounded))
+                        .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
+                        .padding([.top],67)
+                        .padding(.trailing,55)
+                }
+
+                HStack{
+                        Time(dateSetting: .week)
+                            .font(Font.system(size: 30, weight:.medium, design: .default))
+                            .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
+                            .padding(6)
+                    if isKitty{
+                    Kitty(uiImage: basicData.kitty)
+                        .frame(width: 70, height:100)
                     }
                 }
-                Spacer()
-                Time(dateSetting: .week)
-                    .font(Font.system(size: 20, weight:.medium, design: .default))
-                    .foregroundColor(color.light)
-                    .padding(.leading,7)
-                Spacer()
+                .padding(0)
+                .padding(.bottom)
             }
-            Kitty(uiImage: basicData.kitty)
-                .frame(width: 70, height:100)
-            
             if editMode?.wrappedValue == .active{
                 Button(action: { self.selectItem() } ){
                     Color(.clear)
@@ -52,15 +57,31 @@ struct SmallWidgetView: View {
             }
         }
         .frame(width: 170, height: 170)
-        //.background(Image(uiImage: basicData.background).resizable()).scaledToFill()
-        .background(Color(.yellow))
+        .background(Image(uiImage: basicData.background).resizable()).scaledToFill()
         .environment(\.sizeCategory, .extraExtraExtraLarge)
         .cornerRadius(CGFloat(Coefficients.cornerRadius))
+//        .padding(1)
+//        .background(Rectangle().stroke().foregroundColor(.gray)        .cornerRadius(CGFloat(Coefficients.cornerRadius))
+//)
+
     }
     
     func selectItem(){
         let ind = self.myData.dataStream.firstIndex(where: {$0.id == basicData.id})!
         self.myData.dataStream[ind].isChecked.toggle()
+    }
+    
+    func calColor(fontColor: FontColor) -> ColorSeries{
+        switch fontColor{
+            case .blue: return MyColor.blue
+            case .red: return MyColor.red
+            case .green: return MyColor.green
+            case .yellow: return MyColor.yellow
+            case .orange: return MyColor.orange
+            case .purple: return MyColor.purple
+            case .white: return MyColor.white
+            case .black: return MyColor.black
+        }
     }
 }
 
@@ -131,7 +152,7 @@ struct Kitty: View{
 
 struct SmallWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!))
+        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

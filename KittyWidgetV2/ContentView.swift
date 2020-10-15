@@ -21,7 +21,7 @@ struct ContentView: View {
                         if isEdit == .active{
                             EditButtons
                         }
-                        SmallWidgetGrid(dataStream: myData.dataStream, isEdit: $isEdit)
+                        SmallWidgetGrid(dataStream: $myData.dataStream, isEdit: $isEdit)
                             .padding()
                     }
                     
@@ -41,32 +41,13 @@ struct ContentView: View {
                 }
             }
             .tabItem {
-                Label("small", systemImage: "s.square.fill")
+                Label("widget", systemImage: "w.square.fill")
             }
             .tag(Tabs.smallWidget)
+        
             
             NavigationView{
-                NavigationLink(destination: SmallSetting()){
-                    Text("hello")
-                }
-            }
-            .tabItem {
-                Label("medium", systemImage: "m.square.fill")
-            }
-            .tag(Tabs.middleWidget)
-            
-            NavigationView{
-                NavigationLink(destination: SmallSetting()){
-                    Text("hello")
-                }
-            }
-            .tabItem {
-                Label("large", systemImage: "l.square.fill")
-            }
-            .tag(Tabs.largeWidget)
-            
-            NavigationView{
-                NavigationLink(destination: SmallSetting()){
+                NavigationLink(destination: SettingView()){
                     Text("hello")
                 }
             }
@@ -76,6 +57,7 @@ struct ContentView: View {
             .tag(Tabs.setting)
         }
     }
+    
     
     var EditButtons: some View{
         HStack{
@@ -92,6 +74,7 @@ struct ContentView: View {
         }
         .font(.title2)
     }
+    
     
     var EditMode: some View{
         Group{
@@ -112,20 +95,33 @@ struct ContentView: View {
     func addData(){
         let bd = BasicData(background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!)
         self.myData.dataStream.append(bd)
+        self.myData.isEdit = true
     }
     
     func delData(){
         while  let ind = self.myData.dataStream.firstIndex(where: {$0.isChecked == true}){
             self.myData.dataStream.remove(at: ind)
         }
+        self.myData.isEdit = true
     }
     
     func doneFunc(){
-        self.myData.syncData{
-            DispatchQueue.main.async {
-                self.myData.isSaving = false
-                self.isEdit = .inactive
+        if self.myData.isEdit{
+            self.myData.syncData{
+                DispatchQueue.main.async {
+                    self.myData.isSaving = false
+                    self.isEdit = .inactive
+                    self.myData.isEdit = false
+                    for i in 0..<self.myData.dataStream.count{
+                        self.myData.dataStream[i].isChecked = false
+                    }
+                }
             }
+        } else{
+            for i in 0..<self.myData.dataStream.count{
+                self.myData.dataStream[i].isChecked = false
+            }
+            self.isEdit = .inactive
         }
     }
 }
@@ -136,15 +132,15 @@ struct ContentView: View {
 //MARK: - small widget grid
 struct SmallWidgetGrid: View{
     @State var destination = false
-    var dataStream: [BasicData]
+    @Binding var dataStream: [BasicData]
     @Binding var isEdit: EditMode
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var body: some View{
         ScrollView(.vertical){
             LazyVGrid(columns: columns){
                 ForEach(dataStream, id: \.self){ basicData in
-                    NavigationLink(destination: SmallSetting()){
-                        SmallWidgetView(basicData: basicData)
+                    NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor)){
+                        SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty)
                     }
                 }
             }

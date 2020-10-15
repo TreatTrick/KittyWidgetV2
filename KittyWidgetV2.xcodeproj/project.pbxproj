@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771D1C1251FA60B004E1E15 /* SmallSetting.swift */; };
+		97B5C5A82526FA1A006E2D6B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B5C5A72526FA1A006E2D6B /* SettingView.swift */; };
 		97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */; };
 		97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3DB251F24F4003BF5DE /* ContentView.swift */; };
 		97C2A3E1251F24F6003BF5DE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A3E0251F24F6003BF5DE /* Preview Assets.xcassets */; };
@@ -69,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		9771D1C1251FA60B004E1E15 /* SmallSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallSetting.swift; sourceTree = "<group>"; };
+		97B5C5A72526FA1A006E2D6B /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		97C2A3D6251F24F4003BF5DE /* KittyWidgetV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KittyWidgetV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KittyWidgetV2App.swift; sourceTree = "<group>"; };
 		97C2A3DB251F24F4003BF5DE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */,
 				97C2A407251F2553003BF5DE /* SmallWidgetView.swift */,
 				9771D1C1251FA60B004E1E15 /* SmallSetting.swift */,
+				97B5C5A72526FA1A006E2D6B /* SettingView.swift */,
 				97C2A411251F2560003BF5DE /* ImagePicker.swift */,
 				97C2A3DB251F24F4003BF5DE /* ContentView.swift */,
 				97C2A455251F2877003BF5DE /* Assets.xcassets */,
@@ -386,6 +389,7 @@
 				97C2A41F251F258F003BF5DE /* MyData.swift in Sources */,
 				97C2A408251F2553003BF5DE /* SmallWidgetView.swift in Sources */,
 				97C2A412251F2560003BF5DE /* ImagePicker.swift in Sources */,
+				97B5C5A82526FA1A006E2D6B /* SettingView.swift in Sources */,
 				9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */,
 				97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */,
 			);

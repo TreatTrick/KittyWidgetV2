@@ -11,8 +11,8 @@ import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable{
 
-    
-    @Binding var selectedImage : UIImage
+    @EnvironmentObject var myData: MyData
+    @Binding var basicData : BasicData
     @Environment(\.presentationMode) var sheet
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
      
@@ -44,7 +44,13 @@ struct ImagePicker: UIViewControllerRepresentable{
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
      
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                parent.selectedImage = image
+                parent.basicData.background = image
+                let ind = parent.myData.dataStream.firstIndex(where: {parent.basicData.id == $0.id})!
+                parent.myData.dataStream[ind].background = image
+                DispatchQueue.global(qos: .default).async {
+                    self.parent.myData.storedData[ind].background = image.pngData()!
+                    UserDefaults.standard.set(self.parent.myData.jsonData, forKey: UserDataKeys.storedData)
+                }
             }
             parent.sheet.wrappedValue.dismiss()
         }

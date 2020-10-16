@@ -45,12 +45,6 @@ struct ImagePicker: UIViewControllerRepresentable{
      
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 parent.basicData.background = image
-                let ind = parent.myData.dataStream.firstIndex(where: {parent.basicData.id == $0.id})!
-                parent.myData.dataStream[ind].background = image
-                DispatchQueue.global(qos: .default).async {
-                    self.parent.myData.storedData[ind].background = image.pngData()!
-                    UserDefaults.standard.set(self.parent.myData.jsonData, forKey: UserDataKeys.storedData)
-                }
             }
             parent.sheet.wrappedValue.dismiss()
         }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct SmallWidgetView2: View {
     @EnvironmentObject var myData: MyData
@@ -17,7 +18,8 @@ struct SmallWidgetView2: View {
                 VStack(alignment:.center){
                     ZStack {
                         HStack{
-                            if myData.is24Hour{
+                            //if myData.is24Hour{
+                            if true{
                                 Time(dateSetting: .time,a: false)
                                     .font(Font.system(size: 50, weight:.semibold, design: .default))
                                     .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
@@ -83,3 +85,10 @@ struct SmallWidgetView2: View {
     }
 }
 
+
+struct SmallWidgetView2_Previews: PreviewProvider {
+    static var previews: some View {
+        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true)
+            .previewContext(WidgetPreviewContext(family: .systemSmall))
+    }
+}

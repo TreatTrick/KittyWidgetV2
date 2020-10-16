@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 struct SmallSetting: View {
+    @Environment(\.presentationMode) var navi
     @State var basicData: BasicData
     @EnvironmentObject var myData: MyData
     @State var isPicker = false
@@ -59,13 +60,30 @@ struct SmallSetting: View {
                     Toggle(isOn: $isKitty){
                         Text("显示猫咪")
                     }
-                    .onChange(of: isKitty){ value in
-                        self.myData.dataStream[ind].isKitty.toggle()
-                        DispatchQueue.global(qos:.default).async{
-                            self.myData.storedData[ind].isKitty.toggle()
-                            UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
-                        }
-                    }
+                }
+            }
+            ZStack{
+                Rectangle()
+                    .frame(width: 100, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .foregroundColor(MyColor.blue.light)
+                    .cornerRadius(CGFloat(Coefficients.cornerRadius))
+                Text("确定")
+                    .font(Font.system(size: 20, weight:.semibold, design: .default))
+                    .foregroundColor(.white)
+            }
+            .onTapGesture{
+                let ind2 = ind
+                self.myData.dataStream[ind2].kitty = self.basicData.kitty
+                self.myData.dataStream[ind2].background = self.basicData.background
+                self.myData.dataStream[ind2].fontColor = self.basicData.fontColor
+                self.myData.dataStream[ind2].isKitty = self.isKitty
+                self.navi.wrappedValue.dismiss()
+                DispatchQueue.global(qos:.default).async{
+                    self.myData.storedData[ind2].kitty = self.basicData.kitty.pngData()!
+                    self.myData.storedData[ind2].background = self.basicData.background.pngData()!
+                    self.myData.storedData[ind2].fontColor = self.basicData.fontColor
+                    self.myData.storedData[ind2].isKitty = self.isKitty
+                    UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
                 }
             }
         }
@@ -233,32 +251,15 @@ struct SmallSetting: View {
     
     func kittyTapped(num: Int){
         self.basicData.kitty = UIImage(named: "kitty" + String(num))!
-        //self.myData.dataStream[ind].background = UIImage(named: "img" + String(num))!
-        self.myData.dataStream[ind].kitty = UIImage(named: "kitty" + String(num))!
-        DispatchQueue.global(qos: .default).async {
-            //self.myData.storedData[ind].background = UIImage(named: "img" + String(num))!.pngData()!
-            self.myData.storedData[ind].kitty = UIImage(named: "kitty" + String(num))!.pngData()!
-            UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
-        }
     }
     
     func backgroundTapped(num: Int){
         self.basicData.background = UIImage(named: "img" + String(num))!
-        self.myData.dataStream[ind].background = UIImage(named: "img" + String(num))!
-        DispatchQueue.global(qos: .default).async {
-            self.myData.storedData[ind].background = UIImage(named: "img" + String(num))!.pngData()!
-            UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
-        }
     }
     
     func circleTapped(sc: FontColor){
         self.selectedCircle = sc
         self.basicData.fontColor = sc
-        self.myData.dataStream[ind].fontColor = sc
-        DispatchQueue.global(qos: .default).async {
-            self.myData.storedData[ind].fontColor = sc
-            UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
-        }
     }
 }
 

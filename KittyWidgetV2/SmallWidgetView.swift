@@ -18,7 +18,8 @@ struct SmallWidgetView: View {
             VStack(alignment:.center){
                 ZStack {
                     HStack{
-                        if myData.is24Hour{
+//                        if myData.is24Hour{
+                        if true{
                             Time(dateSetting: .time,a: false)
                                 .font(Font.system(size: 50, weight:.semibold, design: .default))
                                 .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
@@ -107,7 +108,8 @@ struct Time: View{
         if dateSetting != .time{
             Text(dateSetting(dateSetting))
         } else {
-            if myData.is24Hour{
+//            if myData.is24Hour{
+            if true{
                 Text(dateSetting(dateSetting))
             } else {
                 let strSetting = dateSetting(.time).split(separator: ":")
@@ -133,7 +135,8 @@ struct Time: View{
                 let ymd = dateString.split(separator: ":")
                 displayString = ymd[0] + "月" + ymd[1] + "日"
         case .time:
-            if myData.is24Hour{
+//            if myData.is24Hour{
+            if true{
                 dateFormatter.dateFormat = "HH:mm"
                 let dateString = dateFormatter.string(from: date) // 2001/01/02
                 let ymd = dateString.split(separator: ":")

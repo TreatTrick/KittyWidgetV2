@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
+		97016A5125394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
 		9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771D1C1251FA60B004E1E15 /* SmallSetting.swift */; };
 		97B5C5A82526FA1A006E2D6B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B5C5A72526FA1A006E2D6B /* SettingView.swift */; };
 		97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */; };
@@ -69,6 +71,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		97016A4F25394A5400C564CE /* SmallWidgetView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallWidgetView2.swift; sourceTree = "<group>"; };
 		9771D1C1251FA60B004E1E15 /* SmallSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallSetting.swift; sourceTree = "<group>"; };
 		97B5C5A72526FA1A006E2D6B /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		97C2A3D6251F24F4003BF5DE /* KittyWidgetV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KittyWidgetV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +162,7 @@
 				97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */,
 				97C2A407251F2553003BF5DE /* SmallWidgetView.swift */,
 				9771D1C1251FA60B004E1E15 /* SmallSetting.swift */,
+				97016A4F25394A5400C564CE /* SmallWidgetView2.swift */,
 				97B5C5A72526FA1A006E2D6B /* SettingView.swift */,
 				97C2A411251F2560003BF5DE /* ImagePicker.swift */,
 				97C2A3DB251F24F4003BF5DE /* ContentView.swift */,
@@ -385,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97C2A438251F2609003BF5DE /* kittyWidgetExtension.intentdefinition in Sources */,
+				97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */,
 				97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */,
 				97C2A41F251F258F003BF5DE /* MyData.swift in Sources */,
 				97C2A408251F2553003BF5DE /* SmallWidgetView.swift in Sources */,
@@ -418,6 +423,7 @@
 				97C2A446251F262D003BF5DE /* SmallWidgetView.swift in Sources */,
 				97C2A444251F262D003BF5DE /* MyData.swift in Sources */,
 				97C2A437251F2609003BF5DE /* kittyWidgetExtension.intentdefinition in Sources */,
+				97016A5125394A5400C564CE /* SmallWidgetView2.swift in Sources */,
 				97C2A432251F2608003BF5DE /* kittyWidgetExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

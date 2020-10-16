@@ -172,10 +172,10 @@ extension ContentView{
 
 
 //MARK: - preview
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ContentView().environmentObject(MyData())
-        }
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            ContentView().environmentObject(MyData())
+//        }
+//    }
+//}

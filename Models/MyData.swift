@@ -11,10 +11,10 @@ class MyData: ObservableObject{
         return try? JSONEncoder().encode(self.storedData)
     }
     @Published var isSaving = false
-    var dataStream: [BasicData] = []
+    @Published var dataStream: [BasicData] = []
     var isEdit = false
     var storedData: [StoredData] = []
-    @Published var is24Hour: Bool
+    @Published var is24Hour: Bool = false
 
     init(){
         

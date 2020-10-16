@@ -11,9 +11,10 @@ class MyData: ObservableObject{
         return try? JSONEncoder().encode(self.storedData)
     }
     @Published var isSaving = false
-    @Published var dataStream: [BasicData] = []
+    var dataStream: [BasicData] = []
     var isEdit = false
     var storedData: [StoredData] = []
+    @Published var is24Hour: Bool
 
     init(){
         
@@ -44,6 +45,9 @@ class MyData: ObservableObject{
                 print("storedData num \(storedData.count)")
             }
         }
+
+        is24Hour = UserDefaults.standard.bool(forKey: UserDataKeys.is24Hour)
+        
     }
     
     
@@ -74,6 +78,7 @@ struct MyColor{
     static var orange: ColorSeries = ColorSeries(main: Color(hex: 0xFF8000), light: Color(hex: 0xF7BE81), heavy:Color(hex: 0xDF3A01))
     static var white: ColorSeries = ColorSeries(main: Color(hex: 0xFAFAFA), light: Color(hex: 0xFAFAFA), heavy:Color(hex: 0xD8D8D8))
     static var black: ColorSeries = ColorSeries(main: Color(hex: 0x2E2E2E), light: Color(hex: 0x2E2E2E), heavy:Color(hex: 0x2E2E2E))
+    static var cyan: ColorSeries = ColorSeries(main: Color(hex: 0x00FFFF), light: Color(hex: 0x81F7F3), heavy:Color(hex: 0x04B4AE))
     
     static var backPurple = Color(hex:0xF5EFFB)
 }
@@ -118,10 +123,13 @@ struct BasicData:Hashable{
 
 struct UserDataKeys{
     static var storedData = "dataStream"
+    static var is24Hour = "is24Hour"
 }
 
 struct Coefficients{
     static var cornerRadius = 25
+    static var apSize: CGFloat = 15
+    static var apOffset: CGFloat = 22
 }
 
 
@@ -152,4 +160,5 @@ enum FontColor: String, Codable{
     case orange = "orange"
     case black = "black"
     case white = "white"
+    case cyan = "cyan"
 }

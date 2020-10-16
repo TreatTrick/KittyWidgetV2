@@ -18,19 +18,31 @@ struct SmallWidgetView: View {
             VStack(alignment:.center){
                 ZStack {
                     HStack{
-                        Time(dateSetting: .time)
-                            .font(Font.system(size: 50, weight:.semibold, design: .default))
-                            .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
-                            .opacity(0.6)
-                        if editMode?.wrappedValue != .inactive{
-                            Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
-                                .foregroundColor(.blue)
+                        if myData.is24Hour{
+                            Time(dateSetting: .time,a: false)
+                                .font(Font.system(size: 50, weight:.semibold, design: .default))
+                                .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                                .opacity(0.6)
+                        } else {
+                            Time(dateSetting: .time,a: false)
+                                .font(Font.system(size: 50, weight:.semibold, design: .default))
+                                .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                                .opacity(0.6)
+                            Time(dateSetting: .time, a: true)
+                                .font(Font.system(size: Coefficients.apSize, weight:.semibold, design: .default))
+                                .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                                .opacity(0.6)
+                                .padding(.top, Coefficients.apOffset)
                         }
+                            if editMode?.wrappedValue != .inactive{
+                                Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
+                                    .foregroundColor(.blue)
+                            }
                     }
                     .padding(.top)
                     .animation(.easeInOut)
                     
-                    Time(dateSetting: .date)
+                    Time(dateSetting: .date, a: false)
                         .font(Font.system(size: 15, weight:.semibold, design:.rounded))
                         .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
                         .padding([.top],67)
@@ -38,7 +50,7 @@ struct SmallWidgetView: View {
                 }
 
                 HStack{
-                        Time(dateSetting: .week)
+                    Time(dateSetting: .week, a: false)
                             .font(Font.system(size: 30, weight:.medium, design: .default))
                             .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
                             .padding(6)
@@ -81,13 +93,16 @@ struct SmallWidgetView: View {
             case .purple: return MyColor.purple
             case .white: return MyColor.white
             case .black: return MyColor.black
+            case .cyan: return MyColor.cyan
         }
     }
 }
 
 //MARK: - time view
 struct Time: View{
+    @EnvironmentObject var myData: MyData
     var dateSetting: tdSelection
+    var a: Bool
     var body: some View{
         Text(dateSetting(dateSetting))
     }
@@ -97,20 +112,24 @@ struct Time: View{
         let dateFormatter = DateFormatter()
         let date = Date()
         print(date)
-        dateFormatter.locale = Locale(identifier: "ja_JP")
         switch timeOrDate{
         case .date:
-            dateFormatter.dateStyle = .medium
-            dateFormatter.timeStyle = .none
-            let dateString = dateFormatter.string(from: date) // 2001/01/02
-            let ymd = dateString.split(separator: "/")
-            displayString = ymd[1] + "月" + ymd[2] + "日"
+                dateFormatter.dateFormat = "MM:dd"
+                let dateString = dateFormatter.string(from: date) // 2001/01/02
+                let ymd = dateString.split(separator: ":")
+                displayString = ymd[0] + "月" + ymd[1] + "日"
         case .time:
-            dateFormatter.dateStyle = .none
-            dateFormatter.timeStyle = .medium
-            let dateString = dateFormatter.string(from: date) // 2001/01/02
-            let ymd = dateString.split(separator: ":")
-            displayString = ymd[0] + ":" + ymd[1]
+            if myData.is24Hour{
+                dateFormatter.dateFormat = "HH:mm"
+                let dateString = dateFormatter.string(from: date) // 2001/01/02
+                let ymd = dateString.split(separator: ":")
+                displayString = ymd[0] + ":" + ymd[1]
+            } else {
+                dateFormatter.dateFormat = "h:mm:a"
+                let dateString = dateFormatter.string(from: date)
+                let ymd = dateString.split(separator:":")
+                displayString = ymd[0] + ":" + ymd[1] + ":" + ymd[2]
+            }
         case .week:
             let weekid = Calendar.current.component(.weekday, from: date)
             var weekday: String

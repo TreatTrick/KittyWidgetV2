@@ -12,6 +12,7 @@ import UIKit
 struct ContentView: View {
     @State var tabSelection: Tabs = .smallWidget
     @State var isEdit: EditMode = .inactive
+    @State var is24Hour: Bool
     @EnvironmentObject var myData: MyData
     var body: some View {
         TabView(selection: $tabSelection){
@@ -25,7 +26,7 @@ struct ContentView: View {
                             .padding()
                     }
                     
-                    .navigationBarTitle("Small Widget", displayMode: .automatic)
+                    .navigationBarTitle("Widget", displayMode: .automatic)
                     .navigationBarItems(trailing: EditMode)
                     .animation(.easeInOut)
                     .environment(\.editMode, $isEdit)
@@ -47,13 +48,21 @@ struct ContentView: View {
         
             
             NavigationView{
-                NavigationLink(destination: SettingView()){
-                    Text("hello")
+                Form{
+                    Toggle(isOn: $is24Hour){
+                        Text("24时制")
+                    }
+                    .onChange(of: is24Hour){value in
+                        self.myData.is24Hour = value
+                        UserDefaults.standard.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
+                    }
                 }
+                .navigationBarTitle("设置", displayMode: .automatic)
             }
             .tabItem {
-                Label("setting", systemImage: "gearshape.fill")
+                Label("设置", systemImage: "gearshape.fill")
             }
+            .tag(Tabs.setting)
             .tag(Tabs.setting)
         }
     }

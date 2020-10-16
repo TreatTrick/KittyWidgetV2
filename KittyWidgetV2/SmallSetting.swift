@@ -24,7 +24,7 @@ struct SmallSetting: View {
         VStack{
             HStack{
                 Spacer()
-                SmallWidgetView2(basicData: $basicData, isKitty: $isKitty)
+                SmallWidgetView2(basicData: basicData, isKitty: isKitty)
                 Spacer()
             }
             .padding()

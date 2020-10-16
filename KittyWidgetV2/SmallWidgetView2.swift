@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SmallWidgetView2: View {
     @EnvironmentObject var myData: MyData
-    @Binding var basicData: BasicData
-    @Binding var isKitty: Bool
+    var basicData: BasicData
+    var isKitty: Bool
 
     var body: some View {
             ZStack(alignment: .bottomTrailing){

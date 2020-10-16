@@ -25,7 +25,7 @@ struct SmallWidgetView: View {
                                 .opacity(0.6)
                         } else {
                             Time(dateSetting: .time,a: false)
-                                .font(Font.system(size: 50, weight:.semibold, design: .default))
+                                .font(Font.system(size: 46, weight:.semibold, design: .default))
                                 .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
                                 .opacity(0.6)
                             Time(dateSetting: .time, a: true)
@@ -104,7 +104,21 @@ struct Time: View{
     var dateSetting: tdSelection
     var a: Bool
     var body: some View{
-        Text(dateSetting(dateSetting))
+        if dateSetting != .time{
+            Text(dateSetting(dateSetting))
+        } else {
+            if myData.is24Hour{
+                Text(dateSetting(dateSetting))
+            } else {
+                let strSetting = dateSetting(.time).split(separator: ":")
+                if a {
+                    Text(strSetting[2])
+                } else{
+                    
+                    Text(strSetting[0] + ":" + strSetting[1])
+                }
+            }
+        }
     }
     
     func dateSetting(_ timeOrDate: tdSelection) -> String{

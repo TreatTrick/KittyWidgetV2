@@ -14,9 +14,11 @@ struct SmallWidgetView: View {
     var basicData: BasicData
     var isKitty: Bool
     var isWord: Bool
+    var isBlur: Bool
+    var isAllBlur: Bool
     
     var body: some View {
-        ZStack(alignment: .bottomTrailing){
+        ZStack{
             if isWord {
                 VStack(alignment:.center){
                     
@@ -26,16 +28,16 @@ struct SmallWidgetView: View {
                             if true{
                                 Time(dateSetting: .time,a: false)
                                     .font(Font.system(size: 50, weight:.semibold, design: .default))
-                                    .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .opacity(0.6)
                             } else {
                                 Time(dateSetting: .time,a: false)
                                     .font(Font.system(size: 46, weight:.semibold, design: .default))
-                                    .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .opacity(0.6)
                                 Time(dateSetting: .time, a: true)
                                     .font(Font.system(size: Coefficients.apSize, weight:.semibold, design: .default))
-                                    .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .opacity(0.6)
                                     .padding(.top, Coefficients.apOffset)
                             }
@@ -48,17 +50,25 @@ struct SmallWidgetView: View {
                         .animation(.easeInOut)
                         
                         
+                        
                         Time(dateSetting: .date, a: false)
                             .font(Font.system(size: 15, weight:.semibold, design:.rounded))
-                            .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                             .padding([.top],67)
                             .padding(.trailing,55)
                     }
+                    .padding(2)
+                    .background(FuncForSmallWidgets.calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
+                    .cornerRadius(10)
+                    
                     HStack{
                         Time(dateSetting: .week, a: false)
                             .font(Font.system(size: 30, weight:.medium, design: .default))
-                            .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
-                            .padding(6)
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
+                            .padding(4)
+                            .background(FuncForSmallWidgets.calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
+                            .cornerRadius(10)
+                        
                         if isKitty{
                             Kitty(uiImage: basicData.kitty)
                                 .frame(width: 70, height:100)
@@ -91,10 +101,7 @@ struct SmallWidgetView: View {
             }
         }
         .frame(width: 170, height: 170)
-        .background(Image(uiImage: basicData.background)
-                        .resizable()
-                        .scaledToFill()
-        )
+        .background( FuncForSmallWidgets.calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData) )
         .environment(\.sizeCategory, .extraExtraExtraLarge)
         .cornerRadius(CGFloat(Coefficients.cornerRadius))
         //        .padding(1)
@@ -106,21 +113,6 @@ struct SmallWidgetView: View {
     func selectItem(){
         let ind = self.myData.dataStream.firstIndex(where: {$0.id == basicData.id})!
         self.myData.dataStream[ind].isChecked.toggle()
-    }
-    
-    func calColor(fontColor: FontColor) -> ColorSeries{
-        switch fontColor{
-        case .blue: return MyColor.blue
-        case .red: return MyColor.red
-        case .green: return MyColor.green
-        case .yellow: return MyColor.yellow
-        case .orange: return MyColor.orange
-        case .purple: return MyColor.purple
-        case .white: return MyColor.white
-        case .black: return MyColor.black
-        case .cyan: return MyColor.cyan
-        case . none: return MyColor.blue
-        }
     }
 }
 
@@ -213,7 +205,7 @@ struct Kitty: View{
 
 struct SmallWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true, isWord: true)
+        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true, isWord: true, isBlur: true, isAllBlur: true)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

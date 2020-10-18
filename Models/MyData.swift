@@ -4,7 +4,8 @@
 import Foundation
 import UIKit
 import SwiftUI
-import Combine
+import CoreImage
+import CoreImage.CIFilterBuiltins
 
 class MyData: ObservableObject{
     var jsonData: Data?{
@@ -14,6 +15,7 @@ class MyData: ObservableObject{
     //var isEdit = false
     var storedData: [StoredData] = []
     @Published var is24Hour: Bool = false
+    static let context = CIContext()
 
     init(){
         
@@ -24,10 +26,13 @@ class MyData: ObservableObject{
                 for data in storedData{
                     let background = UIImage(data:data.background)!
                     let kitty = UIImage(data: data.kitty)!
+                    let blurBack = UIImage(data: data.blurBackground)!
                     let isKitty = data.isKitty
                     let fontColor = data.fontColor
                     let isWord = data.isWord
-                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord)
+                    let isBlur = data.isBlur
+                    let isAllBlur = data.isAllBlur
+                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur)
                     self.dataStream.append(bd)
                 }
             } catch let error as Error?{
@@ -35,11 +40,12 @@ class MyData: ObservableObject{
             }
         } else {
             for i in 0..<4{
-                let basicData = BasicData(background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!)
+                let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+                let basicData = BasicData(background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack)
                 dataStream.append(basicData)
                 let background = UIImage(named: "img" + String(i+1))!.pngData()!
                 let kitty = UIImage(named: "kitty" + String(i+1))!.pngData()!
-                let sd = StoredData(background: background, kitty: kitty)
+                let sd = StoredData(background: background, kitty: kitty, blurBackground: blurBack.pngData()!)
                 storedData.append(sd)
                 print("img\(i)")
                 print("storedData num \(storedData.count)")
@@ -48,6 +54,19 @@ class MyData: ObservableObject{
 
         is24Hour = UserDefaults.standard.bool(forKey: UserDataKeys.is24Hour)
         
+    }
+    
+    static func blurImage(usingImage image: UIImage, blurAmount: CGFloat) -> UIImage?{
+        guard let ciImg = CIImage(image: image) else { return nil }
+        let inputImg: CIImage = ciImg.clampedToExtent()
+        let blur = CIFilter(name: "CIGaussianBlur", parameters: [kCIInputRadiusKey: blurAmount, kCIInputImageKey: inputImg])!
+        if let outputImg = blur.outputImage {
+            if let cgimg = context.createCGImage(outputImg, from: ciImg.extent) {
+                let uiImage = UIImage(cgImage: cgimg)
+                    return uiImage
+            }
+        }
+        return nil
     }
     
     
@@ -94,6 +113,9 @@ struct ColorSeries{
     var isKitty: Bool = true
     var fontColor: FontColor = .blue
     var isWord: Bool = true
+    var isBlur: Bool = true
+    var blurBackground: Data = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!, blurAmount: 20)!.pngData()!
+    var isAllBlur: Bool = false
     
     enum displayMode: String, Codable{
         case date = "date"
@@ -112,6 +134,10 @@ struct BasicData:Hashable{
     var isKitty: Bool = true
     var fontColor: FontColor = .blue
     var isWord: Bool = true
+    var isBlur: Bool = true
+    var blurBackground: UIImage = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+    var isAllBlur: Bool = false
+
     
    enum displayMode: String, Codable{
        case date = "date"
@@ -127,7 +153,7 @@ struct UserDataKeys{
 }
 
 struct Coefficients{
-    static var cornerRadius = 25
+    static var cornerRadius: CGFloat = 25
     static var apSize: CGFloat = 15
     static var apOffset: CGFloat = 22
 }
@@ -162,4 +188,70 @@ enum FontColor: String, Codable{
     case white = "white"
     case cyan = "cyan"
     case none = "none"
+}
+
+
+extension UIImage{
+    func resized(withPercentage percentage: CGFloat, isOpaque: Bool = true) -> UIImage? {
+        let canvas = CGSize(width: size.width * percentage, height: size.height * percentage)
+        let format = imageRendererFormat
+        format.opaque = isOpaque
+        return UIGraphicsImageRenderer(size: canvas, format: format).image {
+            _ in draw(in: CGRect(origin: .zero, size: canvas))
+        }
+    }
+    func resized(toWidth width: CGFloat, isOpaque: Bool = true) -> UIImage? {
+        let canvas = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
+        let format = imageRendererFormat
+        format.opaque = isOpaque
+        return UIGraphicsImageRenderer(size: canvas, format: format).image {
+            _ in draw(in: CGRect(origin: .zero, size: canvas))
+        }
+    }
+}
+
+//MARK: - functions for two SmallWidgetViews
+struct FuncForSmallWidgets{
+    static func calColor(fontColor: FontColor) -> ColorSeries{
+        switch fontColor{
+        case .blue: return MyColor.blue
+        case .red: return MyColor.red
+        case .green: return MyColor.green
+        case .yellow: return MyColor.yellow
+        case .orange: return MyColor.orange
+        case .purple: return MyColor.purple
+        case .white: return MyColor.white
+        case .black: return MyColor.black
+        case .cyan: return MyColor.cyan
+        case .none: return MyColor.blue
+        }
+    }
+    
+    
+    static func calBlurBackground(isBlur: Bool, img: UIImage) -> some View{
+        Group{
+            if isBlur{
+                ZStack {
+                    Image(uiImage: img)
+                    Color(.white).opacity(0.4)
+                }
+            } else {
+                 EmptyView()
+            }
+        }
+    }
+    
+    static func calBackground(isAllBlur: Bool, basicData: BasicData) -> some View{
+        Group{
+            if isAllBlur{
+                ZStack {
+                    Image(uiImage: basicData.blurBackground)
+                    Color(.white).opacity(0.2)
+                }
+            } else {
+                Image(uiImage: basicData.background)
+            }
+        }
+    }
+    
 }

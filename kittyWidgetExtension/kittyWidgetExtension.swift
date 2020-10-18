@@ -45,7 +45,7 @@ struct kittyWidgetExtensionEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        Text("233")
+        SmallWidgetView(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur)
     }
 }
 

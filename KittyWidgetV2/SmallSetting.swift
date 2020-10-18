@@ -19,6 +19,8 @@ struct SmallSetting: View {
     @State var isPureColor = false
     @State var selectedPureColor: FontColor = .none
     @State var isWord: Bool
+    @State var isBlur: Bool
+    @State var isAllBlur: Bool
     
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
@@ -31,7 +33,7 @@ struct SmallSetting: View {
         VStack{
             HStack{
                 Spacer()
-                SmallWidgetView2(basicData: basicData, isKitty: isKitty, isWord: isWord)
+                SmallWidgetView2(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur)
                 Spacer()
             }
             .padding()
@@ -75,6 +77,14 @@ struct SmallSetting: View {
                         Text("显示文字")
                     }
                     
+                    Toggle(isOn: $isBlur){
+                        Text("模糊文字背景")
+                    }
+                    
+                    Toggle(isOn: $isAllBlur){
+                        Text("模糊背景")
+                    }
+                    
                 }
             }
             
@@ -94,6 +104,8 @@ struct SmallSetting: View {
                 self.myData.dataStream[ind2].fontColor = self.basicData.fontColor
                 self.myData.dataStream[ind2].isKitty = self.isKitty
                 self.myData.dataStream[ind2].isWord = self.isWord
+                self.myData.dataStream[ind2].isBlur = self.isBlur
+                self.myData.dataStream[ind2].isAllBlur = self.isAllBlur
                 self.navi.wrappedValue.dismiss()
                 DispatchQueue.global(qos:.default).async{
                     self.myData.storedData[ind2].kitty = self.basicData.kitty.pngData()!
@@ -101,6 +113,8 @@ struct SmallSetting: View {
                     self.myData.storedData[ind2].fontColor = self.basicData.fontColor
                     self.myData.storedData[ind2].isKitty = self.isKitty
                     self.myData.storedData[ind2].isWord = self.isWord
+                    self.myData.storedData[ind2].isBlur = self.isBlur
+                    self.myData.storedData[ind2].isAllBlur = self.isAllBlur
                     UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
                 }
             }
@@ -113,7 +127,7 @@ struct SmallSetting: View {
 //MARK: - Preview
 struct SmallSetting_Previews: PreviewProvider {
     static var previews: some View {
-        SmallSetting(basicData: BasicData(background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!), isKitty: true, selectedCircle: .blue, isWord: true)
+        SmallSetting(basicData: BasicData(background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!), isKitty: true, selectedCircle: .blue, isWord: true,isBlur: true, isAllBlur: true)
     }
 }
 
@@ -126,6 +140,7 @@ extension SmallSetting{
     
     func backgroundTapped(num: Int){
         self.basicData.background = UIImage(named: "img" + String(num))!
+        self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img" + String(num))!.resized(withPercentage: 0.5)!, blurAmount: 20)!
     }
     
     func circleTapped(sc: FontColor){
@@ -136,16 +151,36 @@ extension SmallSetting{
     func pureColorTapped(sc: FontColor){
         self.selectedPureColor = sc
         switch sc{
-        case .blue: self.basicData.background = UIImage(named: "img7")!
-        case .red: self.basicData.background = UIImage(named: "img8")!
-        case .green: self.basicData.background = UIImage(named: "img9")!
-        case .yellow: self.basicData.background = UIImage(named: "img10")!
-        case .orange: self.basicData.background = UIImage(named: "img11")!
-        case .purple: self.basicData.background = UIImage(named: "img12")!
-        case .cyan: self.basicData.background = UIImage(named: "img13")!
-        case .white: self.basicData.background = UIImage(named: "img5")!
-        case .black: self.basicData.background = UIImage(named: "img6")!
-        case .none: self.basicData.background = UIImage(named: "img1")!
+        case .blue:
+            self.basicData.background = UIImage(named: "img7")!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img7")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+        case .red:
+            self.basicData.background = UIImage(named: "img8")!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img8")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+        case .green:
+            self.basicData.background = UIImage(named: "img9")!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img9")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+        case .yellow:
+            self.basicData.background = UIImage(named: "img10")!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img10")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+        case .orange:
+            self.basicData.background = UIImage(named: "img11")!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img11")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+        case .purple:
+            self.basicData.background = UIImage(named: "img12")!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img12")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+        case .cyan:
+            self.basicData.background = UIImage(named: "img13")!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img13")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+        case .white:
+            self.basicData.background = UIImage(named: "img5")!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img5")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+        case .black:
+            self.basicData.background = UIImage(named: "img6")!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img6")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+        case .none:
+            self.basicData.background = UIImage(named: "img1")!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
         }
     }
 }

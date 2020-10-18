@@ -156,8 +156,8 @@ struct SmallWidgetGrid: View{
         ScrollView(.vertical){
             LazyVGrid(columns: columns){
                 ForEach(dataStream, id: \.self){ basicData in
-                    NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord)){
-                        SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord)
+                    NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur)){
+                        SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur)
                     }
                 }
             }

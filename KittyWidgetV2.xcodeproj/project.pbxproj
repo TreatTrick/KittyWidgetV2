@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
 		97016A5125394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
+		97143B32253C250900445EC5 /* BlurEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97143B31253C250900445EC5 /* BlurEffectView.swift */; };
+		97143B3C253C27A400445EC5 /* BlurEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97143B31253C250900445EC5 /* BlurEffectView.swift */; };
 		9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771D1C1251FA60B004E1E15 /* SmallSetting.swift */; };
 		97B5C5A82526FA1A006E2D6B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B5C5A72526FA1A006E2D6B /* SettingView.swift */; };
 		97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */; };
@@ -72,6 +74,7 @@
 
 /* Begin PBXFileReference section */
 		97016A4F25394A5400C564CE /* SmallWidgetView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallWidgetView2.swift; sourceTree = "<group>"; };
+		97143B31253C250900445EC5 /* BlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffectView.swift; sourceTree = "<group>"; };
 		9771D1C1251FA60B004E1E15 /* SmallSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallSetting.swift; sourceTree = "<group>"; };
 		97B5C5A72526FA1A006E2D6B /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		97C2A3D6251F24F4003BF5DE /* KittyWidgetV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KittyWidgetV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +169,7 @@
 				97B5C5A72526FA1A006E2D6B /* SettingView.swift */,
 				97C2A411251F2560003BF5DE /* ImagePicker.swift */,
 				97C2A3DB251F24F4003BF5DE /* ContentView.swift */,
+				97143B31253C250900445EC5 /* BlurEffectView.swift */,
 				97C2A455251F2877003BF5DE /* Assets.xcassets */,
 				97C2A3E2251F24F6003BF5DE /* Info.plist */,
 				97C2A3DF251F24F6003BF5DE /* Preview Content */,
@@ -392,6 +396,7 @@
 				97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */,
 				97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */,
 				97C2A41F251F258F003BF5DE /* MyData.swift in Sources */,
+				97143B32253C250900445EC5 /* BlurEffectView.swift in Sources */,
 				97C2A408251F2553003BF5DE /* SmallWidgetView.swift in Sources */,
 				97C2A412251F2560003BF5DE /* ImagePicker.swift in Sources */,
 				97B5C5A82526FA1A006E2D6B /* SettingView.swift in Sources */,
@@ -422,6 +427,7 @@
 			files = (
 				97C2A446251F262D003BF5DE /* SmallWidgetView.swift in Sources */,
 				97C2A444251F262D003BF5DE /* MyData.swift in Sources */,
+				97143B3C253C27A400445EC5 /* BlurEffectView.swift in Sources */,
 				97C2A437251F2609003BF5DE /* kittyWidgetExtension.intentdefinition in Sources */,
 				97016A5125394A5400C564CE /* SmallWidgetView2.swift in Sources */,
 				97C2A432251F2608003BF5DE /* kittyWidgetExtension.swift in Sources */,

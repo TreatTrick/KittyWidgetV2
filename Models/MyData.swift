@@ -27,7 +27,8 @@ class MyData: ObservableObject{
                     let kitty = UIImage(data: data.kitty)!
                     let isKitty = data.isKitty
                     let fontColor = data.fontColor
-                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor)
+                    let isWord = data.isWord
+                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord)
                     self.dataStream.append(bd)
                 }
             } catch let error as Error?{
@@ -95,6 +96,7 @@ struct ColorSeries{
     var kitty: Data
     var isKitty: Bool = true
     var fontColor: FontColor = .blue
+    var isWord: Bool = true
     
     enum displayMode: String, Codable{
         case date = "date"
@@ -112,6 +114,7 @@ struct BasicData:Hashable{
    var isChecked: Bool = false
     var isKitty: Bool = true
     var fontColor: FontColor = .blue
+    var isWord: Bool = true
     
    enum displayMode: String, Codable{
        case date = "date"
@@ -161,4 +164,5 @@ enum FontColor: String, Codable{
     case black = "black"
     case white = "white"
     case cyan = "cyan"
+    case none = "none"
 }

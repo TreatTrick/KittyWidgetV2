@@ -12,53 +12,67 @@ struct SmallWidgetView2: View {
     @EnvironmentObject var myData: MyData
     var basicData: BasicData
     var isKitty: Bool
+    var isWord: Bool
 
     var body: some View {
             ZStack(alignment: .bottomTrailing){
-                VStack(alignment:.center){
-                    ZStack {
+                if isWord {
+                    VStack(alignment:.center){
+                            ZStack {
+                                HStack{
+                                    //if myData.is24Hour{
+                                    if true{
+                                        Time(dateSetting: .time,a: false)
+                                            .font(Font.system(size: 50, weight:.semibold, design: .default))
+                                            .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                                            .opacity(0.6)
+                                    } else {
+                                        Time(dateSetting: .time,a: false)
+                                            .font(Font.system(size: 50, weight:.semibold, design: .default))
+                                            .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                                            .opacity(0.6)
+                                        Time(dateSetting: .time, a: true)
+                                            .font(Font.system(size: Coefficients.apSize, weight:.semibold, design: .default))
+                                            .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                                            .opacity(0.6)
+                                            .padding(.top, Coefficients.apOffset)
+                                    }
+                                }
+                                .padding(.top)
+                                
+                                Time(dateSetting: .date, a: false)
+                                    .font(Font.system(size: 15, weight:.semibold, design:.rounded))
+                                    .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
+                                    .padding([.top],67)
+                                    .padding(.trailing,55)
+                            }
+                        
+                        
                         HStack{
-                            //if myData.is24Hour{
-                            if true{
-                                Time(dateSetting: .time,a: false)
-                                    .font(Font.system(size: 50, weight:.semibold, design: .default))
-                                    .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
-                                    .opacity(0.6)
-                            } else {
-                                Time(dateSetting: .time,a: false)
-                                    .font(Font.system(size: 50, weight:.semibold, design: .default))
-                                    .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
-                                    .opacity(0.6)
-                                Time(dateSetting: .time, a: true)
-                                    .font(Font.system(size: Coefficients.apSize, weight:.semibold, design: .default))
-                                    .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
-                                    .opacity(0.6)
-                                    .padding(.top, Coefficients.apOffset)
+                            
+                                Time(dateSetting: .week, a: false)
+                                    .font(Font.system(size: 30, weight:.medium, design: .default))
+                                    .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
+                                    .padding(6)
+                            
+                            if isKitty{
+                                Kitty(uiImage: basicData.kitty)
+                                    .frame(width: 70, height:100)
                             }
                         }
-                        .padding(.top)
-                        .animation(.easeInOut)
-                        
-                        Time(dateSetting: .date, a: false)
-                            .font(Font.system(size: 15, weight:.semibold, design:.rounded))
-                            .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
-                            .padding([.top],67)
-                            .padding(.trailing,55)
+                        .padding(0)
+                        .padding(.bottom)
                     }
-                    
-                    HStack{
-                        Time(dateSetting: .week, a: false)
-                            .font(Font.system(size: 30, weight:.medium, design: .default))
-                            .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
-                            .padding(6)
+                } else {
+                    VStack{
+                        Spacer()
                         if isKitty{
                             Kitty(uiImage: basicData.kitty)
                                 .frame(width: 70, height:100)
                         }
                     }
-                    .padding(0)
-                    .padding(.bottom)
                 }
+                
             }
             .frame(width: 170, height: 170)
             .background(Image(uiImage: basicData.background).resizable()).scaledToFill()
@@ -81,6 +95,7 @@ struct SmallWidgetView2: View {
         case .white: return MyColor.white
         case .black: return MyColor.black
         case .cyan: return MyColor.cyan
+        case .none: return MyColor.blue
         }
     }
 }
@@ -88,7 +103,7 @@ struct SmallWidgetView2: View {
 
 struct SmallWidgetView2_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true)
+        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true, isWord: true)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

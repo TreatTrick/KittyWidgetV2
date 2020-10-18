@@ -15,55 +15,65 @@ struct ContentView: View {
     @State var is24Hour: Bool
     @EnvironmentObject var myData: MyData
     var body: some View {
-        TabView(selection: $tabSelection){
-            ZStack{
-                NavigationView{
-                    VStack{
-                        if isEdit == .active{
-                            EditButtons
+        NavigationView {
+            TabView(selection: $tabSelection){
+                ZStack{
+//                    NavigationView{
+                        VStack{
+                            if isEdit == .active{
+                                EditButtons
+                            }
+                            SmallWidgetGrid(dataStream: $myData.dataStream, isEdit: $isEdit)
+                                .padding()
                         }
-                        SmallWidgetGrid(dataStream: $myData.dataStream, isEdit: $isEdit)
-                            .padding()
-                    }
-                    
-                    .navigationBarTitle("Widget", displayMode: .automatic)
-                    .navigationBarItems(trailing: EditMode)
-                    .animation(.easeInOut)
-                    .environment(\.editMode, $isEdit)
-                }
-                if myData.isSaving{
-                    ZStack{
-                         Color(red: 0.3, green: 0.3, blue: 0.3, opacity: 0.5)
-                         Text("正在存储...")
-                            .padding(5)
-                            .background(Color(.white))
-                            .cornerRadius(10)
+                        
+//                        .navigationBarTitle("Widget", displayMode: .automatic)
+                        .animation(.easeInOut)
+                        .environment(\.editMode, $isEdit)
+//                    }
+                    if myData.isSaving{
+                        ZStack{
+                            Color(red: 0.3, green: 0.3, blue: 0.3, opacity: 0.5)
+                            Text("正在存储...")
+                                .padding(5)
+                                .background(Color(.white))
+                                .cornerRadius(10)
+                        }
                     }
                 }
+                .tabItem {
+                    Label("widget", systemImage: "w.square.fill")
+                }
+                .tag(Tabs.smallWidget)
+                
+//                NavigationView{
+                    Form{
+                        Toggle(isOn: $is24Hour){
+                            Text("24时制")
+                        }
+                        .onChange(of: is24Hour){value in
+                            self.myData.is24Hour = value
+                            UserDefaults.standard.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
+                        }
+                    }
+//                    .navigationBarTitle("设置", displayMode: .automatic)
+//                }
+                
+                .tabItem {
+                    Label("设置", systemImage: "gearshape.fill")
+                }
+                .tag(Tabs.setting)
             }
-            .tabItem {
-                Label("widget", systemImage: "w.square.fill")
-            }
-            .tag(Tabs.smallWidget)
+            .navigationBarTitle(naviBarTitle(tabSelection: self.tabSelection), displayMode: .automatic)
+            .navigationBarItems(trailing: EditMode)
+        }
         
-            
-            NavigationView{
-                Form{
-                    Toggle(isOn: $is24Hour){
-                        Text("24时制")
-                    }
-                    .onChange(of: is24Hour){value in
-                        self.myData.is24Hour = value
-                        UserDefaults.standard.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
-                    }
-                }
-                .navigationBarTitle("设置", displayMode: .automatic)
-            }
-            .tabItem {
-                Label("设置", systemImage: "gearshape.fill")
-            }
-            .tag(Tabs.setting)
-            .tag(Tabs.setting)
+    }
+    
+    func naviBarTitle(tabSelection: Tabs) -> String {
+        switch tabSelection{
+        case .setting: return "设置"
+        case .smallWidget: return "Widgets"
         }
     }
     
@@ -87,14 +97,18 @@ struct ContentView: View {
     
     var EditMode: some View{
         Group{
-            if isEdit == .active{
-                Button(action: { doneFunc() } ) {
-                    Text("Done")
+            if self.tabSelection == .smallWidget{
+                if isEdit == .active{
+                    Button(action: { doneFunc() } ) {
+                        Text("Done")
+                    }
+                } else {
+                    Button(action: { self.isEdit = .active } ) {
+                        Text("edit")
+                    }
                 }
             } else {
-                Button(action: { self.isEdit = .active } ) {
-                    Text("edit")
-                }
+                EmptyView()
             }
         }
         .font(.title2)
@@ -148,8 +162,8 @@ struct SmallWidgetGrid: View{
         ScrollView(.vertical){
             LazyVGrid(columns: columns){
                 ForEach(dataStream, id: \.self){ basicData in
-                    NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor)){
-                        SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty)
+                    NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord)){
+                        SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord)
                     }
                 }
             }
@@ -162,8 +176,6 @@ struct SmallWidgetGrid: View{
 extension ContentView{
     enum Tabs{
         case smallWidget
-        case middleWidget
-        case largeWidget
         case setting
     }
 }

@@ -13,55 +13,76 @@ struct SmallWidgetView: View {
     @Environment(\.editMode) var editMode
     var basicData: BasicData
     var isKitty: Bool
+    var isWord: Bool
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing){
-            VStack(alignment:.center){
-                ZStack {
-                    HStack{
-//                        if myData.is24Hour{
-                        if true{
-                            Time(dateSetting: .time,a: false)
-                                .font(Font.system(size: 50, weight:.semibold, design: .default))
-                                .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
-                                .opacity(0.6)
-                        } else {
-                            Time(dateSetting: .time,a: false)
-                                .font(Font.system(size: 46, weight:.semibold, design: .default))
-                                .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
-                                .opacity(0.6)
-                            Time(dateSetting: .time, a: true)
-                                .font(Font.system(size: Coefficients.apSize, weight:.semibold, design: .default))
-                                .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
-                                .opacity(0.6)
-                                .padding(.top, Coefficients.apOffset)
-                        }
+            if isWord {
+                VStack(alignment:.center){
+                    
+                    ZStack {
+                        HStack{
+                            //                        if myData.is24Hour{
+                            if true{
+                                Time(dateSetting: .time,a: false)
+                                    .font(Font.system(size: 50, weight:.semibold, design: .default))
+                                    .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                                    .opacity(0.6)
+                            } else {
+                                Time(dateSetting: .time,a: false)
+                                    .font(Font.system(size: 46, weight:.semibold, design: .default))
+                                    .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                                    .opacity(0.6)
+                                Time(dateSetting: .time, a: true)
+                                    .font(Font.system(size: Coefficients.apSize, weight:.semibold, design: .default))
+                                    .foregroundColor(calColor(fontColor: self.basicData.fontColor).light)
+                                    .opacity(0.6)
+                                    .padding(.top, Coefficients.apOffset)
+                            }
                             if editMode?.wrappedValue != .inactive{
                                 Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
                                     .foregroundColor(.blue)
                             }
+                        }
+                        .padding(.top)
+                        .animation(.easeInOut)
+                        
+                        
+                        Time(dateSetting: .date, a: false)
+                            .font(Font.system(size: 15, weight:.semibold, design:.rounded))
+                            .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
+                            .padding([.top],67)
+                            .padding(.trailing,55)
                     }
-                    .padding(.top)
-                    .animation(.easeInOut)
-                    
-                    Time(dateSetting: .date, a: false)
-                        .font(Font.system(size: 15, weight:.semibold, design:.rounded))
-                        .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
-                        .padding([.top],67)
-                        .padding(.trailing,55)
-                }
-
-                HStack{
-                    Time(dateSetting: .week, a: false)
+                    HStack{
+                        Time(dateSetting: .week, a: false)
                             .font(Font.system(size: 30, weight:.medium, design: .default))
                             .foregroundColor(calColor(fontColor: self.basicData.fontColor).main)
                             .padding(6)
+                        if isKitty{
+                            Kitty(uiImage: basicData.kitty)
+                                .frame(width: 70, height:100)
+                        }
+                    }
+                    .padding(0)
+                    .padding(.bottom)
+                }
+            } else {
+                VStack{
+                    if editMode?.wrappedValue != .inactive{
+                        HStack {
+                            Spacer()
+                            Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
+                                .padding()
+                                .foregroundColor(.blue)
+                        }
+                    }
+                    Spacer()
                     if isKitty{
-                    Kitty(uiImage: basicData.kitty)
-                        .frame(width: 70, height:100)
+                        Kitty(uiImage: basicData.kitty)
+                            .frame(width: 70, height:100)
                     }
                 }
-                .padding(0)
-                .padding(.bottom)
             }
             if editMode?.wrappedValue == .active{
                 Button(action: { self.selectItem() } ){
@@ -70,13 +91,16 @@ struct SmallWidgetView: View {
             }
         }
         .frame(width: 170, height: 170)
-        .background(Image(uiImage: basicData.background).resizable()).scaledToFill()
+        .background(Image(uiImage: basicData.background)
+                        .resizable()
+                        .scaledToFill()
+        )
         .environment(\.sizeCategory, .extraExtraExtraLarge)
         .cornerRadius(CGFloat(Coefficients.cornerRadius))
-//        .padding(1)
-//        .background(Rectangle().stroke().foregroundColor(.gray)        .cornerRadius(CGFloat(Coefficients.cornerRadius))
-//)
-
+        //        .padding(1)
+        //        .background(Rectangle().stroke().foregroundColor(.gray)        .cornerRadius(CGFloat(Coefficients.cornerRadius))
+        //)
+        
     }
     
     func selectItem(){
@@ -86,15 +110,16 @@ struct SmallWidgetView: View {
     
     func calColor(fontColor: FontColor) -> ColorSeries{
         switch fontColor{
-            case .blue: return MyColor.blue
-            case .red: return MyColor.red
-            case .green: return MyColor.green
-            case .yellow: return MyColor.yellow
-            case .orange: return MyColor.orange
-            case .purple: return MyColor.purple
-            case .white: return MyColor.white
-            case .black: return MyColor.black
-            case .cyan: return MyColor.cyan
+        case .blue: return MyColor.blue
+        case .red: return MyColor.red
+        case .green: return MyColor.green
+        case .yellow: return MyColor.yellow
+        case .orange: return MyColor.orange
+        case .purple: return MyColor.purple
+        case .white: return MyColor.white
+        case .black: return MyColor.black
+        case .cyan: return MyColor.cyan
+        case . none: return MyColor.blue
         }
     }
 }
@@ -108,7 +133,7 @@ struct Time: View{
         if dateSetting != .time{
             Text(dateSetting(dateSetting))
         } else {
-//            if myData.is24Hour{
+            //            if myData.is24Hour{
             if true{
                 Text(dateSetting(dateSetting))
             } else {
@@ -130,12 +155,12 @@ struct Time: View{
         print(date)
         switch timeOrDate{
         case .date:
-                dateFormatter.dateFormat = "MM:dd"
-                let dateString = dateFormatter.string(from: date) // 2001/01/02
-                let ymd = dateString.split(separator: ":")
-                displayString = ymd[0] + "月" + ymd[1] + "日"
+            dateFormatter.dateFormat = "MM:dd"
+            let dateString = dateFormatter.string(from: date) // 2001/01/02
+            let ymd = dateString.split(separator: ":")
+            displayString = ymd[0] + "月" + ymd[1] + "日"
         case .time:
-//            if myData.is24Hour{
+            //            if myData.is24Hour{
             if true{
                 dateFormatter.dateFormat = "HH:mm"
                 let dateString = dateFormatter.string(from: date) // 2001/01/02
@@ -188,7 +213,7 @@ struct Kitty: View{
 
 struct SmallWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true)
+        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true, isWord: true)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import UIKit
 
 struct SmallSetting: View {
     @Environment(\.presentationMode) var navi
@@ -15,17 +16,22 @@ struct SmallSetting: View {
     @State var isPicker = false
     @State var isKitty: Bool
     @State var selectedCircle: FontColor
+    @State var isPureColor = false
+    @State var selectedPureColor: FontColor = .none
+    @State var isWord: Bool
+    
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
     }
-    let padInt: CGFloat = 8
-    let padIntImg: CGFloat = 5
+    let padInt: CGFloat = 6
+    //let padIntImg: CGFloat = 10
+    let mini = "-mini"
     
     var body: some View {
         VStack{
             HStack{
                 Spacer()
-                SmallWidgetView2(basicData: basicData, isKitty: isKitty)
+                SmallWidgetView2(basicData: basicData, isKitty: isKitty, isWord: isWord)
                 Spacer()
             }
             .padding()
@@ -33,12 +39,16 @@ struct SmallSetting: View {
             
             Form{
                 Section(header: Text("喵咪")){
-                   KittyCluster
+                    KittyCluster
                 }
                 
                 Section(header: Text("默认背景")){
                     backgroundCluster
+                    if isPureColor{
+                        PureColorCluster
+                    }
                 }
+                .animation(.easeInOut)
                 
                 Section(header: Text("字体颜色")){
                     CircleCluster
@@ -60,8 +70,14 @@ struct SmallSetting: View {
                     Toggle(isOn: $isKitty){
                         Text("显示猫咪")
                     }
+                  
+                    Toggle(isOn: $isWord){
+                        Text("显示文字")
+                    }
+                    
                 }
             }
+            
             ZStack{
                 Rectangle()
                     .frame(width: 100, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -77,178 +93,33 @@ struct SmallSetting: View {
                 self.myData.dataStream[ind2].background = self.basicData.background
                 self.myData.dataStream[ind2].fontColor = self.basicData.fontColor
                 self.myData.dataStream[ind2].isKitty = self.isKitty
+                self.myData.dataStream[ind2].isWord = self.isWord
                 self.navi.wrappedValue.dismiss()
                 DispatchQueue.global(qos:.default).async{
                     self.myData.storedData[ind2].kitty = self.basicData.kitty.pngData()!
                     self.myData.storedData[ind2].background = self.basicData.background.pngData()!
                     self.myData.storedData[ind2].fontColor = self.basicData.fontColor
                     self.myData.storedData[ind2].isKitty = self.isKitty
+                    self.myData.storedData[ind2].isWord = self.isWord
                     UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
                 }
             }
+            
         }
-    }
-    
-    
-    var KittyCluster: some View{
-        HStack{
-            Button(action: {kittyTapped(num: 1)}){
-                Image("kitty1")
-                    .resizable()
-                    .frame(width: 40, height: 70)
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            
-            Spacer()
-            
-            Button(action: {kittyTapped(num: 2)}) {
-                Image("kitty2")
-                    .resizable()
-                    .frame(width: 40, height: 70)
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            
-            Spacer()
-            
-            Button(action: {kittyTapped(num: 3)}) {
-                Image("kitty3")
-                    .resizable()
-                    .frame(width: 40, height: 70)
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            
-            Spacer()
-            
-            Button(action: {kittyTapped(num: 4)}) {
-                Image("kitty4")
-                    .resizable()
-                    .frame(width: 40, height: 70)
-            }
-            .buttonStyle(BorderlessButtonStyle())
-        }
-    }
-    
-    var backgroundCluster: some View{
-        HStack{
-            Button(action: {backgroundTapped(num: 1)}){
-                Image("img1")
-                    .resizable()
-                    .frame(width: 40, height: 70)
-                    .padding(padIntImg)
-            }
-            .buttonStyle(BorderlessButtonStyle())
-                        
-            Button(action: {backgroundTapped(num: 2)}) {
-                Image("img2")
-                    .resizable()
-                    .frame(width: 40, height: 70)
-                    .padding(padIntImg)
-
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            
-            Button(action: {backgroundTapped(num: 3)}) {
-                Image("img3")
-                    .resizable()
-                    .frame(width: 40, height: 70)
-                    .padding(padIntImg)
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            
-            Button(action: {backgroundTapped(num: 4)}) {
-                Image("img4")
-                    .resizable()
-                    .frame(width: 40, height: 70)
-                    .padding(padIntImg)
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            
-            Button(action: {backgroundTapped(num: 5)}) {
-                Image("img5")
-                    .resizable()
-                    .frame(width: 40, height: 70)
-                    .padding(1)
-                    .background(Color(.gray))
-                    .padding(padIntImg)
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            
-            Button(action: {backgroundTapped(num: 6)}) {
-                Image("img6")
-                    .resizable()
-                    .frame(width: 40, height: 70)
-                    .padding(padIntImg)
-            }
-            .buttonStyle(BorderlessButtonStyle())
-        }
-    }
-    
-    var CircleCluster: some View{
         
-//        ScrollView(.horizontal) {
-            HStack{
-                Spacer()
-                Button(action: {circleTapped(sc: .blue)}){
-                    Image(systemName: self.selectedCircle == .blue ? "largecircle.fill.circle" : "circle.fill")
-                        .foregroundColor(MyColor.blue.main)
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .padding(padInt)
-                Button(action: {circleTapped(sc: .red)}){
-                    Image(systemName: self.selectedCircle == .red ? "largecircle.fill.circle" : "circle.fill")
-                        .foregroundColor(MyColor.red.main)
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .padding(padInt)
-
-                Button(action: {circleTapped(sc: .green)}){
-                    Image(systemName: self.selectedCircle == .green ? "largecircle.fill.circle" : "circle.fill")
-                        .foregroundColor(MyColor.green.main)
-
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .padding(padInt)
-
-                Button(action: {circleTapped(sc: .yellow)}){
-                    Image(systemName: self.selectedCircle == .yellow ? "largecircle.fill.circle" : "circle.fill")
-                        .foregroundColor(MyColor.yellow.main)
-
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .padding(padInt)
-
-                Button(action: {circleTapped(sc: .orange)}){
-                    Image(systemName: self.selectedCircle == .orange ? "largecircle.fill.circle" : "circle.fill")
-                        .foregroundColor(MyColor.orange.main)
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .padding(padInt)
-
-                Button(action: {circleTapped(sc: .purple )}){
-                    Image(systemName: self.selectedCircle == .purple ? "largecircle.fill.circle" : "circle.fill")
-                        .foregroundColor(MyColor.purple.main)
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .padding(padInt)
-
-                Button(action: {circleTapped(sc: .white)}){
-                    Image(systemName: self.selectedCircle == .white ? "largecircle.fill.circle" : "circle.fill")
-                        .foregroundColor(MyColor.white.heavy)
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .padding(padInt)
-
-                Button(action: {circleTapped(sc: .black)}){
-                    Image(systemName: self.selectedCircle == .black ? "largecircle.fill.circle" : "circle.fill")
-                        .foregroundColor(MyColor.black.main)
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .padding(padInt)
-                 Spacer()
-            }
-//        }
     }
-    
+}
+
+//MARK: - Preview
+struct SmallSetting_Previews: PreviewProvider {
+    static var previews: some View {
+        SmallSetting(basicData: BasicData(background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!), isKitty: true, selectedCircle: .blue, isWord: true)
+    }
+}
+
+
+//MARK: - Function Extension of SmallSetting
+extension SmallSetting{
     func kittyTapped(num: Int){
         self.basicData.kitty = UIImage(named: "kitty" + String(num))!
     }
@@ -261,10 +132,250 @@ struct SmallSetting: View {
         self.selectedCircle = sc
         self.basicData.fontColor = sc
     }
-}
-
-struct SmallSetting_Previews: PreviewProvider {
-    static var previews: some View {
-        SmallSetting(basicData: BasicData(background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!), isKitty: true, selectedCircle: .blue)
+    
+    func pureColorTapped(sc: FontColor){
+        self.selectedPureColor = sc
+        switch sc{
+        case .blue: self.basicData.background = UIImage(named: "img7")!
+        case .red: self.basicData.background = UIImage(named: "img8")!
+        case .green: self.basicData.background = UIImage(named: "img9")!
+        case .yellow: self.basicData.background = UIImage(named: "img10")!
+        case .orange: self.basicData.background = UIImage(named: "img11")!
+        case .purple: self.basicData.background = UIImage(named: "img12")!
+        case .cyan: self.basicData.background = UIImage(named: "img13")!
+        case .white: self.basicData.background = UIImage(named: "img5")!
+        case .black: self.basicData.background = UIImage(named: "img6")!
+        case .none: self.basicData.background = UIImage(named: "img1")!
+        }
     }
 }
+
+//MARK: - View Extension of SmallSetting
+extension SmallSetting{
+    var KittyCluster: some View{
+        HStack{
+            Button(action: {kittyTapped(num: 1)}){
+                Image("kitty1" + mini)
+                    .resizable()
+                    .frame(width: 40, height: 70)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            
+            Spacer()
+            
+            Button(action: {kittyTapped(num: 2)}) {
+                Image("kitty2" + mini)
+                    .resizable()
+                    .frame(width: 40, height: 70)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            
+            Spacer()
+            
+            Button(action: {kittyTapped(num: 3)}) {
+                Image("kitty3" + mini)
+                    .resizable()
+                    .frame(width: 40, height: 70)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            
+            Spacer()
+            
+            Button(action: {kittyTapped(num: 4)}) {
+                Image("kitty4" + mini)
+                    .resizable()
+                    .frame(width: 40, height: 70)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+        }
+    }
+    
+    var backgroundCluster: some View{
+        HStack{
+            Button(action: {backgroundTapped(num: 1)}){
+                Image("img1" + mini)
+                    .resizable()
+                    .frame(width: 40, height: 70)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            
+            Spacer()
+            
+            Button(action: {backgroundTapped(num: 2)}) {
+                Image("img2" + mini)
+                    .resizable()
+                    .frame(width: 40, height: 70)
+                
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            
+            Spacer()
+            
+            Button(action: {backgroundTapped(num: 3)}) {
+                Image("img3" + mini)
+                    .resizable()
+                    .frame(width: 40, height: 70)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            
+            Spacer()
+            
+            Button(action: {backgroundTapped(num: 4)}) {
+                Image("img4" + mini)
+                    .resizable()
+                    .frame(width: 40, height: 70)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            
+            Button(action: { self.isPureColor.toggle() }){
+                HStack{
+                    Text("纯色").font(.body)
+                    Image(systemName: "chevron.forward")
+                        .rotationEffect(.degrees(self.isPureColor ? 90 : 0))
+                }
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(.leading, 8)
+        }
+    }
+    
+    var PureColorCluster: some View{
+        HStack{
+            Button(action: {pureColorTapped(sc: .blue)}){
+                Image(systemName: self.selectedPureColor == .blue ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.blue.main)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            Button(action: {pureColorTapped(sc: .red)}){
+                Image(systemName: self.selectedPureColor == .red ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.red.main)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {pureColorTapped(sc: .green)}){
+                Image(systemName: self.selectedPureColor == .green ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.green.main)
+                
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {pureColorTapped(sc: .yellow)}){
+                Image(systemName: self.selectedPureColor == .yellow ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.yellow.main)
+                
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {pureColorTapped(sc: .orange)}){
+                Image(systemName: self.selectedPureColor == .orange ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.orange.main)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {pureColorTapped(sc: .purple )}){
+                Image(systemName: self.selectedPureColor == .purple ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.purple.main)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {pureColorTapped(sc: .cyan)}){
+                Image(systemName: self.selectedPureColor == .cyan ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.cyan.main)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {pureColorTapped(sc: .white)}){
+                Image(systemName: self.selectedPureColor == .white ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.white.heavy)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {pureColorTapped(sc: .black)}){
+                Image(systemName: self.selectedCircle == .black ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.black.main)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+        }
+    }
+    
+    var CircleCluster: some View{
+        HStack{
+            Button(action: {circleTapped(sc: .blue)}){
+                Image(systemName: self.selectedCircle == .blue ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.blue.main)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            Button(action: {circleTapped(sc: .red)}){
+                Image(systemName: self.selectedCircle == .red ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.red.main)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {circleTapped(sc: .green)}){
+                Image(systemName: self.selectedCircle == .green ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.green.main)
+                
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {circleTapped(sc: .yellow)}){
+                Image(systemName: self.selectedCircle == .yellow ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.yellow.main)
+                
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {circleTapped(sc: .orange)}){
+                Image(systemName: self.selectedCircle == .orange ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.orange.main)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {circleTapped(sc: .purple )}){
+                Image(systemName: self.selectedCircle == .purple ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.purple.main)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {circleTapped(sc: .cyan)}){
+                Image(systemName: self.selectedCircle == .cyan ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.cyan.main)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {circleTapped(sc: .white)}){
+                Image(systemName: self.selectedCircle == .white ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.white.heavy)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+            Button(action: {circleTapped(sc: .black)}){
+                Image(systemName: self.selectedCircle == .black ? "largecircle.fill.circle" : "circle.fill")
+                    .foregroundColor(MyColor.black.main)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(padInt)
+            
+        }
+    }
+}
+
+

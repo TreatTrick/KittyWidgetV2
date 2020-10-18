@@ -18,7 +18,6 @@ struct ContentView: View {
         NavigationView {
             TabView(selection: $tabSelection){
                 ZStack{
-//                    NavigationView{
                         VStack{
                             if isEdit == .active{
                                 EditButtons
@@ -27,26 +26,14 @@ struct ContentView: View {
                                 .padding()
                         }
                         
-//                        .navigationBarTitle("Widget", displayMode: .automatic)
                         .animation(.easeInOut)
                         .environment(\.editMode, $isEdit)
-//                    }
-                    if myData.isSaving{
-                        ZStack{
-                            Color(red: 0.3, green: 0.3, blue: 0.3, opacity: 0.5)
-                            Text("正在存储...")
-                                .padding(5)
-                                .background(Color(.white))
-                                .cornerRadius(10)
-                        }
-                    }
                 }
                 .tabItem {
                     Label("widget", systemImage: "w.square.fill")
                 }
                 .tag(Tabs.smallWidget)
                 
-//                NavigationView{
                     Form{
                         Toggle(isOn: $is24Hour){
                             Text("24时制")
@@ -56,8 +43,6 @@ struct ContentView: View {
                             UserDefaults.standard.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
                         }
                     }
-//                    .navigationBarTitle("设置", displayMode: .automatic)
-//                }
                 
                 .tabItem {
                     Label("设置", systemImage: "gearshape.fill")
@@ -118,34 +103,43 @@ struct ContentView: View {
     func addData(){
         let bd = BasicData(background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!)
         self.myData.dataStream.append(bd)
-        self.myData.isEdit = true
+        //self.myData.isEdit = true
+        DispatchQueue.global(qos: .default).async {
+            self.myData.storedData.append(StoredData())
+            UserDefaults.standard.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
+        }
     }
     
     func delData(){
         while  let ind = self.myData.dataStream.firstIndex(where: {$0.isChecked == true}){
             self.myData.dataStream.remove(at: ind)
+            DispatchQueue.global(qos: .default).async {
+                self.myData.storedData.remove(at: ind)
+                UserDefaults.standard.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
+            }
         }
-        self.myData.isEdit = true
+        
+        //self.myData.isEdit = true
     }
     
     func doneFunc(){
-        if self.myData.isEdit{
-            self.myData.syncData{
-                DispatchQueue.main.async {
-                    self.myData.isSaving = false
-                    self.isEdit = .inactive
-                    self.myData.isEdit = false
-                    for i in 0..<self.myData.dataStream.count{
-                        self.myData.dataStream[i].isChecked = false
-                    }
-                }
-            }
-        } else{
-            for i in 0..<self.myData.dataStream.count{
-                self.myData.dataStream[i].isChecked = false
-            }
-            self.isEdit = .inactive
-        }
+//        if self.myData.isEdit{
+//            self.myData.syncData{
+//                DispatchQueue.main.async {
+//                    self.isEdit = .inactive
+//                    self.myData.isEdit = false
+//                    for i in 0..<self.myData.dataStream.count{
+//                        self.myData.dataStream[i].isChecked = false
+//                    }
+//                }
+//            }
+//        } else{
+//            for i in 0..<self.myData.dataStream.count{
+//                self.myData.dataStream[i].isChecked = false
+//            }
+//            self.isEdit = .inactive
+//        }
+        self.isEdit = .inactive
     }
 }
 

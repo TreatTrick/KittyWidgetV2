@@ -10,9 +10,8 @@ class MyData: ObservableObject{
     var jsonData: Data?{
         return try? JSONEncoder().encode(self.storedData)
     }
-    @Published var isSaving = false
     @Published var dataStream: [BasicData] = []
-    var isEdit = false
+    //var isEdit = false
     var storedData: [StoredData] = []
     @Published var is24Hour: Bool = false
 
@@ -52,21 +51,19 @@ class MyData: ObservableObject{
     }
     
     
-    func syncData(completion:  @escaping  ()->Void ){
-        self.isSaving = true
-        DispatchQueue.global(qos: .default).async {
-            self.storedData = []
-            for data in self.dataStream{
-                let background = data.background.pngData()!
-                let kitty = data.kitty.pngData()!
-                let sd = StoredData(background: background, display: .date, kitty: kitty)
-                self.storedData.append(sd)
-            }
-            let jsonData = try? JSONEncoder().encode(self.storedData)
-            UserDefaults.standard.set(jsonData, forKey: UserDataKeys.storedData)
-            completion()
-        }
-    }
+//    func syncData(completion:  @escaping  ()->Void ){
+//        DispatchQueue.global(qos: .default).async {
+//            self.storedData = []
+//            for data in self.dataStream{
+//                let background = data.background.pngData()!
+//                let kitty = data.kitty.pngData()!
+//                let sd = StoredData(background: background, display: .date, kitty: kitty)
+//                self.storedData.append(sd)
+//            }
+//            UserDefaults.standard.set(self.jsonData, forKey: UserDataKeys.storedData)
+//            completion()
+//        }
+//    }
 
 }
 
@@ -91,9 +88,9 @@ struct ColorSeries{
 }
 
  struct StoredData:Hashable, Codable{
-    var background: Data
+    var background: Data = UIImage(named: "img1")!.pngData()!
     var display: displayMode = .date
-    var kitty: Data
+    var kitty: Data = UIImage(named: "kitty1")!.pngData()!
     var isKitty: Bool = true
     var fontColor: FontColor = .blue
     var isWord: Bool = true

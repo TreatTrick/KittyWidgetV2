@@ -90,12 +90,12 @@ struct MyColor{
     static var blue: ColorSeries = ColorSeries(main: Color(hex: 0x0080FF), light: Color(hex: 0x00BFFF), heavy:Color(hex: 0x084B8A))
     static var red: ColorSeries = ColorSeries(main: Color(hex: 0xFF0040), light: Color(hex: 0xF781BE), heavy:Color(hex: 0xDF013A))
     static var purple: ColorSeries = ColorSeries(main: Color(hex: 0xD358F7), light: Color(hex: 0xBE81F7), heavy:Color(hex: 0xA901DB))
-    static var green: ColorSeries = ColorSeries(main: Color(hex: 0x58FA82), light: Color(hex: 0xA9F5D0), heavy:Color(hex: 0xA901DB))
-    static var yellow: ColorSeries = ColorSeries(main: Color(hex: 0xF7D358), light: Color(hex: 0xF8ED7F), heavy:Color(hex: 0xFFBF00))
-    static var orange: ColorSeries = ColorSeries(main: Color(hex: 0xFF8000), light: Color(hex: 0xF7BE81), heavy:Color(hex: 0xDF3A01))
+    static var green: ColorSeries = ColorSeries(main: Color(hex: 0x3dc02f), light: Color(hex: 0x22d268), heavy:Color(hex: 0x04a400))
+    static var yellow: ColorSeries = ColorSeries(main: Color(hex: 0xd7d400), light: Color(hex: 0xd7d400), heavy:Color(hex: 0xFFBF00))
+    static var orange: ColorSeries = ColorSeries(main: Color(hex: 0xFF8000), light: Color(hex: 0xFF8000), heavy:Color(hex: 0xDF3A01))
     static var white: ColorSeries = ColorSeries(main: Color(hex: 0xFAFAFA), light: Color(hex: 0xFAFAFA), heavy:Color(hex: 0xD8D8D8))
     static var black: ColorSeries = ColorSeries(main: Color(hex: 0x2E2E2E), light: Color(hex: 0x2E2E2E), heavy:Color(hex: 0x2E2E2E))
-    static var cyan: ColorSeries = ColorSeries(main: Color(hex: 0x00FFFF), light: Color(hex: 0x81F7F3), heavy:Color(hex: 0x04B4AE))
+    static var cyan: ColorSeries = ColorSeries(main: Color(hex: 0x19c4be), light: Color(hex: 0x22d0d2), heavy:Color(hex: 0x04B4AE))
     
     static var backPurple = Color(hex:0xF5EFFB)
 }

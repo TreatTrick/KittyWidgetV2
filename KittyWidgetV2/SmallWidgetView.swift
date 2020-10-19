@@ -16,58 +16,60 @@ struct SmallWidgetView: View {
     var isWord: Bool
     var isBlur: Bool
     var isAllBlur: Bool
+    var is24Hour: Bool
     
     var body: some View {
         ZStack{
             if isWord {
                 VStack(alignment:.center){
                     
-                    ZStack {
+                    VStack(alignment:.leading) {
                         HStack{
-                            //                        if myData.is24Hour{
-                            if true{
-                                Time(dateSetting: .time,a: false)
+                           if is24Hour{
+                            Time(dateSetting: .time,a: false, is24Hour: is24Hour)
                                     .font(Font.system(size: 50, weight:.semibold, design: .default))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .opacity(0.6)
                             } else {
-                                Time(dateSetting: .time,a: false)
+                                Time(dateSetting: .time,a: false, is24Hour: is24Hour)
                                     .font(Font.system(size: 46, weight:.semibold, design: .default))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .opacity(0.6)
-                                Time(dateSetting: .time, a: true)
+                                Time(dateSetting: .time, a: true, is24Hour: is24Hour)
                                     .font(Font.system(size: Coefficients.apSize, weight:.semibold, design: .default))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .opacity(0.6)
-                                    .padding(.top, Coefficients.apOffset)
+                                    .offset(x: -6, y: 10)
                             }
                             if editMode?.wrappedValue != .inactive{
                                 Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
                                     .foregroundColor(.blue)
                             }
                         }
-                        .padding(.top)
                         .animation(.easeInOut)
                         
                         
                         
-                        Time(dateSetting: .date, a: false)
+                        Time(dateSetting: .date, a: false, is24Hour: is24Hour)
                             .font(Font.system(size: 15, weight:.semibold, design:.rounded))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
-                            .padding([.top],67)
-                            .padding(.trailing,55)
+                            .offset(x: 8, y: -8)
+
                     }
                     .padding(2)
                     .background(FuncForSmallWidgets.calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
                     .cornerRadius(10)
+                    .offset(y: 8)
                     
                     HStack{
-                        Time(dateSetting: .week, a: false)
+                        Time(dateSetting: .week, a: false, is24Hour: is24Hour)
                             .font(Font.system(size: 30, weight:.medium, design: .default))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
-                            .padding(4)
+                            .padding(3)
                             .background(FuncForSmallWidgets.calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
                             .cornerRadius(10)
+                            .offset(y: 5)
+                            
                         
                         if isKitty{
                             Kitty(uiImage: basicData.kitty)
@@ -121,12 +123,12 @@ struct Time: View{
     @EnvironmentObject var myData: MyData
     var dateSetting: tdSelection
     var a: Bool
+    var is24Hour: Bool
     var body: some View{
         if dateSetting != .time{
             Text(dateSetting(dateSetting))
         } else {
-            //            if myData.is24Hour{
-            if true{
+            if is24Hour{
                 Text(dateSetting(dateSetting))
             } else {
                 let strSetting = dateSetting(.time).split(separator: ":")
@@ -152,8 +154,7 @@ struct Time: View{
             let ymd = dateString.split(separator: ":")
             displayString = ymd[0] + "月" + ymd[1] + "日"
         case .time:
-            //            if myData.is24Hour{
-            if true{
+            if is24Hour{
                 dateFormatter.dateFormat = "HH:mm"
                 let dateString = dateFormatter.string(from: date) // 2001/01/02
                 let ymd = dateString.split(separator: ":")
@@ -205,7 +206,7 @@ struct Kitty: View{
 
 struct SmallWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true, isWord: true, isBlur: true, isAllBlur: true)
+        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true, isWord: true, isBlur: true, isAllBlur: true, is24Hour: true)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

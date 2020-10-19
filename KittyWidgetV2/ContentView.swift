@@ -148,6 +148,7 @@ struct ContentView: View {
 
 //MARK: - small widget grid
 struct SmallWidgetGrid: View{
+    @EnvironmentObject var myData: MyData
     @State var destination = false
     @Binding var dataStream: [BasicData]
     @Binding var isEdit: EditMode
@@ -156,8 +157,8 @@ struct SmallWidgetGrid: View{
         ScrollView(.vertical){
             LazyVGrid(columns: columns){
                 ForEach(dataStream, id: \.self){ basicData in
-                    NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur)){
-                        SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur)
+                    NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour)){
+                        SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour)
                     }
                 }
             }

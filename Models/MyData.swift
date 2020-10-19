@@ -154,7 +154,7 @@ struct UserDataKeys{
 
 struct Coefficients{
     static var cornerRadius: CGFloat = 25
-    static var apSize: CGFloat = 15
+    static var apSize: CGFloat = 10
     static var apOffset: CGFloat = 22
 }
 

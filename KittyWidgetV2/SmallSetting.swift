@@ -21,6 +21,7 @@ struct SmallSetting: View {
     @State var isWord: Bool
     @State var isBlur: Bool
     @State var isAllBlur: Bool
+    var is24Hour: Bool
     
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
@@ -33,7 +34,7 @@ struct SmallSetting: View {
         VStack{
             HStack{
                 Spacer()
-                SmallWidgetView2(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur)
+                SmallWidgetView2(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour)
                 Spacer()
             }
             .padding()
@@ -127,7 +128,7 @@ struct SmallSetting: View {
 //MARK: - Preview
 struct SmallSetting_Previews: PreviewProvider {
     static var previews: some View {
-        SmallSetting(basicData: BasicData(background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!), isKitty: true, selectedCircle: .blue, isWord: true,isBlur: true, isAllBlur: true)
+        SmallSetting(basicData: BasicData(background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!), isKitty: true, selectedCircle: .blue, isWord: true,isBlur: true, isAllBlur: true, is24Hour: true)
     }
 }
 

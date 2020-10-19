@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct SettingView: View {
+//    @Environment(\.presentationMode) var presentaton
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+//            .navigationBarItems(trailing: Button("Done"){self.presentaton.wrappedValue.dismiss()})
     }
 }
 

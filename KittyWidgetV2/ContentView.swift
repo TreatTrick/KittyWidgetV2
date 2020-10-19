@@ -35,12 +35,26 @@ struct ContentView: View {
                 .tag(Tabs.smallWidget)
                 
                     Form{
-                        Toggle(isOn: $is24Hour){
-                            Text("24时制")
+                        Section{
+                            Toggle(isOn: $is24Hour){
+                                Text("24时制")
+                            }
+                            .onChange(of: is24Hour){value in
+                                self.myData.is24Hour = value
+                                UserDefaults.standard.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
+                            }
+                            NavigationLink(destination: SettingView()){
+                                Text("主题选择")
+                            }
                         }
-                        .onChange(of: is24Hour){value in
-                            self.myData.is24Hour = value
-                            UserDefaults.standard.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
+                        Section{
+                            NavigationLink(destination: SettingView()){
+                                HStack{
+                                    Text("关于")
+                                    Image(systemName: "questionmark.circle.fill")
+                                }
+                                .foregroundColor(.black)
+                            }
                         }
                     }
                 
@@ -157,8 +171,8 @@ struct SmallWidgetGrid: View{
         ScrollView(.vertical){
             LazyVGrid(columns: columns){
                 ForEach(dataStream, id: \.self){ basicData in
-                    NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour)){
-                        SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour)
+                    NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)){
+                        SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)
                     }
                 }
             }

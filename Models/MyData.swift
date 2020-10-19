@@ -32,7 +32,8 @@ class MyData: ObservableObject{
                     let isWord = data.isWord
                     let isBlur = data.isBlur
                     let isAllBlur = data.isAllBlur
-                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur)
+                    let font = data.font
+                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font)
                     self.dataStream.append(bd)
                 }
             } catch let error as Error?{
@@ -40,7 +41,7 @@ class MyData: ObservableObject{
             }
         } else {
             for i in 0..<4{
-                let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+                let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!, blurAmount: 10)!
                 let basicData = BasicData(background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack)
                 dataStream.append(basicData)
                 let background = UIImage(named: "img" + String(i+1))!.pngData()!
@@ -116,13 +117,7 @@ struct ColorSeries{
     var isBlur: Bool = true
     var blurBackground: Data = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!, blurAmount: 20)!.pngData()!
     var isAllBlur: Bool = false
-    
-    enum displayMode: String, Codable{
-        case date = "date"
-        case time = "time"
-        case customize = "customize"
-        case weekday = "weekday"
-    }
+    var font: FontNames = .font4
 }
 
 struct BasicData:Hashable{
@@ -137,14 +132,14 @@ struct BasicData:Hashable{
     var isBlur: Bool = true
     var blurBackground: UIImage = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
     var isAllBlur: Bool = false
+    var font: FontNames = .font4
+}
 
-    
-   enum displayMode: String, Codable{
-       case date = "date"
-       case time = "time"
-       case customize = "customize"
-       case weekday = "weekday"
-   }
+enum displayMode: String, Codable{
+    case date = "date"
+    case time = "time"
+    case customize = "customize"
+    case weekday = "weekday"
 }
 
 struct UserDataKeys{
@@ -154,7 +149,7 @@ struct UserDataKeys{
 
 struct Coefficients{
     static var cornerRadius: CGFloat = 25
-    static var apSize: CGFloat = 10
+    static var apSize: CGFloat = 8
     static var apOffset: CGFloat = 22
 }
 
@@ -190,6 +185,19 @@ enum FontColor: String, Codable{
     case none = "none"
 }
 
+
+enum FontNames: String, Codable{
+    case font1 = "QTxiaotu"
+    case font2 = "ZhenyanGB-Regular"
+    case font3 = "smmyingbi"
+    case font4 = "SourceHanSansCN-Bold"
+    case font5 = "SourceHanSerifCN-Bold"
+    case font6 = "XianErTi"
+    case font7 = "YRDZST-Semibold"
+    case font8 = "Slidexiaxing-Regular"
+    case font9 = "MuyaoPleased"
+    case font10 = "HappyZcool-2016"
+}
 
 extension UIImage{
     func resized(withPercentage percentage: CGFloat, isOpaque: Bool = true) -> UIImage? {
@@ -255,3 +263,5 @@ struct FuncForSmallWidgets{
     }
     
 }
+
+

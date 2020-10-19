@@ -17,6 +17,7 @@ struct SmallWidgetView: View {
     var isBlur: Bool
     var isAllBlur: Bool
     var is24Hour: Bool
+    var font: FontNames
     
     var body: some View {
         ZStack{
@@ -27,19 +28,19 @@ struct SmallWidgetView: View {
                         HStack{
                            if is24Hour{
                             Time(dateSetting: .time,a: false, is24Hour: is24Hour)
-                                    .font(Font.system(size: 50, weight:.semibold, design: .default))
-                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    .opacity(0.6)
+                                .font(.custom(font.rawValue, size: 35))
+                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                .opacity(0.6)
                             } else {
                                 Time(dateSetting: .time,a: false, is24Hour: is24Hour)
-                                    .font(Font.system(size: 46, weight:.semibold, design: .default))
+                                    .font(.custom(font.rawValue, size: 30))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .opacity(0.6)
                                 Time(dateSetting: .time, a: true, is24Hour: is24Hour)
-                                    .font(Font.system(size: Coefficients.apSize, weight:.semibold, design: .default))
+                                    .font(.custom(font.rawValue, size: Coefficients.apSize))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .opacity(0.6)
-                                    .offset(x: -6, y: 10)
+                                    .offset(x: -4, y: 10)
                             }
                             if editMode?.wrappedValue != .inactive{
                                 Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
@@ -51,19 +52,19 @@ struct SmallWidgetView: View {
                         
                         
                         Time(dateSetting: .date, a: false, is24Hour: is24Hour)
-                            .font(Font.system(size: 15, weight:.semibold, design:.rounded))
+                            .font(.custom(font.rawValue, size: 10))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
-                            .offset(x: 8, y: -8)
+                            .offset(x: 8)
 
                     }
-                    .padding(2)
+                    .padding(4)
                     .background(FuncForSmallWidgets.calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
                     .cornerRadius(10)
-                    .offset(y: 8)
+                    .offset(y: 10)
                     
                     HStack{
                         Time(dateSetting: .week, a: false, is24Hour: is24Hour)
-                            .font(Font.system(size: 30, weight:.medium, design: .default))
+                            .font(.custom(font.rawValue, size: 23))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                             .padding(3)
                             .background(FuncForSmallWidgets.calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
@@ -206,7 +207,7 @@ struct Kitty: View{
 
 struct SmallWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true, isWord: true, isBlur: true, isAllBlur: true, is24Hour: true)
+        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true, isWord: true, isBlur: true, isAllBlur: true, is24Hour: true, font: .font4)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

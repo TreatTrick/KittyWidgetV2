@@ -85,7 +85,7 @@ struct SmallSetting: View {
                     }
                     
                     Toggle(isOn: $isWord){
-                        Text("显示文字")
+                        Text("显示时间日期")
                     }
                     .onChange(of: isWord, perform: { value in
                         if value && self.basicData.isCustomWord{

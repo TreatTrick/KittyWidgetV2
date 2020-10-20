@@ -81,7 +81,7 @@ struct SmallWidgetView2: View {
                         .cornerRadius(10)
                         .padding(3)
                 }
-                if basicData.isCustomWord && basicData.customWord1 != ""{
+                if basicData.isCustomWord && basicData.customWord2 != ""{
                     Text(basicData.customWord2)
                         .font(.custom(font.rawValue, size: basicData.customFont2))
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)

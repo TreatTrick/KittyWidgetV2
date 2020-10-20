@@ -13,7 +13,8 @@ struct KittyWidgetApp: App {
     @StateObject var data = MyData()
     var body: some Scene {
         WindowGroup {
-            ContentView(is24Hour: data.is24Hour).environmentObject(data)  
+            ContentView(is24Hour: data.is24Hour, myColorScheme: data.myColorScheme).environmentObject(data)
+                .environment(\.colorScheme, data.slTheme(sc: data.myColorScheme))
         }
     }
 }

@@ -14,7 +14,8 @@ struct ContentView: View {
     @State var isEdit: EditMode = .inactive
     @State var is24Hour: Bool
     @EnvironmentObject var myData: MyData
-    @State var myColorScheme: MyColorScheme = .system
+    @State var myColorScheme: MyColorScheme
+    @State var isAbout: Bool = false
     
     var body: some View {
         NavigationView {
@@ -58,13 +59,33 @@ struct ContentView: View {
                             
                         }
                         Section{
-                            NavigationLink(destination: AboutView()){
-                                HStack{
-                                    Text("关于")
-                                    Image(systemName: "questionmark.circle.fill")
+                            HStack{
+                                Text("关于")
+                                Image(systemName: "questionmark.circle.fill")
+                                Spacer()
+                                Button(action: {self.isAbout.toggle()}){
+                                        Image(systemName: "chevron.forward")
+                                        .rotationEffect(.degrees(self.isAbout ? 90 : 0))
+                                }
+                            }
+                            
+                            if isAbout{
+                                VStack(alignment: .center){
+                                    HStack{
+                                        Spacer()
+                                        Image("kitty1-mini").imageScale(.small).padding(3)
+                                        Image("kitty2-mini").imageScale(.medium).padding(3)
+                                        Image("kitty3-mini").imageScale(.medium).padding(3)
+                                        Image("kitty4-mini").imageScale(.medium).padding(3)
+                                        Spacer()
+                                    }
+                                    Text("KittyWidget V1.0.0").font(.headline).padding()
+                                    Text("猫咪小插件 V1.0.0").font(.headline).padding()
+                                    Text("Developed by SORA").padding()
                                 }
                             }
                         }
+                        .animation(.easeInOut)
                     }
                 
                 .tabItem {
@@ -78,7 +99,7 @@ struct ContentView: View {
         .onOpenURL(perform: { url in
             UIApplication.shared.open(url)
         })
-        .environment(\.colorScheme, self.myData.slTheme(sc: self.myData.myColorScheme))
+        
     }
     
 
@@ -202,7 +223,7 @@ extension ContentView{
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView(is24Hour: true).environmentObject(MyData())
+            ContentView(is24Hour: true, myColorScheme: .system).environmentObject(MyData())
                 .environment(\.colorScheme, .dark)
         }
     }

@@ -15,6 +15,8 @@ class MyData: ObservableObject{
     //var isEdit = false
     var storedData: [StoredData] = []
     @Published var is24Hour: Bool = false
+    @Published var myColorScheme: MyColorScheme = .system
+    @Environment(\.colorScheme) var colorScheme
     static let context = CIContext()
 
     init(){
@@ -57,7 +59,9 @@ class MyData: ObservableObject{
                 print("storedData num \(storedData.count)")
             }
         }
-
+        if let loadColorScheme = UserDefaults.standard.string(forKey: UserDataKeys.myColorScheme){
+            myColorScheme = MyColorScheme(rawValue: loadColorScheme)!
+        }
         is24Hour = UserDefaults.standard.bool(forKey: UserDataKeys.is24Hour)
         
     }
@@ -75,21 +79,13 @@ class MyData: ObservableObject{
         return nil
     }
     
-    
-//    func syncData(completion:  @escaping  ()->Void ){
-//        DispatchQueue.global(qos: .default).async {
-//            self.storedData = []
-//            for data in self.dataStream{
-//                let background = data.background.pngData()!
-//                let kitty = data.kitty.pngData()!
-//                let sd = StoredData(background: background, display: .date, kitty: kitty)
-//                self.storedData.append(sd)
-//            }
-//            UserDefaults.standard.set(self.jsonData, forKey: UserDataKeys.storedData)
-//            completion()
-//        }
-//    }
-
+     func slTheme(sc: MyColorScheme) -> ColorScheme{
+        switch sc{
+        case .system: return colorScheme
+        case .myDark: return .dark
+        case .myLight: return .light
+        }
+    }
 }
 
 struct MyColor{
@@ -159,9 +155,16 @@ enum displayMode: String, Codable{
     case weekday = "weekday"
 }
 
+enum MyColorScheme: String, Codable{
+    case system = "跟随系统"
+    case myDark = "深色"
+    case myLight = "浅色"
+}
+
 struct UserDataKeys{
     static var storedData = "dataStream"
     static var is24Hour = "is24Hour"
+    static var myColorScheme = "myColorScheme"
 }
 
 struct Coefficients{

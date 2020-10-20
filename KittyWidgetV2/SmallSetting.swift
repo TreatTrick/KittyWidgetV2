@@ -11,6 +11,7 @@ import UIKit
 
 struct SmallSetting: View {
     @Environment(\.presentationMode) var navi
+    @Environment(\.colorScheme) var colorScheme
     @State var basicData: BasicData
     @EnvironmentObject var myData: MyData
     @State var isPicker = false
@@ -40,7 +41,15 @@ struct SmallSetting: View {
                 Spacer()
             }
             .padding()
-            .background(MyColor.backPurple)
+            .background(
+                Group{
+                    if self.myData.slTheme(sc: self.myData.myColorScheme) == .light{
+                        MyColor.backPurple
+                    } else {
+                        Color(hex: 0x1c1c1e)
+                    }
+                }
+            )
             
             Form{
                 Section(header: Text("喵咪")){
@@ -174,8 +183,8 @@ struct SmallSetting: View {
             
             ZStack{
                 Rectangle()
-                    .frame(width: 100, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    .foregroundColor(MyColor.blue.light)
+                    .frame(width: 100, height: 40)
+                    .foregroundColor(self.myData.slTheme(sc: self.myData.myColorScheme) == .dark ? Color(hex: 0x4548d) : MyColor.blue.light)
                     .cornerRadius(CGFloat(Coefficients.cornerRadius))
                 Text("确定")
                     .font(Font.system(size: 20, weight:.semibold, design: .default))
@@ -227,6 +236,7 @@ struct SmallSetting: View {
 struct SmallSetting_Previews: PreviewProvider {
     static var previews: some View {
         SmallSetting(basicData: BasicData(background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!), isKitty: true, selectedCircle: .blue, isWord: true,isBlur: true, isAllBlur: true, is24Hour: true, font: .font4)
+            .environment(\.colorScheme, .dark)
     }
 }
 
@@ -530,7 +540,6 @@ extension SmallSetting{
             HStack{
                 Button(action: {fontTapped(sf: .font1)}){
                     Text("字")
-                        .foregroundColor(.black)
                         .font(.custom(FontNames.font1.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -539,7 +548,6 @@ extension SmallSetting{
                 
                 Button(action: {fontTapped(sf: .font2)}){
                     Text("字")
-                        .foregroundColor(.black)
                         .font(.custom(FontNames.font2.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -548,7 +556,6 @@ extension SmallSetting{
                 
                 Button(action: {fontTapped(sf: .font3)}){
                     Text("字")
-                        .foregroundColor(.black)
                         .font(.custom(FontNames.font3.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -557,7 +564,6 @@ extension SmallSetting{
                 
                 Button(action: {fontTapped(sf: .font4)}){
                     Text("字")
-                        .foregroundColor(.black)
                         .font(.custom(FontNames.font4.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -566,7 +572,6 @@ extension SmallSetting{
                 
                 Button(action: {fontTapped(sf: .font5)}){
                     Text("字")
-                        .foregroundColor(.black)
                         .font(.custom(FontNames.font5.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -575,7 +580,6 @@ extension SmallSetting{
                 
                 Button(action: {fontTapped(sf: .font6)}){
                     Text("字")
-                        .foregroundColor(.black)
                         .font(.custom(FontNames.font6.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -584,7 +588,6 @@ extension SmallSetting{
                 
                 Button(action: {fontTapped(sf: .font7)}){
                     Text("字")
-                        .foregroundColor(.black)
                         .font(.custom(FontNames.font7.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -593,7 +596,6 @@ extension SmallSetting{
                 
                 Button(action: {fontTapped(sf: .font8)}){
                     Text("字")
-                        .foregroundColor(.black)
                         .font(.custom(FontNames.font8.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -602,7 +604,6 @@ extension SmallSetting{
                 
                 Button(action: {fontTapped(sf: .font9)}){
                     Text("字")
-                        .foregroundColor(.black)
                         .font(.custom(FontNames.font9.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -611,7 +612,6 @@ extension SmallSetting{
                 
                 Button(action: {fontTapped(sf: .font10)}){
                     Text("字")
-                        .foregroundColor(.black)
                         .font(.custom(FontNames.font10.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -619,6 +619,8 @@ extension SmallSetting{
                 .background(fontBack(self.font == .font10))
                 
             }
+            .foregroundColor(self.myData.slTheme(sc: self.myData.myColorScheme) == .dark ? .white : .black)
+            
         }
     }
     

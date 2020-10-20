@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
 		97016A5125394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
+		9756D526253F116C00F6B056 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756D525253F116C00F6B056 /* AboutView.swift */; };
 		9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771D1C1251FA60B004E1E15 /* SmallSetting.swift */; };
 		97996B2E253D9EB600835772 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
 		97996B2F253D9EB600835772 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
@@ -40,7 +41,6 @@
 		97996B4D253DB40D00835772 /* YanShiXiaXingKai-2.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B28253D9EB500835772 /* YanShiXiaXingKai-2.ttf */; };
 		97996B4E253DB40D00835772 /* YaoSuiXinShouXieTi-2.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */; };
 		97996B4F253DB40D00835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */; };
-		97B5C5A82526FA1A006E2D6B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B5C5A72526FA1A006E2D6B /* SettingView.swift */; };
 		97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */; };
 		97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3DB251F24F4003BF5DE /* ContentView.swift */; };
 		97C2A3E1251F24F6003BF5DE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A3E0251F24F6003BF5DE /* Preview Assets.xcassets */; };
@@ -102,6 +102,7 @@
 
 /* Begin PBXFileReference section */
 		97016A4F25394A5400C564CE /* SmallWidgetView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallWidgetView2.swift; sourceTree = "<group>"; };
+		9756D525253F116C00F6B056 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		9771D1C1251FA60B004E1E15 /* SmallSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallSetting.swift; sourceTree = "<group>"; };
 		97996B24253D9EB400835772 /* XianErTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XianErTi-2.ttf"; sourceTree = "<group>"; };
 		97996B25253D9EB400835772 /* QianTuXiaoTuTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "QianTuXiaoTuTi-2.ttf"; sourceTree = "<group>"; };
@@ -113,7 +114,6 @@
 		97996B2B253D9EB600835772 /* SourceHanSansCN-Bold-2.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSansCN-Bold-2.otf"; sourceTree = "<group>"; };
 		97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YaoSuiXinShouXieTi-2.ttf"; sourceTree = "<group>"; };
 		97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZhanKuKuaiLeTi2016XiuDingBan-1.ttf"; sourceTree = "<group>"; };
-		97B5C5A72526FA1A006E2D6B /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		97C2A3D6251F24F4003BF5DE /* KittyWidgetV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KittyWidgetV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KittyWidgetV2App.swift; sourceTree = "<group>"; };
 		97C2A3DB251F24F4003BF5DE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 				97C2A407251F2553003BF5DE /* SmallWidgetView.swift */,
 				9771D1C1251FA60B004E1E15 /* SmallSetting.swift */,
 				97016A4F25394A5400C564CE /* SmallWidgetView2.swift */,
-				97B5C5A72526FA1A006E2D6B /* SettingView.swift */,
+				9756D525253F116C00F6B056 /* AboutView.swift */,
 				97C2A411251F2560003BF5DE /* ImagePicker.swift */,
 				97C2A3DB251F24F4003BF5DE /* ContentView.swift */,
 				97C2A455251F2877003BF5DE /* Assets.xcassets */,
@@ -482,8 +482,8 @@
 				97C2A41F251F258F003BF5DE /* MyData.swift in Sources */,
 				97C2A408251F2553003BF5DE /* SmallWidgetView.swift in Sources */,
 				97C2A412251F2560003BF5DE /* ImagePicker.swift in Sources */,
-				97B5C5A82526FA1A006E2D6B /* SettingView.swift in Sources */,
 				9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */,
+				9756D526253F116C00F6B056 /* AboutView.swift in Sources */,
 				97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

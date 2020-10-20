@@ -14,6 +14,8 @@ struct ContentView: View {
     @State var isEdit: EditMode = .inactive
     @State var is24Hour: Bool
     @EnvironmentObject var myData: MyData
+    @State var myColorScheme: MyColorScheme = .system
+    
     var body: some View {
         NavigationView {
             TabView(selection: $tabSelection){
@@ -43,17 +45,24 @@ struct ContentView: View {
                                 self.myData.is24Hour = value
                                 UserDefaults.standard.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
                             }
-                            NavigationLink(destination: SettingView()){
-                                Text("主题选择")
-                            }
+                            Picker(selection: $myColorScheme, label: Text("主题选择"), content: {
+                                Text(MyColorScheme.system.rawValue).tag(MyColorScheme.system)
+                                Text(MyColorScheme.myDark.rawValue).tag(MyColorScheme.myDark)
+                                Text(MyColorScheme.myLight.rawValue).tag(MyColorScheme.myLight)
+                            })
+                            .onChange(of: myColorScheme, perform: { value in
+                                self.myData.myColorScheme = value
+                                UserDefaults.standard.set(self.myData.myColorScheme.rawValue, forKey: UserDataKeys.myColorScheme)
+                            })
+                                
+                            
                         }
                         Section{
-                            NavigationLink(destination: SettingView()){
+                            NavigationLink(destination: AboutView()){
                                 HStack{
                                     Text("关于")
                                     Image(systemName: "questionmark.circle.fill")
                                 }
-                                .foregroundColor(.black)
                             }
                         }
                     }
@@ -69,14 +78,20 @@ struct ContentView: View {
         .onOpenURL(perform: { url in
             UIApplication.shared.open(url)
         })
-        
+        .environment(\.colorScheme, self.myData.slTheme(sc: self.myData.myColorScheme))
     }
+    
+
     
     func naviBarTitle(tabSelection: Tabs) -> String {
         switch tabSelection{
         case .setting: return "设置"
         case .smallWidget: return "Widgets"
         }
+    }
+    
+    static func slTheme(cs: MyColorScheme){
+       
     }
     
     
@@ -120,7 +135,6 @@ struct ContentView: View {
     func addData(){
         let bd = BasicData(background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!)
         self.myData.dataStream.append(bd)
-        //self.myData.isEdit = true
         DispatchQueue.global(qos: .default).async {
             self.myData.storedData.append(StoredData())
             UserDefaults.standard.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
@@ -145,22 +159,6 @@ struct ContentView: View {
     }
     
     func doneFunc(){
-//        if self.myData.isEdit{
-//            self.myData.syncData{
-//                DispatchQueue.main.async {
-//                    self.isEdit = .inactive
-//                    self.myData.isEdit = false
-//                    for i in 0..<self.myData.dataStream.count{
-//                        self.myData.dataStream[i].isChecked = false
-//                    }
-//                }
-//            }
-//        } else{
-//            for i in 0..<self.myData.dataStream.count{
-//                self.myData.dataStream[i].isChecked = false
-//            }
-//            self.isEdit = .inactive
-//        }
         self.isEdit = .inactive
     }
 }
@@ -201,10 +199,11 @@ extension ContentView{
 
 
 //MARK: - preview
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            ContentView().environmentObject(MyData())
-//        }
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ContentView(is24Hour: true).environmentObject(MyData())
+                .environment(\.colorScheme, .dark)
+        }
+    }
+}

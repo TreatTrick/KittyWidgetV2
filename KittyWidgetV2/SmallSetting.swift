@@ -53,7 +53,6 @@ struct SmallSetting: View {
                         PureColorCluster
                     }
                 }
-                .animation(.easeInOut)
                 
                 Section(header: Text("字体设置")){
                     CircleCluster
@@ -194,6 +193,11 @@ struct SmallSetting: View {
                 self.myData.dataStream[ind2].isAllBlur = self.isAllBlur
                 self.myData.dataStream[ind2].font = self.font
                 self.myData.dataStream[ind2].url = self.basicData.url
+                self.myData.dataStream[ind2].isCustomWord = self.basicData.isCustomWord
+                self.myData.dataStream[ind2].customWord1 = self.basicData.customWord1
+                self.myData.dataStream[ind2].customWord2 = self.basicData.customWord2
+                self.myData.dataStream[ind2].customFont1 = self.basicData.customFont1
+                self.myData.dataStream[ind2].customFont2 = self.basicData.customFont2
                 self.navi.wrappedValue.dismiss()
                 DispatchQueue.global(qos:.default).async{
                     self.myData.storedData[ind2].kitty = self.basicData.kitty.pngData()!
@@ -206,12 +210,16 @@ struct SmallSetting: View {
                     self.myData.storedData[ind2].isAllBlur = self.isAllBlur
                     self.myData.storedData[ind2].font = self.font
                     self.myData.storedData[ind2].url = self.basicData.url
+                    self.myData.storedData[ind2].customWord1 = self.basicData.customWord1
+                    self.myData.storedData[ind2].customWord2 = self.basicData.customWord2
+                    self.myData.storedData[ind2].customFont1 = self.basicData.customFont1
+                    self.myData.storedData[ind2].customFont2 = self.basicData.customFont2
                     UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
                 }
             }
             
         }
-        
+        .animation(.easeInOut)
     }
 }
 

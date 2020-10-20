@@ -128,15 +128,20 @@ struct ContentView: View {
     }
     
     func delData(){
-        while  let ind = self.myData.dataStream.firstIndex(where: {$0.isChecked == true}){
-            self.myData.dataStream.remove(at: ind)
-            DispatchQueue.global(qos: .default).async {
-                self.myData.storedData.remove(at: ind)
-                UserDefaults.standard.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
+        var id: [UUID] = []
+        for data in self.myData.dataStream{
+            if data.isChecked{
+                id.append(data.id)
             }
         }
-        
-        //self.myData.isEdit = true
+        for i in id{
+            let ind = self.myData.dataStream.firstIndex(where: {$0.id == i})!
+            self.myData.dataStream.remove(at: ind)
+            self.myData.storedData.remove(at: ind)
+        }
+        DispatchQueue.global(qos: .default).async {
+            UserDefaults.standard.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
+        }
     }
     
     func doneFunc(){

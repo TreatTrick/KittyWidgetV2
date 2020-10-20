@@ -45,6 +45,7 @@ struct ImagePicker: UIViewControllerRepresentable{
      
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 parent.basicData.background = image
+                parent.basicData.blurBackground = MyData.blurImage(usingImage: image.resized(withPercentage: 0.5)!, blurAmount: 10)!
             }
             parent.sheet.wrappedValue.dismiss()
         }

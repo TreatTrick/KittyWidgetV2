@@ -54,7 +54,7 @@ struct SmallWidgetView: View {
                         Time(dateSetting: .date, a: false, is24Hour: is24Hour)
                             .font(.custom(font.rawValue, size: 10))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
-                            .offset(x: 8)
+                            .offset(x: 5)
 
                     }
                     .padding(4)

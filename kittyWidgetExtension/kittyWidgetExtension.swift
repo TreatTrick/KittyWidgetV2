@@ -46,6 +46,7 @@ struct kittyWidgetExtensionEntryView : View {
 
     var body: some View {
         SmallWidgetView2(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: true, font: entry.basicData.font)
+            .widgetURL(URL(string: "OpenedApp://")!)
     }
 }
 

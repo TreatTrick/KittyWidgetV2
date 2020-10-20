@@ -33,7 +33,12 @@ class MyData: ObservableObject{
                     let isBlur = data.isBlur
                     let isAllBlur = data.isAllBlur
                     let font = data.font
-                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font)
+                    let url = data.url
+                    let customWord1 = data.customWord1
+                    let customWord2 = data.customWord2
+                    let customFont1 = data.customFont1
+                    let customFont2 = data.customFont2
+                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2)
                     self.dataStream.append(bd)
                 }
             } catch let error as Error?{
@@ -41,7 +46,7 @@ class MyData: ObservableObject{
             }
         } else {
             for i in 0..<4{
-                let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!, blurAmount: 10)!
+                let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!)!
                 let basicData = BasicData(background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack)
                 dataStream.append(basicData)
                 let background = UIImage(named: "img" + String(i+1))!.pngData()!
@@ -57,7 +62,7 @@ class MyData: ObservableObject{
         
     }
     
-    static func blurImage(usingImage image: UIImage, blurAmount: CGFloat) -> UIImage?{
+    static func blurImage(usingImage image: UIImage, blurAmount: CGFloat = 15) -> UIImage?{
         guard let ciImg = CIImage(image: image) else { return nil }
         let inputImg: CIImage = ciImg.clampedToExtent()
         let blur = CIFilter(name: "CIGaussianBlur", parameters: [kCIInputRadiusKey: blurAmount, kCIInputImageKey: inputImg])!
@@ -115,9 +120,15 @@ struct ColorSeries{
     var fontColor: FontColor = .blue
     var isWord: Bool = true
     var isBlur: Bool = true
-    var blurBackground: Data = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!, blurAmount: 20)!.pngData()!
+    var blurBackground: Data = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!.pngData()!
     var isAllBlur: Bool = false
     var font: FontNames = .font4
+    var url: String = ""
+    var isCustomWord = false
+    var customWord1 = ""
+    var customWord2 = ""
+    var customFont1: CGFloat = 25
+    var customFont2: CGFloat = 15
 }
 
 struct BasicData:Hashable{
@@ -130,9 +141,15 @@ struct BasicData:Hashable{
     var fontColor: FontColor = .blue
     var isWord: Bool = true
     var isBlur: Bool = true
-    var blurBackground: UIImage = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+    var blurBackground: UIImage = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!
     var isAllBlur: Bool = false
     var font: FontNames = .font4
+    var url: String = ""
+    var isCustomWord = false
+    var customWord1 = ""
+    var customWord2 = ""
+    var customFont1: CGFloat = 25
+    var customFont2: CGFloat = 15
 }
 
 enum displayMode: String, Codable{

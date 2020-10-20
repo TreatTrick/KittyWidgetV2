@@ -66,6 +66,9 @@ struct ContentView: View {
             .navigationBarTitle(naviBarTitle(tabSelection: self.tabSelection), displayMode: .automatic)
             .navigationBarItems(trailing: EditMode)
         }
+        .onOpenURL(perform: { url in
+            UIApplication.shared.open(url)
+        })
         
     }
     

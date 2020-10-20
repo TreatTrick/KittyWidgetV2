@@ -20,7 +20,7 @@ struct SmallWidgetView2: View {
 
     var body: some View {
             ZStack(alignment: .bottomTrailing){
-                if isWord {
+                if isWord{
                     VStack(alignment:.center){
                         VStack(alignment: .leading){
                                 HStack{
@@ -63,22 +63,44 @@ struct SmallWidgetView2: View {
                                     .cornerRadius(10)
                                     .offset(y: 5)
                             
+//                            if isKitty{
+//                                Kitty(uiImage: basicData.kitty)
+//                                    .frame(width: 70, height:100)
+//                            }
+                        }
+                        .padding(.bottom)
+                    }
+                    .animation(.easeInOut)
+                } else {
+                    VStack{
+                        if basicData.isCustomWord{
+                            Text(basicData.customWord1)
+                                .font(.custom(font.rawValue, size: basicData.customFont1))
+                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                .padding(4)
+                                .background(FuncForSmallWidgets.calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
+                                .cornerRadius(10)
+                                .offset(y: 10)
+                        }
+                        Spacer()
+                        HStack{
+                            if basicData.isCustomWord{
+                                Text(basicData.customWord2)
+                                    .font(.custom(font.rawValue, size: basicData.customFont2))
+                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                    .padding(3)
+                                    .background(FuncForSmallWidgets.calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
+                                    .cornerRadius(10)
+                                    .offset(y: 5)
+                                Spacer()
+                            }
                             if isKitty{
                                 Kitty(uiImage: basicData.kitty)
                                     .frame(width: 70, height:100)
                             }
                         }
-                        .padding(.bottom)
                     }
-                } else {
-                    VStack{
-                        Spacer()
-                        if isKitty{
-                            Kitty(uiImage: basicData.kitty)
-                                .frame(width: 70, height:100)
-                        }
-                    }
-                }
+               }
                 
             }
             .frame(width: 170, height: 170)

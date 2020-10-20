@@ -23,6 +23,7 @@ struct SmallSetting: View {
     @State var isAllBlur: Bool
     var is24Hour: Bool
     @State var font: FontNames
+    @State var customURL: String = ""
     
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
@@ -74,10 +75,15 @@ struct SmallSetting: View {
                     Toggle(isOn: $isKitty){
                         Text("显示猫咪")
                     }
-                  
+                    
                     Toggle(isOn: $isWord){
                         Text("显示文字")
                     }
+                    .onChange(of: isWord, perform: { value in
+                        if value && self.basicData.isCustomWord{
+                            self.basicData.isCustomWord = false
+                        }
+                    })
                     
                     Toggle(isOn: $isBlur){
                         Text("模糊文字背景")
@@ -87,6 +93,83 @@ struct SmallSetting: View {
                         Text("模糊背景")
                     }
                     
+                    Toggle(isOn: $basicData.isCustomWord){
+                        Text("自定义文字")
+                    }
+                    .onChange(of: basicData.isCustomWord, perform: { value in
+                        if value && self.isWord{
+                            self.isWord = false
+                        }
+                    })
+                }
+                
+                if basicData.isCustomWord{
+                    Section(header:
+                                HStack{
+                                    Spacer()
+                                    Image(systemName: "chevron.forward")
+                                        .rotationEffect(.degrees(90))
+                                    Spacer()
+                                }
+                    ){
+                        HStack{
+                            TextField("第一行", text: $basicData.customWord1)
+                            Button("确定"){
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                            }
+                            .buttonStyle(BorderlessButtonStyle())
+                        }
+                        
+                        HStack{
+                            Stepper("自定义第一行字体大小：" + String(Int(self.basicData.customFont1)), onIncrement:{self.basicData.customFont1 += 1},
+                                    onDecrement:{
+                                        self.basicData.customFont1 -= 1
+                                        if self.basicData.customFont1 < 0 {
+                                            self.basicData.customFont1 = 0
+                                        }
+                                    })
+                        }
+                        
+                        HStack{
+                            TextField("第二行", text: $basicData.customWord2)
+                            Button("确定"){
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                            }
+                            .buttonStyle(BorderlessButtonStyle())
+                        }
+                        
+                        HStack{
+                            Stepper("自定义第二行字体大小：" + String(Int(self.basicData.customFont2)), onIncrement:{self.basicData.customFont2 += 1},
+                                    onDecrement:{
+                                        self.basicData.customFont2 -= 1
+                                        if self.basicData.customFont2 < 0 {
+                                            self.basicData.customFont2 = 0
+                                        }
+                                    })
+                        }
+                    }
+                }
+                
+                Section{
+                    Picker( "小插件对应快捷方式", selection: $basicData.url,content: {
+                        Text("未选择").tag("")
+                        Text("微信扫一扫").tag("weixin://scanqrcode")
+                        Text("支付宝扫一扫").tag("alipayqr://platformapi/startapp?saId=10000007")
+                        Text("支付宝收款码").tag("alipays://platformapi/startapp?appId=20000123")
+                        Text("支付宝付款码").tag("alipay://platformapi/startapp?appId=20000056")
+                        Text("支付宝滴滴").tag("alipay://platformapi/startapp?appId=20000778")
+                        Text("支付宝蚂蚁森林") .tag("alipay://platformapi/startapp?appId=60000002")
+                        Text("网易云音乐听歌识曲").tag("orpheuswidget://recognize")
+                        Text("网易云音乐下载音乐").tag("orpheuswidget://download")
+                    })
+                    HStack{
+                        TextField("自定义URLScheme快捷方式", text: $customURL)
+                        Button("确定"){
+                            self.basicData.url = self.customURL
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
+                    }
                 }
             }
             
@@ -103,22 +186,26 @@ struct SmallSetting: View {
                 let ind2 = ind
                 self.myData.dataStream[ind2].kitty = self.basicData.kitty
                 self.myData.dataStream[ind2].background = self.basicData.background
+                self.myData.dataStream[ind2].blurBackground = self.basicData.blurBackground
                 self.myData.dataStream[ind2].fontColor = self.basicData.fontColor
                 self.myData.dataStream[ind2].isKitty = self.isKitty
                 self.myData.dataStream[ind2].isWord = self.isWord
                 self.myData.dataStream[ind2].isBlur = self.isBlur
                 self.myData.dataStream[ind2].isAllBlur = self.isAllBlur
                 self.myData.dataStream[ind2].font = self.font
+                self.myData.dataStream[ind2].url = self.basicData.url
                 self.navi.wrappedValue.dismiss()
                 DispatchQueue.global(qos:.default).async{
                     self.myData.storedData[ind2].kitty = self.basicData.kitty.pngData()!
                     self.myData.storedData[ind2].background = self.basicData.background.pngData()!
+                    self.myData.storedData[ind2].blurBackground = self.basicData.blurBackground.pngData()!
                     self.myData.storedData[ind2].fontColor = self.basicData.fontColor
                     self.myData.storedData[ind2].isKitty = self.isKitty
                     self.myData.storedData[ind2].isWord = self.isWord
                     self.myData.storedData[ind2].isBlur = self.isBlur
                     self.myData.storedData[ind2].isAllBlur = self.isAllBlur
                     self.myData.storedData[ind2].font = self.font
+                    self.myData.storedData[ind2].url = self.basicData.url
                     UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
                 }
             }
@@ -144,7 +231,7 @@ extension SmallSetting{
     
     func backgroundTapped(num: Int){
         self.basicData.background = UIImage(named: "img" + String(num))!
-        self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img" + String(num))!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+        self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img" + String(num))!.resized(withPercentage: 0.5)!)!
     }
     
     func circleTapped(sc: FontColor){
@@ -157,34 +244,34 @@ extension SmallSetting{
         switch sc{
         case .blue:
             self.basicData.background = UIImage(named: "img7")!
-            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img7")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img7")!.resized(withPercentage: 0.5)!)!
         case .red:
             self.basicData.background = UIImage(named: "img8")!
-            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img8")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img8")!.resized(withPercentage: 0.5)!)!
         case .green:
             self.basicData.background = UIImage(named: "img9")!
-            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img9")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img9")!.resized(withPercentage: 0.5)!)!
         case .yellow:
             self.basicData.background = UIImage(named: "img10")!
-            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img10")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img10")!.resized(withPercentage: 0.5)!)!
         case .orange:
             self.basicData.background = UIImage(named: "img11")!
-            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img11")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img11")!.resized(withPercentage: 0.5)!)!
         case .purple:
             self.basicData.background = UIImage(named: "img12")!
-            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img12")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img12")!.resized(withPercentage: 0.5)!)!
         case .cyan:
             self.basicData.background = UIImage(named: "img13")!
-            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img13")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img13")!.resized(withPercentage: 0.5)!)!
         case .white:
             self.basicData.background = UIImage(named: "img5")!
-            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img5")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img5")!.resized(withPercentage: 0.5)!)!
         case .black:
             self.basicData.background = UIImage(named: "img6")!
-            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img6")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img6")!.resized(withPercentage: 0.5)!)!
         case .none:
             self.basicData.background = UIImage(named: "img1")!
-            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!, blurAmount: 20)!
+            self.basicData.blurBackground = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!
         }
     }
     
@@ -197,7 +284,7 @@ extension SmallSetting{
             if selected{
                 RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(.blue)
             } else {
-                 EmptyView()
+                EmptyView()
             }
         }
     }
@@ -248,7 +335,7 @@ extension SmallSetting{
             Button(action: {backgroundTapped(num: 1)}){
                 Image("img1" + mini)
                     .resizable()
-                    .frame(width: 40, height: 70)
+                    .frame(width: 40, height: 40)
             }
             .buttonStyle(BorderlessButtonStyle())
             
@@ -257,7 +344,7 @@ extension SmallSetting{
             Button(action: {backgroundTapped(num: 2)}) {
                 Image("img2" + mini)
                     .resizable()
-                    .frame(width: 40, height: 70)
+                    .frame(width: 40, height: 40)
                 
             }
             .buttonStyle(BorderlessButtonStyle())
@@ -267,7 +354,7 @@ extension SmallSetting{
             Button(action: {backgroundTapped(num: 3)}) {
                 Image("img3" + mini)
                     .resizable()
-                    .frame(width: 40, height: 70)
+                    .frame(width: 40, height: 40)
             }
             .buttonStyle(BorderlessButtonStyle())
             
@@ -276,7 +363,7 @@ extension SmallSetting{
             Button(action: {backgroundTapped(num: 4)}) {
                 Image("img4" + mini)
                     .resizable()
-                    .frame(width: 40, height: 70)
+                    .frame(width: 40, height: 40)
             }
             .buttonStyle(BorderlessButtonStyle())
             
@@ -434,98 +521,99 @@ extension SmallSetting{
         ScrollView(.horizontal) {
             HStack{
                 Button(action: {fontTapped(sf: .font1)}){
-                Text("字")
-                    .foregroundColor(.black)
-                    .font(.custom(FontNames.font1.rawValue, size: 30))
+                    Text("字")
+                        .foregroundColor(.black)
+                        .font(.custom(FontNames.font1.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(2)
                 .background(fontBack(self.font == .font1))
                 
                 Button(action: {fontTapped(sf: .font2)}){
-                Text("字")
-                    .foregroundColor(.black)
-                    .font(.custom(FontNames.font2.rawValue, size: 30))
+                    Text("字")
+                        .foregroundColor(.black)
+                        .font(.custom(FontNames.font2.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(2)
                 .background(fontBack(self.font == .font2))
-
+                
                 Button(action: {fontTapped(sf: .font3)}){
-                Text("字")
-                    .foregroundColor(.black)
-                    .font(.custom(FontNames.font3.rawValue, size: 30))
+                    Text("字")
+                        .foregroundColor(.black)
+                        .font(.custom(FontNames.font3.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(2)
                 .background(fontBack(self.font == .font3))
-
+                
                 Button(action: {fontTapped(sf: .font4)}){
-                Text("字")
-                    .foregroundColor(.black)
-                    .font(.custom(FontNames.font4.rawValue, size: 30))
+                    Text("字")
+                        .foregroundColor(.black)
+                        .font(.custom(FontNames.font4.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(2)
                 .background(fontBack(self.font == .font4))
-
+                
                 Button(action: {fontTapped(sf: .font5)}){
-                Text("字")
-                    .foregroundColor(.black)
-                    .font(.custom(FontNames.font5.rawValue, size: 30))
+                    Text("字")
+                        .foregroundColor(.black)
+                        .font(.custom(FontNames.font5.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(2)
                 .background(fontBack(self.font == .font5))
-
+                
                 Button(action: {fontTapped(sf: .font6)}){
-                Text("字")
-                    .foregroundColor(.black)
-                    .font(.custom(FontNames.font6.rawValue, size: 30))
+                    Text("字")
+                        .foregroundColor(.black)
+                        .font(.custom(FontNames.font6.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(2)
                 .background(fontBack(self.font == .font6))
-
+                
                 Button(action: {fontTapped(sf: .font7)}){
-                Text("字")
-                    .foregroundColor(.black)
-                    .font(.custom(FontNames.font7.rawValue, size: 30))
+                    Text("字")
+                        .foregroundColor(.black)
+                        .font(.custom(FontNames.font7.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(2)
                 .background(fontBack(self.font == .font7))
-
+                
                 Button(action: {fontTapped(sf: .font8)}){
-                Text("字")
-                    .foregroundColor(.black)
-                    .font(.custom(FontNames.font8.rawValue, size: 30))
+                    Text("字")
+                        .foregroundColor(.black)
+                        .font(.custom(FontNames.font8.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(2)
                 .background(fontBack(self.font == .font8))
                 
                 Button(action: {fontTapped(sf: .font9)}){
-                Text("字")
-                    .foregroundColor(.black)
-                    .font(.custom(FontNames.font9.rawValue, size: 30))
+                    Text("字")
+                        .foregroundColor(.black)
+                        .font(.custom(FontNames.font9.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(2)
                 .background(fontBack(self.font == .font9))
                 
                 Button(action: {fontTapped(sf: .font10)}){
-                Text("字")
-                    .foregroundColor(.black)
-                    .font(.custom(FontNames.font10.rawValue, size: 30))
+                    Text("字")
+                        .foregroundColor(.black)
+                        .font(.custom(FontNames.font10.rawValue, size: 30))
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(2)
                 .background(fontBack(self.font == .font10))
-
+                
             }
         }
     }
+    
 }
 
 

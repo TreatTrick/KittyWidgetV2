@@ -19,7 +19,6 @@ struct SmallWidgetView2: View {
     var font: FontNames
     
     var body: some View {
-        //            ZStack(alignment: .bottomTrailing){
         VStack(alignment:.center){
             Group{
                 if isWord{
@@ -136,7 +135,7 @@ struct SmallWidgetView2: View {
 
 struct SmallWidgetView2_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView2(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!), isKitty: true, isWord: true, isBlur: true, isAllBlur: false, is24Hour: false, font: .font4)
+        SmallWidgetView2(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!, name: "widget 1"), isKitty: true, isWord: true, isBlur: true, isAllBlur: false, is24Hour: false, font: .font4)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

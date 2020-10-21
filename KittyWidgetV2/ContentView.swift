@@ -16,8 +16,11 @@ struct ContentView: View {
     @EnvironmentObject var myData: MyData
     @State var myColorScheme: MyColorScheme
     @State var isAbout: Bool = false
-    
+    @State var reName: String = ""
+    @State var isReName = false
+    @State var id = UUID()
     var body: some View {
+        ZStack{
         NavigationView {
             TabView(selection: $tabSelection){
                 ZStack{
@@ -25,7 +28,7 @@ struct ContentView: View {
                         if isEdit == .active{
                             EditButtons
                         }
-                        SmallWidgetGrid(dataStream: $myData.dataStream, isEdit: $isEdit)
+                        SmallWidgetGrid(dataStream: $myData.dataStream, isEdit: $isEdit, id: $id, isReName: $isReName)
                             .padding()
                     }
                     
@@ -99,10 +102,54 @@ struct ContentView: View {
         .onOpenURL(perform: { url in
             UIApplication.shared.open(url)
         })
-        
+            if isReName{
+                ReNameView
+            }
+        }
     }
     
-    
+    var ReNameView: some View{
+        Group{
+            Color(.gray).opacity(0.4)
+                VStack(alignment: .center){
+                    Text(self.myData.dataStream.first(where: {$0.id == self.id})!.name)
+                        .padding(10)
+                        .offset(x:-90 ,y: 15)
+                    TextField("请输入新的widget名字：", text: $reName)
+                        .padding()
+                    HStack{
+                        Button("取消"){
+                            self.isReName = false
+                        }
+                        .font(.title2)
+                        .padding(40)
+                        .foregroundColor(.red)
+                        .offset(y: 20)
+                        
+                        Button("确定"){
+                            if reName != "" {
+                                let ind = self.myData.dataStream.firstIndex(where: { $0.id == self.id})!
+                                self.myData.dataStream[ind].name = reName
+                                self.myData.dataStream[ind].isRename = true
+                                self.myData.storedData[ind].name = reName
+                                self.myData.storedData[ind].isRename = true
+                                DispatchQueue.global(qos: .default).async {
+                                    UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
+                                }
+                            }
+                            self.reName = ""
+                            self.isReName = false
+                        }
+                        .font(.title2)
+                        .padding(40)
+                        .offset(y: 20)
+                    }
+            }
+                .frame(width: 300, height: 200, alignment: .center)
+                .background(self.myData.slTheme(sc: self.myData.myColorScheme) == .dark ? Color(.black) : Color(.white))
+                .cornerRadius(25)
+        }
+    }
     
     func naviBarTitle(tabSelection: Tabs) -> String {
         switch tabSelection{
@@ -123,6 +170,10 @@ struct ContentView: View {
             }
             .padding(.leading, 32)
             Spacer()
+            Text("点击widget名字可重命名")
+                .font(.body)
+                .opacity(0.6)
+            Spacer()
             Button(action: { self.delData() }){
                 Image(systemName: "trash.fill")
                     .foregroundColor(.red)
@@ -138,11 +189,11 @@ struct ContentView: View {
             if self.tabSelection == .smallWidget{
                 if isEdit == .active{
                     Button(action: { doneFunc() } ) {
-                        Text("Done")
+                        Text("完成")
                     }
                 } else {
                     Button(action: { self.isEdit = .active } ) {
-                        Text("edit")
+                        Text("编辑")
                     }
                 }
             } else {
@@ -154,10 +205,19 @@ struct ContentView: View {
     
     
     func addData(){
-        let bd = BasicData(background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!)
+        var i = 1
+        for data in self.myData.dataStream{
+            if !data.isRename{
+                let maxNum = Int(data.name.split(separator: " ")[1])!
+                if  maxNum > i{
+                    i = maxNum
+                }
+            }
+        }
+        let bd = BasicData(background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!, name: "widget " + String(i))
         self.myData.dataStream.append(bd)
         DispatchQueue.global(qos: .default).async {
-            self.myData.storedData.append(StoredData())
+            self.myData.storedData.append(StoredData(name: "widget " + String(i)))
             UserDefaults.standard.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
         }
     }
@@ -193,17 +253,28 @@ struct SmallWidgetGrid: View{
     @State var destination = false
     @Binding var dataStream: [BasicData]
     @Binding var isEdit: EditMode
+    @Binding var id: UUID
+    @Binding var isReName: Bool
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var body: some View{
-        ScrollView(.vertical){
-            LazyVGrid(columns: columns){
-                ForEach(dataStream, id: \.self){ basicData in
-                    NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)){
-                        SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)
+            ScrollView(.vertical){
+                 LazyVGrid(columns: columns){
+                    ForEach(dataStream, id: \.self){ basicData in
+                        VStack(alignment: .center){
+                            NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)){
+                                SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)
+                            }
+                            Text(basicData.name)
+                                .onTapGesture {
+                                    if isEdit != .inactive{
+                                        self.isReName = true
+                                        self.id = basicData.id
+                                    }
+                                }
+                        }
                     }
                 }
             }
-        }
     }
 }
 
@@ -224,7 +295,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ContentView(is24Hour: true, myColorScheme: .system).environmentObject(MyData())
-                .environment(\.colorScheme, .dark)
+                .environment(\.colorScheme, .light)
         }
     }
 }

@@ -40,6 +40,12 @@
 		97996B4D253DB40D00835772 /* YanShiXiaXingKai-2.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B28253D9EB500835772 /* YanShiXiaXingKai-2.ttf */; };
 		97996B4E253DB40D00835772 /* YaoSuiXinShouXieTi-2.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */; };
 		97996B4F253DB40D00835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */; };
+		97B3D32A25407F8500F6052D /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B3D32925407F8500F6052D /* IntentHandler.swift */; };
+		97B3D33225407F8500F6052D /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B3D33125407F8500F6052D /* IntentsUI.framework */; };
+		97B3D33525407F8500F6052D /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B3D33425407F8500F6052D /* IntentViewController.swift */; };
+		97B3D33825407F8500F6052D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97B3D33625407F8500F6052D /* MainInterface.storyboard */; };
+		97B3D33C25407F8500F6052D /* DynamicKittyWidgetExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 97B3D33025407F8500F6052D /* DynamicKittyWidgetExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		97B3D33F25407F8500F6052D /* DynamicKittyWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 97B3D32725407F8500F6052D /* DynamicKittyWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */; };
 		97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3DB251F24F4003BF5DE /* ContentView.swift */; };
 		97C2A3E1251F24F6003BF5DE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A3E0251F24F6003BF5DE /* Preview Assets.xcassets */; };
@@ -62,6 +68,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		97B3D33A25407F8500F6052D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C2A3CE251F24F4003BF5DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97B3D32F25407F8500F6052D;
+			remoteInfo = DynamicKittyWidgetExtensionUI;
+		};
+		97B3D33D25407F8500F6052D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C2A3CE251F24F4003BF5DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97B3D32625407F8500F6052D;
+			remoteInfo = DynamicKittyWidgetExtension;
+		};
 		97C2A3E8251F24F7003BF5DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97C2A3CE251F24F4003BF5DE /* Project object */;
@@ -92,6 +112,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				97B3D33C25407F8500F6052D /* DynamicKittyWidgetExtensionUI.appex in Embed App Extensions */,
+				97B3D33F25407F8500F6052D /* DynamicKittyWidgetExtension.appex in Embed App Extensions */,
 				97C2A43B251F2609003BF5DE /* kittyWidgetExtensionExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -112,6 +134,14 @@
 		97996B2B253D9EB600835772 /* SourceHanSansCN-Bold-2.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSansCN-Bold-2.otf"; sourceTree = "<group>"; };
 		97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YaoSuiXinShouXieTi-2.ttf"; sourceTree = "<group>"; };
 		97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZhanKuKuaiLeTi2016XiuDingBan-1.ttf"; sourceTree = "<group>"; };
+		97B3D32725407F8500F6052D /* DynamicKittyWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DynamicKittyWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		97B3D32925407F8500F6052D /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		97B3D32B25407F8500F6052D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97B3D33025407F8500F6052D /* DynamicKittyWidgetExtensionUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DynamicKittyWidgetExtensionUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		97B3D33125407F8500F6052D /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		97B3D33425407F8500F6052D /* IntentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentViewController.swift; sourceTree = "<group>"; };
+		97B3D33725407F8500F6052D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		97B3D33925407F8500F6052D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97C2A3D6251F24F4003BF5DE /* KittyWidgetV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KittyWidgetV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KittyWidgetV2App.swift; sourceTree = "<group>"; };
 		97C2A3DB251F24F4003BF5DE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -137,6 +167,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		97B3D32425407F8500F6052D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97B3D32D25407F8500F6052D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97B3D33225407F8500F6052D /* IntentsUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C2A3D3251F24F4003BF5DE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -187,6 +232,25 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		97B3D32825407F8500F6052D /* DynamicKittyWidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				97B3D32925407F8500F6052D /* IntentHandler.swift */,
+				97B3D32B25407F8500F6052D /* Info.plist */,
+			);
+			path = DynamicKittyWidgetExtension;
+			sourceTree = "<group>";
+		};
+		97B3D33325407F8500F6052D /* DynamicKittyWidgetExtensionUI */ = {
+			isa = PBXGroup;
+			children = (
+				97B3D33425407F8500F6052D /* IntentViewController.swift */,
+				97B3D33625407F8500F6052D /* MainInterface.storyboard */,
+				97B3D33925407F8500F6052D /* Info.plist */,
+			);
+			path = DynamicKittyWidgetExtensionUI;
+			sourceTree = "<group>";
+		};
 		97C2A3CD251F24F4003BF5DE = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +260,8 @@
 				97C2A3EA251F24F7003BF5DE /* KittyWidgetV2Tests */,
 				97C2A3F5251F24F7003BF5DE /* KittyWidgetV2UITests */,
 				97C2A430251F2608003BF5DE /* kittyWidgetExtension */,
+				97B3D32825407F8500F6052D /* DynamicKittyWidgetExtension */,
+				97B3D33325407F8500F6052D /* DynamicKittyWidgetExtensionUI */,
 				97C2A42B251F2608003BF5DE /* Frameworks */,
 				97C2A3D7251F24F4003BF5DE /* Products */,
 			);
@@ -208,6 +274,8 @@
 				97C2A3E7251F24F7003BF5DE /* KittyWidgetV2Tests.xctest */,
 				97C2A3F2251F24F7003BF5DE /* KittyWidgetV2UITests.xctest */,
 				97C2A42A251F2608003BF5DE /* kittyWidgetExtensionExtension.appex */,
+				97B3D32725407F8500F6052D /* DynamicKittyWidgetExtension.appex */,
+				97B3D33025407F8500F6052D /* DynamicKittyWidgetExtensionUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,6 +327,7 @@
 			children = (
 				97C2A42C251F2608003BF5DE /* WidgetKit.framework */,
 				97C2A42E251F2608003BF5DE /* SwiftUI.framework */,
+				97B3D33125407F8500F6052D /* IntentsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -285,6 +354,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		97B3D32625407F8500F6052D /* DynamicKittyWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 97B3D34525407F8500F6052D /* Build configuration list for PBXNativeTarget "DynamicKittyWidgetExtension" */;
+			buildPhases = (
+				97B3D32325407F8500F6052D /* Sources */,
+				97B3D32425407F8500F6052D /* Frameworks */,
+				97B3D32525407F8500F6052D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DynamicKittyWidgetExtension;
+			productName = DynamicKittyWidgetExtension;
+			productReference = 97B3D32725407F8500F6052D /* DynamicKittyWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		97B3D32F25407F8500F6052D /* DynamicKittyWidgetExtensionUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 97B3D34425407F8500F6052D /* Build configuration list for PBXNativeTarget "DynamicKittyWidgetExtensionUI" */;
+			buildPhases = (
+				97B3D32C25407F8500F6052D /* Sources */,
+				97B3D32D25407F8500F6052D /* Frameworks */,
+				97B3D32E25407F8500F6052D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DynamicKittyWidgetExtensionUI;
+			productName = DynamicKittyWidgetExtensionUI;
+			productReference = 97B3D33025407F8500F6052D /* DynamicKittyWidgetExtensionUI.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		97C2A3D5251F24F4003BF5DE /* KittyWidgetV2 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C2A3FB251F24F7003BF5DE /* Build configuration list for PBXNativeTarget "KittyWidgetV2" */;
@@ -298,6 +401,8 @@
 			);
 			dependencies = (
 				97C2A43A251F2609003BF5DE /* PBXTargetDependency */,
+				97B3D33B25407F8500F6052D /* PBXTargetDependency */,
+				97B3D33E25407F8500F6052D /* PBXTargetDependency */,
 			);
 			name = KittyWidgetV2;
 			productName = KittyWidgetV2;
@@ -363,9 +468,15 @@
 		97C2A3CE251F24F4003BF5DE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1210;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
+					97B3D32625407F8500F6052D = {
+						CreatedOnToolsVersion = 12.1;
+					};
+					97B3D32F25407F8500F6052D = {
+						CreatedOnToolsVersion = 12.1;
+					};
 					97C2A3D5251F24F4003BF5DE = {
 						CreatedOnToolsVersion = 12.0.1;
 					};
@@ -399,11 +510,28 @@
 				97C2A3E6251F24F7003BF5DE /* KittyWidgetV2Tests */,
 				97C2A3F1251F24F7003BF5DE /* KittyWidgetV2UITests */,
 				97C2A429251F2608003BF5DE /* kittyWidgetExtensionExtension */,
+				97B3D32625407F8500F6052D /* DynamicKittyWidgetExtension */,
+				97B3D32F25407F8500F6052D /* DynamicKittyWidgetExtensionUI */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		97B3D32525407F8500F6052D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97B3D32E25407F8500F6052D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97B3D33825407F8500F6052D /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C2A3D4251F24F4003BF5DE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -459,6 +587,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		97B3D32325407F8500F6052D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97B3D32A25407F8500F6052D /* IntentHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97B3D32C25407F8500F6052D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97B3D33525407F8500F6052D /* IntentViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C2A3D2251F24F4003BF5DE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -515,6 +659,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		97B3D33B25407F8500F6052D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 97B3D32F25407F8500F6052D /* DynamicKittyWidgetExtensionUI */;
+			targetProxy = 97B3D33A25407F8500F6052D /* PBXContainerItemProxy */;
+		};
+		97B3D33E25407F8500F6052D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 97B3D32625407F8500F6052D /* DynamicKittyWidgetExtension */;
+			targetProxy = 97B3D33D25407F8500F6052D /* PBXContainerItemProxy */;
+		};
 		97C2A3E9251F24F7003BF5DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 97C2A3D5251F24F4003BF5DE /* KittyWidgetV2 */;
@@ -532,7 +686,94 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		97B3D33625407F8500F6052D /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				97B3D33725407F8500F6052D /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		97B3D34025407F8500F6052D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DynamicKittyWidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = sora.KittyWidgetV2.DynamicKittyWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		97B3D34125407F8500F6052D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DynamicKittyWidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = sora.KittyWidgetV2.DynamicKittyWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		97B3D34225407F8500F6052D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DynamicKittyWidgetExtensionUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = sora.KittyWidgetV2.DynamicKittyWidgetExtensionUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		97B3D34325407F8500F6052D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DynamicKittyWidgetExtensionUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = sora.KittyWidgetV2.DynamicKittyWidgetExtensionUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		97C2A3F9251F24F7003BF5DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -816,6 +1057,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		97B3D34425407F8500F6052D /* Build configuration list for PBXNativeTarget "DynamicKittyWidgetExtensionUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97B3D34225407F8500F6052D /* Debug */,
+				97B3D34325407F8500F6052D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		97B3D34525407F8500F6052D /* Build configuration list for PBXNativeTarget "DynamicKittyWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97B3D34025407F8500F6052D /* Debug */,
+				97B3D34125407F8500F6052D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		97C2A3D1251F24F4003BF5DE /* Build configuration list for PBXProject "KittyWidgetV2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

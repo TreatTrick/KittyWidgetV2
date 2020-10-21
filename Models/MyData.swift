@@ -40,7 +40,9 @@ class MyData: ObservableObject{
                     let customWord2 = data.customWord2
                     let customFont1 = data.customFont1
                     let customFont2 = data.customFont2
-                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2)
+                    let name = data.name
+                    let isRename = data.isRename
+                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
                     self.dataStream.append(bd)
                 }
             } catch let error as Error?{
@@ -49,11 +51,12 @@ class MyData: ObservableObject{
         } else {
             for i in 0..<4{
                 let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!)!
-                let basicData = BasicData(background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack)
+                let name = "widget " + String(i+1)
+                let basicData = BasicData(background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, name: name)
                 dataStream.append(basicData)
                 let background = UIImage(named: "img" + String(i+1))!.pngData()!
                 let kitty = UIImage(named: "kitty" + String(i+1))!.pngData()!
-                let sd = StoredData(background: background, kitty: kitty, blurBackground: blurBack.pngData()!)
+                let sd = StoredData(background: background, kitty: kitty, blurBackground: blurBack.pngData()!, name: name)
                 storedData.append(sd)
                 print("img\(i)")
                 print("storedData num \(storedData.count)")
@@ -125,6 +128,8 @@ struct ColorSeries{
     var customWord2 = ""
     var customFont1: CGFloat = 25
     var customFont2: CGFloat = 15
+    var name : String
+    var isRename: Bool = false
 }
 
 struct BasicData:Hashable{
@@ -146,6 +151,8 @@ struct BasicData:Hashable{
     var customWord2 = ""
     var customFont1: CGFloat = 25
     var customFont2: CGFloat = 15
+    var name : String
+    var isRename: Bool = false
 }
 
 enum displayMode: String, Codable{

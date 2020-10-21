@@ -2,19 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>QianTuXiaoTuTi-2.ttf</string>
-		<string>ShouMoMoYingBiShouXieTi-2.ttf</string>
-		<string>RuiZiZhenYanTi.ttf</string>
-		<string>SourceHanSansCN-Bold-2.otf</string>
-		<string>SourceHanSerifCN-Bold-2.otf</string>
-		<string>XianErTi-2.ttf</string>
-		<string>YangRenDongZhuShiTi-2.ttf</string>
-		<string>YanShiXiaXingKai-2.ttf</string>
-		<string>YaoSuiXinShouXieTi-2.ttf</string>
-		<string>ZhanKuKuaiLeTi2016XiuDingBan-1.ttf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -33,6 +20,23 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>ConfigurationIntent</string>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>QianTuXiaoTuTi-2.ttf</string>
+		<string>ShouMoMoYingBiShouXieTi-2.ttf</string>
+		<string>RuiZiZhenYanTi.ttf</string>
+		<string>SourceHanSansCN-Bold-2.otf</string>
+		<string>SourceHanSerifCN-Bold-2.otf</string>
+		<string>XianErTi-2.ttf</string>
+		<string>YangRenDongZhuShiTi-2.ttf</string>
+		<string>YanShiXiaXingKai-2.ttf</string>
+		<string>YaoSuiXinShouXieTi-2.ttf</string>
+		<string>ZhanKuKuaiLeTi2016XiuDingBan-1.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

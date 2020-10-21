@@ -21,73 +21,73 @@ struct ContentView: View {
         NavigationView {
             TabView(selection: $tabSelection){
                 ZStack{
-                        VStack{
-                            if isEdit == .active{
-                                EditButtons
-                            }
-                            SmallWidgetGrid(dataStream: $myData.dataStream, isEdit: $isEdit)
-                                .padding()
+                    VStack{
+                        if isEdit == .active{
+                            EditButtons
                         }
-                        
-                        .animation(.easeInOut)
-                        .environment(\.editMode, $isEdit)
+                        SmallWidgetGrid(dataStream: $myData.dataStream, isEdit: $isEdit)
+                            .padding()
+                    }
+                    
+                    .animation(.easeInOut)
+                    .environment(\.editMode, $isEdit)
                 }
                 .tabItem {
                     Label("widget", systemImage: "w.square.fill")
                 }
                 .tag(Tabs.smallWidget)
                 
-                    Form{
-                        Section{
-                            Toggle(isOn: $is24Hour){
-                                Text("24时制")
-                            }
-                            .onChange(of: is24Hour){value in
-                                self.myData.is24Hour = value
-                                UserDefaults.standard.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
-                            }
-                            Picker(selection: $myColorScheme, label: Text("主题选择"), content: {
-                                Text(MyColorScheme.system.rawValue).tag(MyColorScheme.system)
-                                Text(MyColorScheme.myDark.rawValue).tag(MyColorScheme.myDark)
-                                Text(MyColorScheme.myLight.rawValue).tag(MyColorScheme.myLight)
-                            })
-                            .onChange(of: myColorScheme, perform: { value in
-                                self.myData.myColorScheme = value
-                                UserDefaults.standard.set(self.myData.myColorScheme.rawValue, forKey: UserDataKeys.myColorScheme)
-                            })
-                                
-                            
+                Form{
+                    Section{
+                        Toggle(isOn: $is24Hour){
+                            Text("24时制")
                         }
-                        Section{
-                            HStack{
-                                Text("关于")
-                                Image(systemName: "questionmark.circle.fill")
-                                Spacer()
-                                Button(action: {self.isAbout.toggle()}){
-                                        Image(systemName: "chevron.forward")
-                                        .rotationEffect(.degrees(self.isAbout ? 90 : 0))
-                                }
-                            }
-                            
-                            if isAbout{
-                                VStack(alignment: .center){
-                                    HStack{
-                                        Spacer()
-                                        Image("kitty1-mini").imageScale(.small).padding(3)
-                                        Image("kitty2-mini").imageScale(.medium).padding(3)
-                                        Image("kitty3-mini").imageScale(.medium).padding(3)
-                                        Image("kitty4-mini").imageScale(.medium).padding(3)
-                                        Spacer()
-                                    }
-                                    Text("KittyWidget V1.0.0").font(.headline).padding()
-                                    Text("猫咪小插件 V1.0.0").font(.headline).padding()
-                                    Text("Developed by SORA").padding()
-                                }
-                            }
+                        .onChange(of: is24Hour){value in
+                            self.myData.is24Hour = value
+                            UserDefaults.standard.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
                         }
-                        .animation(.easeInOut)
+                        Picker(selection: $myColorScheme, label: Text("主题选择"), content: {
+                            Text(MyColorScheme.system.rawValue).tag(MyColorScheme.system)
+                            Text(MyColorScheme.myDark.rawValue).tag(MyColorScheme.myDark)
+                            Text(MyColorScheme.myLight.rawValue).tag(MyColorScheme.myLight)
+                        })
+                        .onChange(of: myColorScheme, perform: { value in
+                            self.myData.myColorScheme = value
+                            UserDefaults.standard.set(self.myData.myColorScheme.rawValue, forKey: UserDataKeys.myColorScheme)
+                        })
+                        
+                        
                     }
-                
+                    
+                    Section{
+                        HStack{
+                            Text("关于")
+                            Image(systemName: "questionmark.circle.fill")
+                            Spacer()
+                            Button(action: {self.isAbout.toggle()}){
+                                Image(systemName: "chevron.forward")
+                                    .rotationEffect(.degrees(self.isAbout ? 90 : 0))
+                            }
+                        }
+                        
+                        if isAbout{
+                            VStack(alignment: .center){
+                                HStack{
+                                    Spacer()
+                                    Image("kitty1-mini").imageScale(.small).padding(3)
+                                    Image("kitty2-mini").imageScale(.medium).padding(3)
+                                    Image("kitty3-mini").imageScale(.medium).padding(3)
+                                    Image("kitty4-mini").imageScale(.medium).padding(3)
+                                    Spacer()
+                                }
+                                Text("KittyWidget V1.0.0").font(.headline).padding()
+                                Text("猫咪小插件 V1.0.0").font(.headline).padding()
+                                Text("Developed by SORA").padding()
+                            }
+                        }
+                    }
+                    .animation(.easeInOut)
+                }
                 .tabItem {
                     Label("设置", systemImage: "gearshape.fill")
                 }
@@ -102,7 +102,7 @@ struct ContentView: View {
         
     }
     
-
+    
     
     func naviBarTitle(tabSelection: Tabs) -> String {
         switch tabSelection{
@@ -112,7 +112,7 @@ struct ContentView: View {
     }
     
     static func slTheme(cs: MyColorScheme){
-       
+        
     }
     
     

@@ -16,7 +16,7 @@ class MyData: ObservableObject{
     var storedData: [StoredData] = []
     @Published var is24Hour: Bool = false
     @Published var myColorScheme: MyColorScheme = .system
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme)  var colorScheme
     static let context = CIContext()
 
     init(){
@@ -240,6 +240,7 @@ extension UIImage{
 
 //MARK: - functions for two SmallWidgetViews
 struct FuncForSmallWidgets{
+    @EnvironmentObject  var myData: MyData
     static func calColor(fontColor: FontColor) -> ColorSeries{
         switch fontColor{
         case .blue: return MyColor.blue
@@ -254,34 +255,7 @@ struct FuncForSmallWidgets{
         case .none: return MyColor.blue
         }
     }
-    
-    
-    static func calBlurBackground(isBlur: Bool, img: UIImage) -> some View{
-        Group{
-            if isBlur{
-                ZStack {
-                    Image(uiImage: img)
-                    Color(.white).opacity(0.4)
-                }
-            } else {
-                 EmptyView()
-            }
-        }
-    }
-    
-    static func calBackground(isAllBlur: Bool, basicData: BasicData) -> some View{
-        Group{
-            if isAllBlur{
-                ZStack {
-                    Image(uiImage: basicData.blurBackground)
-                    Color(.white).opacity(0.2)
-                }
-            } else {
-                Image(uiImage: basicData.background)
-            }
-        }
-    }
-    
+
 }
 
 

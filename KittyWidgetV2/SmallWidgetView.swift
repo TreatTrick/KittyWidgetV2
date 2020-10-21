@@ -59,7 +59,7 @@ struct SmallWidgetView: View {
                         
                     }
                     .padding(4)
-                    .background(FuncForSmallWidgets.calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
+                    .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
                     .cornerRadius(10)
                     .offset(y: 6)
                     }
@@ -70,7 +70,7 @@ struct SmallWidgetView: View {
                             .font(.custom(font.rawValue, size: basicData.customFont1))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                             .padding(4)
-                            .background(FuncForSmallWidgets.calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
+                            .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
                             .cornerRadius(10)
                     }
                 }
@@ -86,7 +86,7 @@ struct SmallWidgetView: View {
                             .font(.custom(font.rawValue, size: 23))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                             .padding(3)
-                            .background(FuncForSmallWidgets.calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
+                            .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
                             .cornerRadius(10)
                             .padding(3)
                     }
@@ -95,7 +95,7 @@ struct SmallWidgetView: View {
                             .font(.custom(font.rawValue, size: basicData.customFont2))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                             .padding(3)
-                            .background(FuncForSmallWidgets.calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
+                            .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
                             .cornerRadius(10)
                             .offset(y: 5)
                     }
@@ -112,7 +112,7 @@ struct SmallWidgetView: View {
                 Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
                     .foregroundColor(.blue)
                     .padding(4)
-                    .background(FuncForSmallWidgets.calBlurBackground(isBlur: true, img: self.basicData.blurBackground))
+                    .background(calBlurBackground(isBlur: true, img: self.basicData.blurBackground))
                     .cornerRadius(10)
                     .offset(x:60, y: -60)
             }
@@ -126,7 +126,7 @@ struct SmallWidgetView: View {
         .animation(.easeInOut)
         
         .frame(width: 170, height: 170)
-        .background( FuncForSmallWidgets.calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData) )
+        .background( calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData) )
         .environment(\.sizeCategory, .extraExtraExtraLarge)
         .cornerRadius(CGFloat(Coefficients.cornerRadius))
         .animation(.easeInOut)
@@ -135,6 +135,32 @@ struct SmallWidgetView: View {
     func selectItem(){
         let ind = self.myData.dataStream.firstIndex(where: {$0.id == basicData.id})!
         self.myData.dataStream[ind].isChecked.toggle()
+    }
+    
+     func calBlurBackground(isBlur: Bool, img: UIImage) -> some View{
+        Group{
+            if isBlur{
+                ZStack {
+                    Image(uiImage: img)
+                    Color(self.myData.colorScheme == .dark ? .black : .white).opacity(self.myData.colorScheme == .dark ? 0.3 : 0.4)
+                }
+            } else {
+                 EmptyView()
+            }
+        }
+    }
+    
+     func calBackground(isAllBlur: Bool, basicData: BasicData) -> some View{
+        Group{
+            if isAllBlur{
+                ZStack {
+                    Image(uiImage: basicData.blurBackground)
+                    Color(self.myData.colorScheme == .dark ? .black : .white).opacity(0.2)
+                }
+            } else {
+                Image(uiImage: basicData.background)
+            }
+        }
     }
 }
 

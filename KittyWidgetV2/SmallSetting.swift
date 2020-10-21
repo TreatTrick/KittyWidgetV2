@@ -156,6 +156,7 @@ struct SmallSetting: View {
                                     })
                         }
                     }
+
                 }
                 
                 Section{
@@ -180,6 +181,7 @@ struct SmallSetting: View {
                     }
                 }
             }
+            .animation(.easeInOut)
             
             ZStack{
                 Rectangle()
@@ -228,7 +230,7 @@ struct SmallSetting: View {
             }
             
         }
-        .animation(.easeInOut)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

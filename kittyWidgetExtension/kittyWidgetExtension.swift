@@ -11,12 +11,13 @@ import Intents
 
 struct Provider: IntentTimelineProvider {
     @EnvironmentObject var myData: MyData
+    let defaultData = BasicData(background: UIImage(named:"img1")!, display: .date, kitty: UIImage(named:"kitty1")!, name: "widget 1")
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationIntent(), basicData: BasicData(background: UIImage(named:"img1")!, display: .date, kitty: UIImage(named:"kitty1")!, name: "widget 1"))
+        SimpleEntry(date: Date(), configuration: ConfigurationIntent(), is24Hour: self.myData.is24Hour, basicData: defaultData)
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), configuration: configuration, basicData: BasicData(background: UIImage(named:"img1")!, display: .date, kitty: UIImage(named:"kitty1")!, name: "widget 1"))
+        let entry = SimpleEntry(date: Date(), configuration: configuration, is24Hour: self.myData.is24Hour, basicData: defaultData)
         completion(entry)
     }
 
@@ -24,12 +25,12 @@ struct Provider: IntentTimelineProvider {
         let selectedWidget = selectWidget(for: configuration)
         let currentDate = Date()
         var entries: [SimpleEntry] = []
-        let oneMinute: TimeInterval = 60
+        //let oneMinute: TimeInterval = 60
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration, basicData: selectedWidget)
+        for secendOffset in 0 ..< 60 {
+            let entryDate = Calendar.current.date(byAdding: .second, value: secendOffset, to: currentDate)!
+            let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: self.myData.is24Hour, basicData: selectedWidget)
             entries.append(entry)
         }
 
@@ -38,27 +39,26 @@ struct Provider: IntentTimelineProvider {
     }
     
     func selectWidget(for configuration: ConfigurationIntent) -> BasicData{
-        if let idString = configuration.parameter?.identifier{
+        if let idString = configuration.widget?.identifier{
             let id = UUID(uuidString: idString)!
             return self.myData.dataStream.first(where: { $0.id == id })!
         }
-        
+        return defaultData
     }
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let configuration: ConfigurationIntent
+    let is24Hour: Bool
     let basicData: BasicData
 }
 
 struct kittyWidgetExtensionEntryView : View {
     var entry: Provider.Entry
-
     var body: some View {
-        Text("23333")
-        SmallWidgetView2(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: true, font: entry.basicData.font)
-            .widgetURL(URL(string: "OpenedApp://")!)
+        SmallWidgetView2(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font)
+            .widgetURL(URL(string: entry.basicData.url)!)
     }
 }
 

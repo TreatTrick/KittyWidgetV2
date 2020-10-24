@@ -18,6 +18,9 @@ class MyData: ObservableObject{
     @Published var myColorScheme: MyColorScheme = .system
     @Environment(\.colorScheme)  var colorScheme
     static let context = CIContext()
+    static var staticDataStream: [BasicData] = returnStaticData() ?? []
+    static var is24Hour: Bool = false
+    static var defaultData = BasicData(background: UIImage(named:"img1")!, display: .date, kitty: UIImage(named:"kitty1")!, name: "widget 1")
 
     init(){
         
@@ -25,6 +28,7 @@ class MyData: ObservableObject{
             do{
                 self.storedData = try JSONDecoder().decode([StoredData].self, from: jsonData)
                 self.dataStream = []
+                MyData.staticDataStream = []
                 for data in storedData{
                     let background = UIImage(data:data.background)!
                     let kitty = UIImage(data: data.kitty)!
@@ -44,6 +48,8 @@ class MyData: ObservableObject{
                     let isRename = data.isRename
                     let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
                     self.dataStream.append(bd)
+                    MyData.staticDataStream.append(bd)
+
                 }
             } catch let error as Error?{
                 print("读取本地数据出现错误!",error as Any)
@@ -54,6 +60,7 @@ class MyData: ObservableObject{
                 let name = "widget " + String(i+1)
                 let basicData = BasicData(background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, name: name)
                 dataStream.append(basicData)
+                MyData.staticDataStream.append(basicData)
                 let background = UIImage(named: "img" + String(i+1))!.pngData()!
                 let kitty = UIImage(named: "kitty" + String(i+1))!.pngData()!
                 let sd = StoredData(background: background, kitty: kitty, blurBackground: blurBack.pngData()!, name: name)
@@ -66,6 +73,7 @@ class MyData: ObservableObject{
             myColorScheme = MyColorScheme(rawValue: loadColorScheme)!
         }
         is24Hour = UserDefaults.standard.bool(forKey: UserDataKeys.is24Hour)
+        MyData.is24Hour = UserDefaults.standard.bool(forKey: UserDataKeys.is24Hour)
         
     }
     
@@ -88,6 +96,41 @@ class MyData: ObservableObject{
         case .myDark: return .dark
         case .myLight: return .light
         }
+    }
+    
+    static func returnStaticData() -> [BasicData]?{
+        if let jsonData = UserDefaults.standard.data(forKey: UserDataKeys.storedData){
+            do{
+                let storedData = try JSONDecoder().decode([StoredData].self, from: jsonData)
+                var ds: [BasicData] = []
+                for data in storedData{
+                    let background = UIImage(data:data.background)!
+                    let kitty = UIImage(data: data.kitty)!
+                    let blurBack = UIImage(data: data.blurBackground)!
+                    let isKitty = data.isKitty
+                    let fontColor = data.fontColor
+                    let isWord = data.isWord
+                    let isBlur = data.isBlur
+                    let isAllBlur = data.isAllBlur
+                    let font = data.font
+                    let url = data.url
+                    let customWord1 = data.customWord1
+                    let customWord2 = data.customWord2
+                    let customFont1 = data.customFont1
+                    let customFont2 = data.customFont2
+                    let name = data.name
+                    let isRename = data.isRename
+                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
+                    ds.append(bd)
+                   
+                }
+                return ds
+            } catch let error as Error?{
+                print("读取本地数据出现错误!",error as Any)
+                return nil
+            }
+        }
+        return nil
     }
 }
 
@@ -133,6 +176,29 @@ struct ColorSeries{
 }
 
 struct BasicData:Hashable{
+   var id = UUID()
+   var background: UIImage
+    var display: displayMode = .date
+   var kitty: UIImage
+   var isChecked: Bool = false
+    var isKitty: Bool = true
+    var fontColor: FontColor = .blue
+    var isWord: Bool = true
+    var isBlur: Bool = true
+    var blurBackground: UIImage = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!
+    var isAllBlur: Bool = false
+    var font: FontNames = .font4
+    var url: String = ""
+    var isCustomWord = false
+    var customWord1 = ""
+    var customWord2 = ""
+    var customFont1: CGFloat = 25
+    var customFont2: CGFloat = 15
+    var name : String
+    var isRename: Bool = false
+}
+
+struct  StaticBasicData:Hashable{
    var id = UUID()
    var background: UIImage
     var display: displayMode = .date

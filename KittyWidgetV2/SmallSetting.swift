@@ -212,6 +212,23 @@ struct SmallSetting: View {
                 self.myData.dataStream[ind2].customWord2 = self.basicData.customWord2
                 self.myData.dataStream[ind2].customFont1 = self.basicData.customFont1
                 self.myData.dataStream[ind2].customFont2 = self.basicData.customFont2
+                
+                MyData.staticDataStream[ind2].kitty = self.basicData.kitty
+                MyData.staticDataStream[ind2].background = self.basicData.background
+                MyData.staticDataStream[ind2].blurBackground = self.basicData.blurBackground
+                MyData.staticDataStream[ind2].fontColor = self.basicData.fontColor
+                MyData.staticDataStream[ind2].isKitty = self.isKitty
+                MyData.staticDataStream[ind2].isWord = self.isWord
+                MyData.staticDataStream[ind2].isBlur = self.isBlur
+                MyData.staticDataStream[ind2].isAllBlur = self.isAllBlur
+                MyData.staticDataStream[ind2].font = self.font
+                MyData.staticDataStream[ind2].url = self.basicData.url
+                MyData.staticDataStream[ind2].isCustomWord = self.basicData.isCustomWord
+                MyData.staticDataStream[ind2].customWord1 = self.basicData.customWord1
+                MyData.staticDataStream[ind2].customWord2 = self.basicData.customWord2
+                MyData.staticDataStream[ind2].customFont1 = self.basicData.customFont1
+                MyData.staticDataStream[ind2].customFont2 = self.basicData.customFont2
+                
                 self.navi.wrappedValue.dismiss()
                 DispatchQueue.global(qos:.default).async{
                     self.myData.storedData[ind2].kitty = self.basicData.kitty.pngData()!

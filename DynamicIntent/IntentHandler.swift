@@ -9,13 +9,19 @@ import Intents
 import SwiftUI
 
 class IntentHandler: INExtension, ConfigurationIntentHandling {
-    @EnvironmentObject var myData: MyData
     func provideWidgetOptionsCollection(for intent: ConfigurationIntent, with completion: @escaping (INObjectCollection<Widgets>?, Error?) -> Void) {
-        let widgets: [Widgets] = self.myData.dataStream.map{
+//        let widgets: [Widgets] = MyData.staticDataStream.map{
+//            print($0.name)
+//            let widget = Widgets(identifier: $0.id.uuidString, display: $0.name)
+//            return widget
+//        }
+        
+        
+        let widgets: [Widgets] = MyData.staticDataStream.map{
+            print($0.name)
             let widget = Widgets(identifier: $0.id.uuidString, display: $0.name)
             return widget
         }
-        
         let collection = INObjectCollection(items: widgets)
         
         completion(collection, nil)

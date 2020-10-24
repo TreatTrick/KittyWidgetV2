@@ -10,14 +10,13 @@ import SwiftUI
 import Intents
 
 struct Provider: IntentTimelineProvider {
-    @EnvironmentObject var myData: MyData
-    let defaultData = BasicData(background: UIImage(named:"img1")!, display: .date, kitty: UIImage(named:"kitty1")!, name: "widget 1")
+//    let defaultData = BasicData(background: UIImage(named:"img1")!, display: .date, kitty: UIImage(named:"kitty1")!, name: "widget 1")
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationIntent(), is24Hour: self.myData.is24Hour, basicData: defaultData)
+        SimpleEntry(date: Date(), configuration: ConfigurationIntent(), is24Hour: MyData.is24Hour, basicData: MyData.defaultData)
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), configuration: configuration, is24Hour: self.myData.is24Hour, basicData: defaultData)
+        let entry = SimpleEntry(date: Date(), configuration: configuration, is24Hour: MyData.is24Hour, basicData: MyData.defaultData)
         completion(entry)
     }
 
@@ -30,7 +29,7 @@ struct Provider: IntentTimelineProvider {
         
         for secendOffset in 0 ..< 60 {
             let entryDate = Calendar.current.date(byAdding: .second, value: secendOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: self.myData.is24Hour, basicData: selectedWidget)
+            let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: MyData.is24Hour, basicData: selectedWidget)
             entries.append(entry)
         }
 
@@ -41,9 +40,11 @@ struct Provider: IntentTimelineProvider {
     func selectWidget(for configuration: ConfigurationIntent) -> BasicData{
         if let idString = configuration.widget?.identifier{
             let id = UUID(uuidString: idString)!
-            return self.myData.dataStream.first(where: { $0.id == id })!
+//            return MyData.staticDataStream.first(where: { $0.id == id })!
+            return MyData.defaultData
         }
-        return defaultData
+//        return defaultData
+        return MyData.defaultData
     }
 }
 
@@ -55,10 +56,12 @@ struct SimpleEntry: TimelineEntry {
 }
 
 struct kittyWidgetExtensionEntryView : View {
+   // @EnvironmentObject var myData: MyData
     var entry: Provider.Entry
     var body: some View {
-        SmallWidgetView2(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font)
-            .widgetURL(URL(string: entry.basicData.url)!)
+//        SmallWidgetView2(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font)
+//            .widgetURL(URL(string: entry.basicData.url)!)
+        Text(entry.basicData.name)
     }
 }
 
@@ -78,7 +81,7 @@ struct kittyWidgetExtension: Widget {
 
 //struct kittyWidgetExtension_Previews: PreviewProvider {
 //    static var previews: some View {
-//        kittyWidgetExtensionEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent(), basicData: <#BasicData#>))
+//        kittyWidgetExtensionEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent(), is24Hour: MyData.is24Hour, basicData: MyData.staticDataStream[0]))
 //            .previewContext(WidgetPreviewContext(family: .systemSmall))
 //    }
 //}

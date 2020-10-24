@@ -21,87 +21,86 @@ struct ContentView: View {
     @State var id = UUID()
     var body: some View {
         ZStack{
-        NavigationView {
-            TabView(selection: $tabSelection){
-                ZStack{
-                    VStack{
-                        if isEdit == .active{
-                            EditButtons
-                        }
-                        SmallWidgetGrid(dataStream: $myData.dataStream, isEdit: $isEdit, id: $id, isReName: $isReName)
-                            .padding()
-                    }
-                    
-                    .animation(.easeInOut)
-                    .environment(\.editMode, $isEdit)
-                }
-                .tabItem {
-                    Label("widget", systemImage: "w.square.fill")
-                }
-                .tag(Tabs.smallWidget)
-                
-                Form{
-                    Section{
-                        Toggle(isOn: $is24Hour){
-                            Text("24时制")
-                        }
-                        .onChange(of: is24Hour){value in
-                            self.myData.is24Hour = value
-                            UserDefaults.standard.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
-                        }
-                        Picker(selection: $myColorScheme, label: Text("主题选择"), content: {
-                            Text(MyColorScheme.system.rawValue).tag(MyColorScheme.system)
-                            Text(MyColorScheme.myDark.rawValue).tag(MyColorScheme.myDark)
-                            Text(MyColorScheme.myLight.rawValue).tag(MyColorScheme.myLight)
-                        })
-                        .onChange(of: myColorScheme, perform: { value in
-                            self.myData.myColorScheme = value
-                            UserDefaults.standard.set(self.myData.myColorScheme.rawValue, forKey: UserDataKeys.myColorScheme)
-                        })
-                        
-                        
-                    }
-                    
-                    Section{
-                        HStack{
-                            Text("关于")
-                            Image(systemName: "questionmark.circle.fill")
-                            Spacer()
-                            Button(action: {self.isAbout.toggle()}){
-                                Image(systemName: "chevron.forward")
-                                    .rotationEffect(.degrees(self.isAbout ? 90 : 0))
+            NavigationView {
+                TabView(selection: $tabSelection){
+                    ZStack{
+                        VStack{
+                            if isEdit == .active{
+                                EditButtons
                             }
+                            SmallWidgetGrid(dataStream: $myData.dataStream, isEdit: $isEdit, id: $id, isReName: $isReName)
+                                .padding()
+                        }
+                        .animation(.easeInOut)
+                        .environment(\.editMode, $isEdit)
+                    }
+                    .tabItem {
+                        Label("widget", systemImage: "w.square.fill")
+                    }
+                    .tag(Tabs.smallWidget)
+                    
+                    Form{
+                        Section{
+                            Toggle(isOn: $is24Hour){
+                                Text("24时制")
+                            }
+                            .onChange(of: is24Hour){value in
+                                self.myData.is24Hour = value
+                                MyData.is24Hour = value
+                                UserDefaults.standard.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
+                            }
+                            Picker(selection: $myColorScheme, label: Text("主题选择"), content: {
+                                Text(MyColorScheme.system.rawValue).tag(MyColorScheme.system)
+                                Text(MyColorScheme.myDark.rawValue).tag(MyColorScheme.myDark)
+                                Text(MyColorScheme.myLight.rawValue).tag(MyColorScheme.myLight)
+                            })
+                            .onChange(of: myColorScheme, perform: { value in
+                                self.myData.myColorScheme = value
+                                UserDefaults.standard.set(self.myData.myColorScheme.rawValue, forKey: UserDataKeys.myColorScheme)
+                            })
+                            
+                            
                         }
                         
-                        if isAbout{
-                            VStack(alignment: .center){
-                                HStack{
-                                    Spacer()
-                                    Image("kitty1-mini").imageScale(.small).padding(3)
-                                    Image("kitty2-mini").imageScale(.medium).padding(3)
-                                    Image("kitty3-mini").imageScale(.medium).padding(3)
-                                    Image("kitty4-mini").imageScale(.medium).padding(3)
-                                    Spacer()
+                        Section{
+                            HStack{
+                                Text("关于")
+                                Image(systemName: "questionmark.circle.fill")
+                                Spacer()
+                                Button(action: {self.isAbout.toggle()}){
+                                    Image(systemName: "chevron.forward")
+                                        .rotationEffect(.degrees(self.isAbout ? 90 : 0))
                                 }
-                                Text("KittyWidget V1.0.0").font(.headline).padding()
-                                Text("猫咪小插件 V1.0.0").font(.headline).padding()
-                                Text("Developed by SORA").padding()
+                            }
+                            
+                            if isAbout{
+                                VStack(alignment: .center){
+                                    HStack{
+                                        Spacer()
+                                        Image("kitty1-mini").imageScale(.small).padding(3)
+                                        Image("kitty2-mini").imageScale(.medium).padding(3)
+                                        Image("kitty3-mini").imageScale(.medium).padding(3)
+                                        Image("kitty4-mini").imageScale(.medium).padding(3)
+                                        Spacer()
+                                    }
+                                    Text("KittyWidget V1.0.0").font(.headline).padding()
+                                    Text("猫咪小插件 V1.0.0").font(.headline).padding()
+                                    Text("Developed by SORA").padding()
+                                }
                             }
                         }
                     }
-                    .animation(.easeInOut)
+                    .tabItem {
+                        Label("设置", systemImage: "gearshape.fill")
+                    }
+                    .tag(Tabs.setting)
                 }
-                .tabItem {
-                    Label("设置", systemImage: "gearshape.fill")
-                }
-                .tag(Tabs.setting)
+                .navigationBarTitle(naviBarTitle(tabSelection: self.tabSelection), displayMode: .automatic)
+                .navigationBarItems(trailing: EditMode)
             }
-            .navigationBarTitle(naviBarTitle(tabSelection: self.tabSelection), displayMode: .automatic)
-            .navigationBarItems(trailing: EditMode)
-        }
-        .onOpenURL(perform: { url in
-            UIApplication.shared.open(url)
-        })
+            .onOpenURL(perform: { url in
+                UIApplication.shared.open(url)
+            })
             if isReName{
                 ReNameView
             }
@@ -111,43 +110,45 @@ struct ContentView: View {
     var ReNameView: some View{
         Group{
             Color(.gray).opacity(0.4)
-                VStack(alignment: .center){
-                    Text(self.myData.dataStream.first(where: {$0.id == self.id})!.name)
-                        .padding(10)
-                        .offset(x:-90 ,y: 15)
-                    TextField("请输入新的widget名字：", text: $reName)
-                        .padding()
-                    HStack{
-                        Button("取消"){
-                            self.isReName = false
-                        }
-                        .font(.title2)
-                        .padding(40)
-                        .foregroundColor(.red)
-                        .offset(y: 20)
-                        
-                        Button("确定"){
-                            if reName != "" {
-                                let ind = self.myData.dataStream.firstIndex(where: { $0.id == self.id})!
-                                self.myData.dataStream[ind].name = reName
-                                self.myData.dataStream[ind].isRename = true
-                                self.myData.storedData[ind].name = reName
-                                self.myData.storedData[ind].isRename = true
-                                DispatchQueue.global(qos: .default).async {
-                                    UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
-                                }
-                            }
-                            self.reName = ""
-                            self.isReName = false
-                        }
-                        .font(.title2)
-                        .padding(40)
-                        .offset(y: 20)
+            VStack(alignment: .center){
+                Text(self.myData.dataStream.first(where: {$0.id == self.id})!.name)
+                    .padding(10)
+                    .offset(x:-90 ,y: 15)
+                TextField("请输入新的widget名字：", text: $reName)
+                    .padding()
+                HStack{
+                    Button("取消"){
+                        self.isReName = false
                     }
+                    .font(.title2)
+                    .padding(40)
+                    .foregroundColor(.red)
+                    .offset(y: 20)
+                    
+                    Button("确定"){
+                        if reName != "" {
+                            let ind = self.myData.dataStream.firstIndex(where: { $0.id == self.id})!
+                            self.myData.dataStream[ind].name = reName
+                            self.myData.dataStream[ind].isRename = true
+                            MyData.staticDataStream[ind].name = reName
+                            MyData.staticDataStream[ind].isRename = true
+                            self.myData.storedData[ind].name = reName
+                            self.myData.storedData[ind].isRename = true
+                            DispatchQueue.global(qos: .default).async {
+                                UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
+                            }
+                        }
+                        self.reName = ""
+                        self.isReName = false
+                    }
+                    .font(.title2)
+                    .padding(40)
+                    .offset(y: 20)
+                }
             }
-                .frame(width: 300, height: 200, alignment: .center)
-                .background(self.myData.slTheme(sc: self.myData.myColorScheme) == .dark ? Color(.black) : Color(.white))
-                .cornerRadius(25)
+            .frame(width: 300, height: 200, alignment: .center)
+            .background(self.myData.slTheme(sc: self.myData.myColorScheme) == .dark ? Color(.black) : Color(.white))
+            .cornerRadius(25)
         }
     }
     
@@ -216,6 +217,7 @@ struct ContentView: View {
         }
         let bd = BasicData(background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!, name: "widget " + String(i))
         self.myData.dataStream.append(bd)
+        MyData.staticDataStream.append(bd)
         DispatchQueue.global(qos: .default).async {
             self.myData.storedData.append(StoredData(name: "widget " + String(i)))
             UserDefaults.standard.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
@@ -232,6 +234,7 @@ struct ContentView: View {
         for i in id{
             let ind = self.myData.dataStream.firstIndex(where: {$0.id == i})!
             self.myData.dataStream.remove(at: ind)
+            MyData.staticDataStream.remove(at: ind)
             self.myData.storedData.remove(at: ind)
         }
         DispatchQueue.global(qos: .default).async {
@@ -257,24 +260,24 @@ struct SmallWidgetGrid: View{
     @Binding var isReName: Bool
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var body: some View{
-            ScrollView(.vertical){
-                 LazyVGrid(columns: columns){
-                    ForEach(dataStream, id: \.self){ basicData in
-                        VStack(alignment: .center){
-                            NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)){
-                                SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)
-                            }
-                            Text(basicData.name)
-                                .onTapGesture {
-                                    if isEdit != .inactive{
-                                        self.isReName = true
-                                        self.id = basicData.id
-                                    }
-                                }
+        ScrollView(.vertical){
+            LazyVGrid(columns: columns){
+                ForEach(dataStream, id: \.self){ basicData in
+                    VStack(alignment: .center){
+                        NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)){
+                            SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)
                         }
+                        Text(basicData.name)
+                            .onTapGesture {
+                                if isEdit != .inactive{
+                                    self.isReName = true
+                                    self.id = basicData.id
+                                }
+                            }
                     }
                 }
             }
+        }
     }
 }
 

@@ -60,11 +60,9 @@
 		97C2A446251F262D003BF5DE /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A407251F2553003BF5DE /* SmallWidgetView.swift */; };
 		97C2A456251F2877003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
 		97C2A46A251F3F55003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
-		97E91FD72540933D00593FC8 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B3D509254090FD00F6052D /* IntentHandler.swift */; };
 		97E91FEF254094B600593FC8 /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A41E251F258F003BF5DE /* MyData.swift */; };
 		97E920012540A03000593FC8 /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
 		97E920072540A04B00593FC8 /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A407251F2553003BF5DE /* SmallWidgetView.swift */; };
-		97E920262540A09A00593FC8 /* kittyWidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A431251F2608003BF5DE /* kittyWidgetExtension.swift */; };
 		97E9202C2540A09E00593FC8 /* kittyWidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A433251F2608003BF5DE /* kittyWidgetExtension.intentdefinition */; };
 /* End PBXBuildFile section */
 
@@ -531,7 +529,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				97B3D50A254090FD00F6052D /* IntentHandler.swift in Sources */,
-				97E920262540A09A00593FC8 /* kittyWidgetExtension.swift in Sources */,
 				97E9202C2540A09E00593FC8 /* kittyWidgetExtension.intentdefinition in Sources */,
 				97E920012540A03000593FC8 /* SmallWidgetView2.swift in Sources */,
 				97E920072540A04B00593FC8 /* SmallWidgetView.swift in Sources */,
@@ -587,7 +584,6 @@
 				97C2A444251F262D003BF5DE /* MyData.swift in Sources */,
 				97C2A437251F2609003BF5DE /* kittyWidgetExtension.intentdefinition in Sources */,
 				97016A5125394A5400C564CE /* SmallWidgetView2.swift in Sources */,
-				97E91FD72540933D00593FC8 /* IntentHandler.swift in Sources */,
 				97C2A432251F2608003BF5DE /* kittyWidgetExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

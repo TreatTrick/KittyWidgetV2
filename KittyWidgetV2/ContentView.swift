@@ -46,8 +46,8 @@ struct ContentView: View {
                             }
                             .onChange(of: is24Hour){value in
                                 self.myData.is24Hour = value
-                                MyData.is24Hour = value
-                                UserDefaults.standard.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
+//                                MyData.is24Hour = value
+                                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
                             }
                             Picker(selection: $myColorScheme, label: Text("主题选择"), content: {
                                 Text(MyColorScheme.system.rawValue).tag(MyColorScheme.system)
@@ -56,7 +56,7 @@ struct ContentView: View {
                             })
                             .onChange(of: myColorScheme, perform: { value in
                                 self.myData.myColorScheme = value
-                                UserDefaults.standard.set(self.myData.myColorScheme.rawValue, forKey: UserDataKeys.myColorScheme)
+                                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.myColorScheme.rawValue, forKey: UserDataKeys.myColorScheme)
                             })
                             
                             
@@ -130,12 +130,11 @@ struct ContentView: View {
                             let ind = self.myData.dataStream.firstIndex(where: { $0.id == self.id})!
                             self.myData.dataStream[ind].name = reName
                             self.myData.dataStream[ind].isRename = true
-                            MyData.staticDataStream[ind].name = reName
-                            MyData.staticDataStream[ind].isRename = true
                             self.myData.storedData[ind].name = reName
                             self.myData.storedData[ind].isRename = true
                             DispatchQueue.global(qos: .default).async {
-                                UserDefaults.standard.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
+                                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
+                                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.idNamejson, forKey: UserDataKeys.idName)
                             }
                         }
                         self.reName = ""
@@ -215,12 +214,13 @@ struct ContentView: View {
                 }
             }
         }
-        let bd = BasicData(background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!, name: "widget " + String(i))
+        let bd = BasicData(background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!, name: "widget " + String(i+1))
         self.myData.dataStream.append(bd)
-        MyData.staticDataStream.append(bd)
+//        MyData.staticDataStream.append(bd)
         DispatchQueue.global(qos: .default).async {
             self.myData.storedData.append(StoredData(name: "widget " + String(i)))
-            UserDefaults.standard.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
+            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
+            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.idNamejson, forKey: UserDataKeys.idName)
         }
     }
     
@@ -234,11 +234,12 @@ struct ContentView: View {
         for i in id{
             let ind = self.myData.dataStream.firstIndex(where: {$0.id == i})!
             self.myData.dataStream.remove(at: ind)
-            MyData.staticDataStream.remove(at: ind)
+//            MyData.staticDataStream.remove(at: ind)
             self.myData.storedData.remove(at: ind)
         }
         DispatchQueue.global(qos: .default).async {
-            UserDefaults.standard.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
+            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
+            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.idNamejson, forKey: UserDataKeys.idName)
         }
     }
     

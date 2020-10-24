@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
 		97016A5125394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
+		9737C9522543F6DA00DAE7A9 /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A41E251F258F003BF5DE /* MyData.swift */; };
 		9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771D1C1251FA60B004E1E15 /* SmallSetting.swift */; };
 		97996B2E253D9EB600835772 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
 		97996B2F253D9EB600835772 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
@@ -56,7 +57,6 @@
 		97C2A435251F2609003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A434251F2609003BF5DE /* Assets.xcassets */; };
 		97C2A437251F2609003BF5DE /* kittyWidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A433251F2608003BF5DE /* kittyWidgetExtension.intentdefinition */; };
 		97C2A43B251F2609003BF5DE /* kittyWidgetExtensionExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 97C2A42A251F2608003BF5DE /* kittyWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		97C2A444251F262D003BF5DE /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A41E251F258F003BF5DE /* MyData.swift */; };
 		97C2A446251F262D003BF5DE /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A407251F2553003BF5DE /* SmallWidgetView.swift */; };
 		97C2A456251F2877003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
 		97C2A46A251F3F55003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
@@ -151,6 +151,9 @@
 		97C2A434251F2609003BF5DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C2A436251F2609003BF5DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97C2A455251F2877003BF5DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		97E845AB2544451900CAE584 /* KittyWidgetV2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KittyWidgetV2.entitlements; sourceTree = "<group>"; };
+		97E845B62544453100CAE584 /* kittyWidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kittyWidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
+		97E845B72544455300CAE584 /* DynamicIntent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DynamicIntent.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +217,7 @@
 		97B3D508254090FD00F6052D /* DynamicIntent */ = {
 			isa = PBXGroup;
 			children = (
+				97E845B72544455300CAE584 /* DynamicIntent.entitlements */,
 				97B3D509254090FD00F6052D /* IntentHandler.swift */,
 				97B3D50B254090FD00F6052D /* Info.plist */,
 			);
@@ -223,6 +227,7 @@
 		97C2A3CD251F24F4003BF5DE = {
 			isa = PBXGroup;
 			children = (
+				97E845B62544453100CAE584 /* kittyWidgetExtensionExtension.entitlements */,
 				97996B23253D9E7900835772 /* Fonts */,
 				97C2A461251F38EB003BF5DE /* Models */,
 				97C2A3D8251F24F4003BF5DE /* KittyWidgetV2 */,
@@ -250,6 +255,7 @@
 		97C2A3D8251F24F4003BF5DE /* KittyWidgetV2 */ = {
 			isa = PBXGroup;
 			children = (
+				97E845AB2544451900CAE584 /* KittyWidgetV2.entitlements */,
 				97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */,
 				97C2A407251F2553003BF5DE /* SmallWidgetView.swift */,
 				9771D1C1251FA60B004E1E15 /* SmallSetting.swift */,
@@ -581,9 +587,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				97C2A446251F262D003BF5DE /* SmallWidgetView.swift in Sources */,
-				97C2A444251F262D003BF5DE /* MyData.swift in Sources */,
 				97C2A437251F2609003BF5DE /* kittyWidgetExtension.intentdefinition in Sources */,
 				97016A5125394A5400C564CE /* SmallWidgetView2.swift in Sources */,
+				9737C9522543F6DA00DAE7A9 /* MyData.swift in Sources */,
 				97C2A432251F2608003BF5DE /* kittyWidgetExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -617,7 +623,9 @@
 		97B3D510254090FD00F6052D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DynamicIntent/DynamicIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				INFOPLIST_FILE = DynamicIntent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -636,6 +644,7 @@
 		97B3D511254090FD00F6052D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DynamicIntent/DynamicIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = DynamicIntent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -774,8 +783,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = KittyWidgetV2/KittyWidgetV2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"KittyWidgetV2/Preview Content\"";
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = KittyWidgetV2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -796,6 +807,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = KittyWidgetV2/KittyWidgetV2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"KittyWidgetV2/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
@@ -897,7 +909,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = kittyWidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				INFOPLIST_FILE = kittyWidgetExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -917,6 +931,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = kittyWidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = kittyWidgetExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

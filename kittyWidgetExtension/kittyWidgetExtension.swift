@@ -40,10 +40,8 @@ struct Provider: IntentTimelineProvider {
     func selectWidget(for configuration: ConfigurationIntent) -> BasicData{
         if let idString = configuration.widget?.identifier{
             let id = UUID(uuidString: idString)!
-//            return MyData.staticDataStream.first(where: { $0.id == id })!
-            return MyData.defaultData
+           return MyData.staticDataStream.first(where: { $0.id == id })!
         }
-//        return defaultData
         return MyData.defaultData
     }
 }
@@ -56,12 +54,12 @@ struct SimpleEntry: TimelineEntry {
 }
 
 struct kittyWidgetExtensionEntryView : View {
-   // @EnvironmentObject var myData: MyData
     var entry: Provider.Entry
     var body: some View {
 //        SmallWidgetView2(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font)
 //            .widgetURL(URL(string: entry.basicData.url)!)
-        Text(entry.basicData.name)
+//        Text(MyData.defaultData.name)
+        Image(uiImage: MyData.staticDataStream[1].background)
     }
 }
 
@@ -79,9 +77,4 @@ struct kittyWidgetExtension: Widget {
     }
 }
 
-//struct kittyWidgetExtension_Previews: PreviewProvider {
-//    static var previews: some View {
-//        kittyWidgetExtensionEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent(), is24Hour: MyData.is24Hour, basicData: MyData.staticDataStream[0]))
-//            .previewContext(WidgetPreviewContext(family: .systemSmall))
-//    }
-//}
+

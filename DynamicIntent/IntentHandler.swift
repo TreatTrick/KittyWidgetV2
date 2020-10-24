@@ -10,16 +10,8 @@ import SwiftUI
 
 class IntentHandler: INExtension, ConfigurationIntentHandling {
     func provideWidgetOptionsCollection(for intent: ConfigurationIntent, with completion: @escaping (INObjectCollection<Widgets>?, Error?) -> Void) {
-//        let widgets: [Widgets] = MyData.staticDataStream.map{
-//            print($0.name)
-//            let widget = Widgets(identifier: $0.id.uuidString, display: $0.name)
-//            return widget
-//        }
-        
-        
-        let widgets: [Widgets] = MyData.staticDataStream.map{
-            print($0.name)
-            let widget = Widgets(identifier: $0.id.uuidString, display: $0.name)
+        let widgets: [Widgets] = MyData.idName.map{
+            let widget = Widgets(identifier: $0.id, display: $0.name)
             return widget
         }
         let collection = INObjectCollection(items: widgets)
@@ -28,9 +20,6 @@ class IntentHandler: INExtension, ConfigurationIntentHandling {
     }
 
     override func handler(for intent: INIntent) -> Any {
-        // This is the default implementation.  If you want different objects to handle different intents,
-        // you can override this and return the handler you want for that particular intent.
-        
         return self
     }
     

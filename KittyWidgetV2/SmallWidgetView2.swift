@@ -9,7 +9,7 @@ import SwiftUI
 import WidgetKit
 
 struct SmallWidgetView2: View {
-    @EnvironmentObject var myData: MyData
+    @Environment(\.colorScheme)  var colorScheme
     var basicData: BasicData
     var isKitty: Bool
     var isWord: Bool
@@ -28,16 +28,16 @@ struct SmallWidgetView2: View {
                                 Time(dateSetting: .time,a: false, is24Hour: is24Hour)
                                     .font(.custom(font.rawValue, size: 35))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    .opacity(0.6)
+//                                    .opacity(0.6)
                             } else {
                                 Time(dateSetting: .time,a: false, is24Hour: is24Hour)
                                     .font(.custom(font.rawValue, size: 30))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    .opacity(0.6)
+//                                    .opacity(0.6)
                                 Time(dateSetting: .time, a: true, is24Hour: is24Hour)
                                     .font(.custom(font.rawValue, size: Coefficients.apSize))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    .opacity(0.6)
+//                                    .opacity(0.6)
                                     .offset(x: -4, y: 10)
                             }
                         }
@@ -50,7 +50,7 @@ struct SmallWidgetView2: View {
                     }
                     .padding(4)
                     .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
-                    .cornerRadius(10)
+                    //.cornerRadius(10)
                     .offset(y: 6)
                     
                 }
@@ -61,7 +61,7 @@ struct SmallWidgetView2: View {
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                         .padding(4)
                         .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
-                        .cornerRadius(10)
+                        //.cornerRadius(10)
                 }
             }
             .padding(3)
@@ -77,7 +77,7 @@ struct SmallWidgetView2: View {
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                         .padding(3)
                         .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
-                        .cornerRadius(10)
+                        //.cornerRadius(10)
                         .padding(3)
                 }
                 if basicData.isCustomWord && basicData.customWord2 != ""{
@@ -86,7 +86,7 @@ struct SmallWidgetView2: View {
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                         .padding(3)
                         .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
-                        .cornerRadius(10)
+                        //.cornerRadius(10)
                         .offset(y: 5)
                 }
                 if isKitty{
@@ -110,7 +110,7 @@ struct SmallWidgetView2: View {
            if isBlur{
                ZStack {
                    Image(uiImage: img)
-                Color(self.myData.colorScheme == .dark ? .black : .white).opacity(self.myData.colorScheme == .dark ? 0.3 : 0.4)
+                Color(self.colorScheme == .dark ? .black : .white).opacity(self.colorScheme == .dark ? 0.3 : 0.4)
                }
            } else {
                 EmptyView()
@@ -123,10 +123,12 @@ struct SmallWidgetView2: View {
            if isAllBlur{
                ZStack {
                    Image(uiImage: basicData.blurBackground)
-                   Color(self.myData.colorScheme == .dark ? .black : .white).opacity(0.2)
+                    .scaledToFill()
+                   Color(self.colorScheme == .dark ? .black : .white).opacity(0.2)
                }
            } else {
                Image(uiImage: basicData.background)
+                .scaledToFill()
            }
        }
    }
@@ -135,14 +137,8 @@ struct SmallWidgetView2: View {
 
 struct SmallWidgetView2_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView2(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!, name: "widget 1"), isKitty: true, isWord: true, isBlur: true, isAllBlur: false, is24Hour: false, font: .font4)
+        SmallWidgetView2(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!, name: "widget 1"), isKitty: true, isWord: true, isBlur: true, isAllBlur: false, is24Hour: false, font: .font4)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
 
-
-struct testView: View{
-    var body: some View{
-        Text(MyData.defaultData.name)
-    }
-}

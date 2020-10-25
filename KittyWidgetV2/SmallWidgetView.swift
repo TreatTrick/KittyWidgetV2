@@ -155,12 +155,14 @@ struct SmallWidgetView: View {
             if isAllBlur{
                 ZStack {
                     Image(uiImage: basicData.blurBackground)
+                        .scaledToFill()
                     Color(self.myData.colorScheme == .dark ? .black : .white).opacity(0.2)
                 }
             } else {
-                Image(uiImage: basicData.background)
+                Image(uiImage: basicData.background).scaledToFill()
             }
         }
+        
     }
 }
 
@@ -252,7 +254,7 @@ struct Kitty: View{
 
 struct SmallWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView(basicData: BasicData(background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!, name: "widget 1"), isKitty: true, isWord: true, isBlur: true, isAllBlur: true, is24Hour: true, font: .font4)
+        SmallWidgetView(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!, name: "widget 1"), isKitty: true, isWord: true, isBlur: true, isAllBlur: true, is24Hour: true, font: .font4)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

@@ -28,17 +28,18 @@ class MyData: ObservableObject{
     @Environment(\.colorScheme)  var colorScheme
     static let context = CIContext()
     static var is24Hour: Bool = UserDefaults(suiteName: UserDataKeys.suiteName)!.bool(forKey: UserDataKeys.is24Hour)
-    static var defaultData = BasicData(background: UIImage(named:"img1")!, display: .date, kitty: UIImage(named:"kitty1")!, name: "widget 1")
-    static var staticDataStream: [BasicData] = MyData.getStoredData()!
-    static var idName: [WidgetInfo] = MyData.returnIdName() ?? []
+    static var defaultData = BasicData(id: UUID().uuidString, background: UIImage(named:"img1-mini")!, display: .date, kitty: UIImage(named:"kitty1-mini")!, name: "default widget")
+    static var staticDataStream: [BasicData] = MyData.getStoredData() ?? []
     
     init(){
         
         if let jsonData = UserDefaults(suiteName: UserDataKeys.suiteName)!.data(forKey: UserDataKeys.storedData){
             do{
+                print("in reload data")
                 self.storedData = try JSONDecoder().decode([StoredData].self, from: jsonData)
                 self.dataStream = []
                 for data in storedData{
+                    let id = data.id
                     let background = UIImage(data:data.background)!
                     let kitty = UIImage(data: data.kitty)!
                     let blurBack = UIImage(data: data.blurBackground)!
@@ -55,7 +56,7 @@ class MyData: ObservableObject{
                     let customFont2 = data.customFont2
                     let name = data.name
                     let isRename = data.isRename
-                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
+                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
                     self.dataStream.append(bd)
 
                 }
@@ -63,24 +64,22 @@ class MyData: ObservableObject{
                 print("读取本地数据出现错误!",error as Any)
             }
         } else {
+            dataStream = []
+            storedData = []
             for i in 0..<4{
+                let id = UUID().uuidString
                 let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!)!
                 let name = "widget " + String(i+1)
-                let basicData = BasicData(background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, name: name)
+                let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, name: name)
                 dataStream.append(basicData)
                 let background = UIImage(named: "img" + String(i+1))!.pngData()!
                 let kitty = UIImage(named: "kitty" + String(i+1))!.pngData()!
-                let sd = StoredData(background: background, kitty: kitty, blurBackground: blurBack.pngData()!, name: name)
+                let sd = StoredData(id: id, background: background, kitty: kitty, blurBackground: blurBack.pngData()!, name: name)
+                
                 storedData.append(sd)
                 print("img\(i)")
                 print("storedData num \(storedData.count)")
             }
-            let idName:[WidgetInfo] = dataStream.map{
-                let widget = WidgetInfo(id: $0.id, name: $0.name)
-                return widget
-            }
-            let idNamejson = try? JSONEncoder().encode(idName)
-            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(idNamejson, forKey: UserDataKeys.idName)
         }
         if let loadColorScheme = UserDefaults(suiteName: UserDataKeys.suiteName)!.string(forKey: UserDataKeys.myColorScheme){
             myColorScheme = MyColorScheme(rawValue: loadColorScheme)!
@@ -113,10 +112,12 @@ class MyData: ObservableObject{
     
     static func getStoredData() -> [BasicData]?{
         var dataStream: [BasicData] = []
+        var storedData: [StoredData] = []
         if let jsonData = UserDefaults(suiteName: UserDataKeys.suiteName)!.data(forKey: UserDataKeys.storedData){
             do{
                 let storedData = try JSONDecoder().decode([StoredData].self, from: jsonData)
                 for data in storedData{
+                    let id = data.id
                     let background = UIImage(data:data.background)!
                     let kitty = UIImage(data: data.kitty)!
                     let blurBack = UIImage(data: data.blurBackground)!
@@ -133,7 +134,7 @@ class MyData: ObservableObject{
                     let customFont2 = data.customFont2
                     let name = data.name
                     let isRename = data.isRename
-                    let bd = BasicData(background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
+                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
                     dataStream.append(bd)
                 }
                 return dataStream
@@ -142,24 +143,18 @@ class MyData: ObservableObject{
             }
         } else {
             for i in 0..<4{
+                let id = UUID().uuidString
                 let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!)!
                 let name = "widget " + String(i+1)
-                let basicData = BasicData(background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, name: name)
+                let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, name: name)
                 dataStream.append(basicData)
+                let background = UIImage(named: "img" + String(i+1))!.pngData()!
+                let kitty = UIImage(named: "kitty" + String(i+1))!.pngData()!
+                storedData.append(StoredData(id: id, background: background, kitty: kitty, blurBackground: blurBack.pngData()!, name: name))
             }
+            let jsonData: Data? = try? JSONEncoder().encode(storedData)
+            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(jsonData,forKey: UserDataKeys.storedData)
             return dataStream
-        }
-        return nil
-    }
-    
-    static func returnIdName() -> [WidgetInfo]?{
-        var idName: [WidgetInfo]
-        if let json = UserDefaults(suiteName: UserDataKeys.suiteName)!.data(forKey: UserDataKeys.idName){
-            do {
-               idName = try JSONDecoder().decode([WidgetInfo].self, from: json)
-                return idName
-            }
-            catch{print("decode error")}
         }
         return nil
     }
@@ -186,6 +181,7 @@ struct ColorSeries{
 }
 
  struct StoredData:Hashable, Codable{
+    var id : String
     var background: Data = UIImage(named: "img1")!.pngData()!
     var display: displayMode = .date
     var kitty: Data = UIImage(named: "kitty1")!.pngData()!
@@ -207,7 +203,7 @@ struct ColorSeries{
 }
 
 struct BasicData:Hashable{
-    var id = UUID().uuidString
+    var id: String
    var background: UIImage
     var display: displayMode = .date
    var kitty: UIImage
@@ -351,7 +347,6 @@ extension UIImage{
 
 //MARK: - functions for two SmallWidgetViews
 struct FuncForSmallWidgets{
-    @EnvironmentObject  var myData: MyData
     static func calColor(fontColor: FontColor) -> ColorSeries{
         switch fontColor{
         case .blue: return MyColor.blue

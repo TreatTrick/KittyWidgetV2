@@ -132,10 +132,6 @@ struct ContentView: View {
                             self.myData.dataStream[ind].isRename = true
                             self.myData.storedData[ind].name = reName
                             self.myData.storedData[ind].isRename = true
-                            DispatchQueue.global(qos: .default).async {
-                                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
-                                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.idNamejson, forKey: UserDataKeys.idName)
-                            }
                         }
                         self.reName = ""
                         self.isReName = false
@@ -205,7 +201,7 @@ struct ContentView: View {
     
     
     func addData(){
-        var i = 1
+        var i = 0
         for data in self.myData.dataStream{
             if !data.isRename{
                 let maxNum = Int(data.name.split(separator: " ")[1])!
@@ -214,10 +210,10 @@ struct ContentView: View {
                 }
             }
         }
-        let bd = BasicData(background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!, name: "widget " + String(i+1))
+        let id = UUID().uuidString
+        let bd = BasicData(id: id, background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!, name: "widget " + String(i+1))
         self.myData.dataStream.append(bd)
-        self.myData.storedData.append(StoredData(name: "widget " + String(i + 1)))
-//        MyData.staticDataStream.append(bd)
+        self.myData.storedData.append(StoredData(id: id, name: "widget " + String(i + 1)))
        
     }
     
@@ -234,17 +230,13 @@ struct ContentView: View {
 //            MyData.staticDataStream.remove(at: ind)
             self.myData.storedData.remove(at: ind)
         }
-//        DispatchQueue.global(qos: .default).async {
-//            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
-//            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.idNamejson, forKey: UserDataKeys.idName)
-//        }
+
     }
     
     func doneFunc(){
         self.isEdit = .inactive
-        DispatchQueue.global(qos: .default).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
-            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.idNamejson, forKey: UserDataKeys.idName)
         }
     }
 }
@@ -266,7 +258,7 @@ struct SmallWidgetGrid: View{
             LazyVGrid(columns: columns){
                 ForEach(dataStream, id: \.self){ basicData in
                     VStack(alignment: .center){
-                        NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)){
+                        NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font, customURL: basicData.url)){
                             SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)
                         }
                         Text(basicData.name)

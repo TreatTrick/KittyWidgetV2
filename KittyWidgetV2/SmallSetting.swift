@@ -24,7 +24,7 @@ struct SmallSetting: View {
     @State var isAllBlur: Bool
     var is24Hour: Bool
     @State var font: FontNames
-    @State var customURL: String = ""
+    @State var customURL: String 
     
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
@@ -38,7 +38,7 @@ struct SmallSetting: View {
             HStack{
                 Spacer()
                 VStack{
-                    SmallWidgetView2(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
+                    SmallWidgetView3(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
                     Text(self.basicData.name)
                 }
                 Spacer()
@@ -213,8 +213,9 @@ struct SmallSetting: View {
                 self.myData.dataStream[ind2].customFont1 = self.basicData.customFont1
                 self.myData.dataStream[ind2].customFont2 = self.basicData.customFont2
                 
-                self.navi.wrappedValue.dismiss()
-                DispatchQueue.global(qos:.default).async{
+               
+                
+                DispatchQueue.global(qos:.userInitiated).async{
                     self.myData.storedData[ind2].kitty = self.basicData.kitty.pngData()!
                     self.myData.storedData[ind2].background = self.basicData.background.pngData()!
                     self.myData.storedData[ind2].blurBackground = self.basicData.blurBackground.pngData()!
@@ -229,9 +230,12 @@ struct SmallSetting: View {
                     self.myData.storedData[ind2].customWord2 = self.basicData.customWord2
                     self.myData.storedData[ind2].customFont1 = self.basicData.customFont1
                     self.myData.storedData[ind2].customFont2 = self.basicData.customFont2
+                   print("befor userdefaults")
                     UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
-                    UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.idNamejson, forKey: UserDataKeys.idName)
-                }
+                print("after userdefaults")
+               }
+                self.navi.wrappedValue.dismiss()
+
             }
             
         }
@@ -242,7 +246,7 @@ struct SmallSetting: View {
 //MARK: - Preview
 struct SmallSetting_Previews: PreviewProvider {
     static var previews: some View {
-        SmallSetting(basicData: BasicData(background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!, name: "widget 1"), isKitty: true, selectedCircle: .blue, isWord: true,isBlur: true, isAllBlur: true, is24Hour: true, font: .font4)
+        SmallSetting(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!, name: "widget 1"), isKitty: true, selectedCircle: .blue, isWord: true,isBlur: true, isAllBlur: true, is24Hour: true, font: .font4, customURL: "")
             .environment(\.colorScheme, .dark)
     }
 }

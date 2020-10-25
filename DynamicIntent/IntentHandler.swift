@@ -9,8 +9,8 @@ import Intents
 import SwiftUI
 
 class IntentHandler: INExtension, ConfigurationIntentHandling {
-    func provideWidgetOptionsCollection(for intent: ConfigurationIntent, with completion: @escaping (INObjectCollection<Widgets>?, Error?) -> Void) {
-        let widgets: [Widgets] = MyData.idName.map{
+    func provideWidgetsOptionsCollection(for intent: ConfigurationIntent, with completion: @escaping (INObjectCollection<Widgets>?, Error?) -> Void) {
+        let widgets: [Widgets] = MyData.staticDataStream.map{
             let widget = Widgets(identifier: $0.id, display: $0.name)
             return widget
         }
@@ -18,7 +18,15 @@ class IntentHandler: INExtension, ConfigurationIntentHandling {
         
         completion(collection, nil)
     }
+    
 
+
+    private func defaultWidget(for intent: ConfigurationIntent) -> Widgets? {
+        let id = MyData.staticDataStream.first?.id ?? ""
+        let name = MyData.staticDataStream.first?.name ?? "Unknown"
+        let widget = Widgets(identifier: id , display: name)
+        return widget
+    }
     override func handler(for intent: INIntent) -> Any {
         return self
     }

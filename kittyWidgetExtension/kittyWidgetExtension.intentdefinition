@@ -35,13 +35,13 @@
 					<key>INIntentParameterConfigurable</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
-					<string>widget</string>
+					<string>widgets</string>
 					<key>INIntentParameterDisplayNameID</key>
 					<string>vmX6xD</string>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>1</integer>
 					<key>INIntentParameterName</key>
-					<string>widget</string>
+					<string>widgets</string>
 					<key>INIntentParameterObjectType</key>
 					<string>Widgets</string>
 					<key>INIntentParameterObjectTypeNamespace</key>

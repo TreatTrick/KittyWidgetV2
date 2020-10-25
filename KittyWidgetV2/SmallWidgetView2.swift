@@ -139,3 +139,10 @@ struct SmallWidgetView2_Previews: PreviewProvider {
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
+
+
+struct testView: View{
+    var body: some View{
+        Text(MyData.defaultData.name)
+    }
+}

@@ -18,7 +18,7 @@ struct ContentView: View {
     @State var isAbout: Bool = false
     @State var reName: String = ""
     @State var isReName = false
-    @State var id = UUID()
+    @State var id: String = ""
     var body: some View {
         ZStack{
             NavigationView {
@@ -216,16 +216,13 @@ struct ContentView: View {
         }
         let bd = BasicData(background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!, name: "widget " + String(i+1))
         self.myData.dataStream.append(bd)
+        self.myData.storedData.append(StoredData(name: "widget " + String(i + 1)))
 //        MyData.staticDataStream.append(bd)
-        DispatchQueue.global(qos: .default).async {
-            self.myData.storedData.append(StoredData(name: "widget " + String(i)))
-            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
-            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.idNamejson, forKey: UserDataKeys.idName)
-        }
+       
     }
     
     func delData(){
-        var id: [UUID] = []
+        var id: [String] = []
         for data in self.myData.dataStream{
             if data.isChecked{
                 id.append(data.id)
@@ -237,14 +234,18 @@ struct ContentView: View {
 //            MyData.staticDataStream.remove(at: ind)
             self.myData.storedData.remove(at: ind)
         }
-        DispatchQueue.global(qos: .default).async {
-            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
-            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.idNamejson, forKey: UserDataKeys.idName)
-        }
+//        DispatchQueue.global(qos: .default).async {
+//            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
+//            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.idNamejson, forKey: UserDataKeys.idName)
+//        }
     }
     
     func doneFunc(){
         self.isEdit = .inactive
+        DispatchQueue.global(qos: .default).async {
+            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
+            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.idNamejson, forKey: UserDataKeys.idName)
+        }
     }
 }
 
@@ -257,7 +258,7 @@ struct SmallWidgetGrid: View{
     @State var destination = false
     @Binding var dataStream: [BasicData]
     @Binding var isEdit: EditMode
-    @Binding var id: UUID
+    @Binding var id: String
     @Binding var isReName: Bool
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var body: some View{

@@ -10,6 +10,7 @@
 		97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
 		97016A5125394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
 		9737C9522543F6DA00DAE7A9 /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A41E251F258F003BF5DE /* MyData.swift */; };
+		97620B8A25447B9700DE61D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
 		9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771D1C1251FA60B004E1E15 /* SmallSetting.swift */; };
 		97996B2E253D9EB600835772 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
 		97996B2F253D9EB600835772 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
@@ -472,6 +473,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97620B8A25447B9700DE61D2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

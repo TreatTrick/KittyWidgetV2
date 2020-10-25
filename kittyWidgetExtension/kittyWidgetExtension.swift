@@ -27,7 +27,7 @@ struct Provider: IntentTimelineProvider {
         //let oneMinute: TimeInterval = 60
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         
-        for secendOffset in 0 ..< 60 {
+        for secendOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .second, value: secendOffset, to: currentDate)!
             let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: MyData.is24Hour, basicData: selectedWidget)
             entries.append(entry)
@@ -39,7 +39,7 @@ struct Provider: IntentTimelineProvider {
     
     func selectWidget(for configuration: ConfigurationIntent) -> BasicData{
         if let idString = configuration.widget?.identifier{
-            let id = UUID(uuidString: idString)!
+            let id = idString
            return MyData.staticDataStream.first(where: { $0.id == id })!
         }
         return MyData.defaultData
@@ -55,11 +55,29 @@ struct SimpleEntry: TimelineEntry {
 
 struct kittyWidgetExtensionEntryView : View {
     var entry: Provider.Entry
+    let id = MyData.idName[2].id
+    let data =  MyData.staticDataStream.first(where: { $0.id ==  MyData.idName[2].id })
+    let basicData = BasicData(background: UIImage(named:"img1")!, display: .date, kitty: UIImage(named:"kitty1")!, name: "widget 1")
+
     var body: some View {
 //        SmallWidgetView2(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font)
 //            .widgetURL(URL(string: entry.basicData.url)!)
+        
+//        SmallWidgetView2(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord, isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: true, font: basicData.font)
+//            .widgetURL(URL(string: MyData.defaultData.url)!)
 //        Text(MyData.defaultData.name)
-        Image(uiImage: MyData.staticDataStream[1].background)
+        
+//        Text("start")
+//        if data != nil {
+//            Text(data!.name)
+//        }
+        VStack{
+            Text("start")
+        //    Image(uiImage: basicData.kitty).resizable().frame(width: 50, height: 50, alignment: .center)
+            Image(uiImage: MyData.staticDataStream[2].kitty)
+            Text(id)
+        }
+
     }
 }
 

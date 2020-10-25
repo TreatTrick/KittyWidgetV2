@@ -14,7 +14,7 @@ class MyData: ObservableObject{
     
     var idNamejson: Data?{
         let idName:[WidgetInfo] = dataStream.map{
-            let widget = WidgetInfo(id: $0.id.uuidString, name: $0.name)
+            let widget = WidgetInfo(id: $0.id, name: $0.name)
             return widget
         }
         return try? JSONEncoder().encode(idName)
@@ -76,7 +76,7 @@ class MyData: ObservableObject{
                 print("storedData num \(storedData.count)")
             }
             let idName:[WidgetInfo] = dataStream.map{
-                let widget = WidgetInfo(id: $0.id.uuidString, name: $0.name)
+                let widget = WidgetInfo(id: $0.id, name: $0.name)
                 return widget
             }
             let idNamejson = try? JSONEncoder().encode(idName)
@@ -207,7 +207,7 @@ struct ColorSeries{
 }
 
 struct BasicData:Hashable{
-   var id = UUID()
+    var id = UUID().uuidString
    var background: UIImage
     var display: displayMode = .date
    var kitty: UIImage
@@ -230,7 +230,7 @@ struct BasicData:Hashable{
 }
 
 struct  StaticBasicData:Hashable{
-   var id = UUID()
+    var id = UUID().uuidString
    var background: UIImage
     var display: displayMode = .date
    var kitty: UIImage

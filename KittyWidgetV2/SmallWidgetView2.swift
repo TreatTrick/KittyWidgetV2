@@ -28,16 +28,16 @@ struct SmallWidgetView2: View {
                                 Time(dateSetting: .time,a: false, is24Hour: is24Hour)
                                     .font(.custom(font.rawValue, size: 35))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-//                                    .opacity(0.6)
+                                    .opacity(0.6)
                             } else {
                                 Time(dateSetting: .time,a: false, is24Hour: is24Hour)
                                     .font(.custom(font.rawValue, size: 30))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-//                                    .opacity(0.6)
+                                    .opacity(0.6)
                                 Time(dateSetting: .time, a: true, is24Hour: is24Hour)
                                     .font(.custom(font.rawValue, size: Coefficients.apSize))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-//                                    .opacity(0.6)
+                                    .opacity(0.6)
                                     .offset(x: -4, y: 10)
                             }
                         }
@@ -50,7 +50,7 @@ struct SmallWidgetView2: View {
                     }
                     .padding(4)
                     .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
-                    //.cornerRadius(10)
+                    .cornerRadius(10)
                     .offset(y: 6)
                     
                 }
@@ -61,7 +61,7 @@ struct SmallWidgetView2: View {
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                         .padding(4)
                         .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
-                        //.cornerRadius(10)
+                        .cornerRadius(10)
                 }
             }
             .padding(3)
@@ -77,7 +77,7 @@ struct SmallWidgetView2: View {
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                         .padding(3)
                         .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
-                        //.cornerRadius(10)
+                        .cornerRadius(10)
                         .padding(3)
                 }
                 if basicData.isCustomWord && basicData.customWord2 != ""{
@@ -86,7 +86,7 @@ struct SmallWidgetView2: View {
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                         .padding(3)
                         .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
-                        //.cornerRadius(10)
+                        .cornerRadius(10)
                         .offset(y: 5)
                 }
                 if isKitty{
@@ -106,31 +106,30 @@ struct SmallWidgetView2: View {
     }
     
     func calBlurBackground(isBlur: Bool, img: UIImage) -> some View{
-       Group{
+       GeometryReader{ geometry in
            if isBlur{
-               ZStack {
-                   Image(uiImage: img)
-                Color(self.colorScheme == .dark ? .black : .white).opacity(self.colorScheme == .dark ? 0.3 : 0.4)
+               ZStack{
+                   Image(uiImage: img).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
+                   Color(.white).opacity(0.4)
                }
            } else {
-                EmptyView()
+               EmptyView()
            }
        }
    }
    
     func calBackground(isAllBlur: Bool, basicData: BasicData) -> some View{
-       Group{
+       GeometryReader{ geometry in
            if isAllBlur{
                ZStack {
-                   Image(uiImage: basicData.blurBackground)
-                    .scaledToFill()
-                   Color(self.colorScheme == .dark ? .black : .white).opacity(0.2)
+                   Image(uiImage: basicData.blurBackground).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
+                   Color(.white).opacity(0.2)
                }
            } else {
-               Image(uiImage: basicData.background)
-                .scaledToFill()
+               Image(uiImage: basicData.background).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
            }
        }
+       
    }
 }
 

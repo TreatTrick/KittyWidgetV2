@@ -138,28 +138,27 @@ struct SmallWidgetView: View {
     }
     
      func calBlurBackground(isBlur: Bool, img: UIImage) -> some View{
-        Group{
+        GeometryReader{ geometry in
             if isBlur{
-                ZStack {
-                    Image(uiImage: img)
-                    Color(self.myData.colorScheme == .dark ? .black : .white).opacity(self.myData.colorScheme == .dark ? 0.3 : 0.4)
+                ZStack{
+                    Image(uiImage: img).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
+                    Color(.white).opacity(0.4)
                 }
             } else {
-                 EmptyView()
+                EmptyView()
             }
         }
     }
     
      func calBackground(isAllBlur: Bool, basicData: BasicData) -> some View{
-        Group{
+        GeometryReader{ geometry in
             if isAllBlur{
                 ZStack {
-                    Image(uiImage: basicData.blurBackground)
-                        .scaledToFill()
-                    Color(self.myData.colorScheme == .dark ? .black : .white).opacity(0.2)
+                    Image(uiImage: basicData.blurBackground).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
+                    Color(.white).opacity(0.2)
                 }
             } else {
-                Image(uiImage: basicData.background).scaledToFill()
+                Image(uiImage: basicData.background).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
             }
         }
         

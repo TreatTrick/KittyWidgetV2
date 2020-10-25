@@ -27,7 +27,7 @@ struct Provider: IntentTimelineProvider {
 
 
         for secendOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .second, value: secendOffset, to: currentDate)!
+            let entryDate = Calendar.current.date(byAdding: .minute, value: secendOffset, to: currentDate)!
             let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: MyData.is24Hour, basicData: selectedWidget, id: configuration.widgets?.identifier ?? "NO ID")
             entries.append(entry)
         }
@@ -37,6 +37,7 @@ struct Provider: IntentTimelineProvider {
     }
     
     func selectWidget(for configuration: ConfigurationIntent) -> BasicData{
+        MyData.staticDataStream = MyData.getStoredData()!
         if let idString = configuration.widgets?.identifier{
             if let finalData =  MyData.staticDataStream.first(where: { $0.id == idString }){
                 return finalData
@@ -62,6 +63,7 @@ struct kittyWidgetExtensionEntryView : View {
 
     var body: some View {
         SmallWidgetView3(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font)
+        
     }
 }
 

@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import UIKit
+import WidgetKit
 
 struct SmallSetting: View {
     @Environment(\.presentationMode) var navi
@@ -232,6 +233,7 @@ struct SmallSetting: View {
                     self.myData.storedData[ind2].customFont2 = self.basicData.customFont2
                    print("befor userdefaults")
                     UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
+                    WidgetCenter.shared.reloadAllTimelines()
                 print("after userdefaults")
                }
                 self.navi.wrappedValue.dismiss()

@@ -2,6 +2,7 @@ import SwiftUI
 import WidgetKit
 
 struct SmallWidgetView3: View {
+    @Environment(\.colorScheme) var colorScheme
     var basicData: BasicData
     var isKitty: Bool
     var isWord: Bool
@@ -17,19 +18,25 @@ struct SmallWidgetView3: View {
                     VStack(alignment: .leading){
                         HStack{
                             if is24Hour{
-                Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()))
+                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()))
                                     .font(.custom(font.rawValue, size: 35))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                   // .opacity(0.6)
+                                
                             } else {
                                 Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()).split(separator: ":")[0] + ":" + dateSetting(.time, is24Hour: self.is24Hour, date: Date()).split(separator: ":")[1])
                                     .font(.custom(font.rawValue, size: 30))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    
+                                    //.opacity(0.6)
+                                
+                                
                                 
                                 Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()).split(separator: ":")[2])
                                     .font(.custom(font.rawValue, size: Coefficients.apSize))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .offset(x: -4, y: 10)
+                                   // .opacity(0.6)
+                                
                             }
                         }
                         
@@ -39,9 +46,8 @@ struct SmallWidgetView3: View {
                             .offset(x: 8)
                     }
                     .padding(4)
-                    .background(
-                        calBlurBackground(isBlur: self.isBlur, basicData: self.basicData)
-                    )
+                    .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                    //.cornerRadius(10)
                     .offset(y: 6)
                     
                 }
@@ -51,7 +57,7 @@ struct SmallWidgetView3: View {
                         .font(.custom(font.rawValue, size: basicData.customFont1))
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                         .padding(4)
-                        .background(Image(uiImage: basicData.blurBackground).resizable().scaledToFill())
+                        .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                 }
             }
             .padding(3)
@@ -65,10 +71,8 @@ struct SmallWidgetView3: View {
                     Text(dateSetting(.week, is24Hour: self.is24Hour, date: Date()))                        .font(.custom(font.rawValue, size: 23))
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                         .padding(3)
-                        .background(
-                            calBlurBackground(isBlur: self.isBlur, basicData: self.basicData)
-
-                        )
+                        .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                        //.cornerRadius(10)
                         .padding(3)
                 }
                 if basicData.isCustomWord && basicData.customWord2 != ""{
@@ -76,9 +80,8 @@ struct SmallWidgetView3: View {
                         .font(.custom(font.rawValue, size: basicData.customFont2))
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                         .padding(3)
-                        .background(
-                            calBlurBackground(isBlur: self.isBlur, basicData: self.basicData)
-                        )
+                        .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                        //.cornerRadius(10)
                         .offset(y: 5)
                 }
                 if isKitty{
@@ -91,6 +94,7 @@ struct SmallWidgetView3: View {
         }
         .frame(width: 170, height: 170, alignment: .center)
         .background(calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData))
+        //.cornerRadius(CGFloat(Coefficients//.cornerRadius))
         .environment(\.sizeCategory, .extraExtraExtraLarge)
     }
     
@@ -147,26 +151,26 @@ struct SmallWidgetView3: View {
             if isBlur{
                 ZStack{
                     Image(uiImage: self.basicData.blurBackground).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
-                    Color(.white).opacity(0.4)
+                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.4 : 0.3)
                 }
             } else {
                 EmptyView()
             }
         }
-   }
+    }
     
     func calBackground(isAllBlur: Bool, basicData: BasicData) -> some View{
         GeometryReader{ geometry in
             if isAllBlur{
                 ZStack {
                     Image(uiImage: basicData.blurBackground).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
-                    Color(.white).opacity(0.2)
+                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.4 : 0.3)
                 }
             } else {
                 Image(uiImage: basicData.background).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
             }
         }
-   }
+    }
 }
 
 struct SmallWidgetView3_Previews: PreviewProvider {

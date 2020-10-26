@@ -47,7 +47,7 @@ struct ContentView: View {
                             }
                             .onChange(of: is24Hour){value in
                                 self.myData.is24Hour = value
-//                                MyData.is24Hour = value
+                                //                                MyData.is24Hour = value
                                 UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
                             }
                             Picker(selection: $myColorScheme, label: Text("主题选择"), content: {
@@ -212,7 +212,7 @@ struct ContentView: View {
         let bd = BasicData(id: id, background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!, name: "widget " + String(i+1))
         self.myData.dataStream.append(bd)
         self.myData.storedData.append(StoredData(id: id, name: "widget " + String(i + 1)))
-       
+        
     }
     
     func delData(){
@@ -225,17 +225,21 @@ struct ContentView: View {
         for i in id{
             let ind = self.myData.dataStream.firstIndex(where: {$0.id == i})!
             self.myData.dataStream.remove(at: ind)
-//            MyData.staticDataStream.remove(at: ind)
+            //            MyData.staticDataStream.remove(at: ind)
             self.myData.storedData.remove(at: ind)
         }
-
+        
     }
     
     func doneFunc(){
+        for i in 0..<self.myData.dataStream.count{
+            self.myData.dataStream[i].isChecked = false
+        }
         self.isEdit = .inactive
         DispatchQueue.global(qos: .userInitiated).async {
             UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
         }
+        
     }
 }
 
@@ -257,6 +261,7 @@ struct SmallWidgetGrid: View{
                 ForEach(dataStream, id: \.self){ basicData in
                     VStack(alignment: .center){
                         NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font, customURL: basicData.url)){
+                            
                             SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)
                         }
                         Text(basicData.name)

@@ -96,7 +96,7 @@ struct MiddleWidgetView: View {
                 }
                 
 
-            if isKitty && (isWord || (basicData.isCustomWord && (basicData.customWord1 != "" || basicData.customWord2 != ""))){
+            if (isWord || (basicData.isCustomWord && (basicData.customWord1 != "" || basicData.customWord2 != ""))){
                 Spacer()
             }
             
@@ -109,7 +109,6 @@ struct MiddleWidgetView: View {
                         .clipped()
                 }
                 .frame(width: 120, height: 170)
-                .background(Color(.red))
             }
             
         }

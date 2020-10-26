@@ -26,12 +26,12 @@ struct SmallWidgetView2: View {
                         HStack{
                             if is24Hour{
                                 Time(dateSetting: .time,a: false, is24Hour: is24Hour)
-                                    .font(.custom(font.rawValue, size: 35))
+                                    .font(.custom(font.rawValue, size: 32))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .opacity(0.6)
                             } else {
                                 Time(dateSetting: .time,a: false, is24Hour: is24Hour)
-                                    .font(.custom(font.rawValue, size: 30))
+                                    .font(.custom(font.rawValue, size: 27))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .opacity(0.6)
                                 Time(dateSetting: .time, a: true, is24Hour: is24Hour)
@@ -90,8 +90,9 @@ struct SmallWidgetView2: View {
                         .offset(y: 5)
                 }
                 if isKitty{
-                    Kitty(uiImage: basicData.kitty)
-                        .frame(width: 70, height:100)
+                    Image(uiImage: basicData.kitty)
+                        .resizable()
+                        .scaledToFit()
                 }
                 
             }
@@ -110,7 +111,7 @@ struct SmallWidgetView2: View {
            if isBlur{
                ZStack{
                    Image(uiImage: img).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
-                   Color(.white).opacity(0.4)
+                Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.4 : 0.3)
                }
            } else {
                EmptyView()
@@ -123,7 +124,7 @@ struct SmallWidgetView2: View {
            if isAllBlur{
                ZStack {
                    Image(uiImage: basicData.blurBackground).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
-                   Color(.white).opacity(0.2)
+                Color(self.colorScheme == .light ? .white : .black).opacity(0.2)
                }
            } else {
                Image(uiImage: basicData.background).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()

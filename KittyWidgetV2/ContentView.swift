@@ -19,6 +19,7 @@ struct ContentView: View {
     @State var reName: String = ""
     @State var isReName = false
     @State var id: String = ""
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         ZStack{
             NavigationView {
@@ -105,6 +106,7 @@ struct ContentView: View {
                 ReNameView
             }
         }
+        .environment(\.colorScheme, MyData.slTheme(sc: self.myData.myColorScheme, colorScheme: colorScheme))
     }
     
     var ReNameView: some View{
@@ -142,7 +144,7 @@ struct ContentView: View {
                 }
             }
             .frame(width: 300, height: 200, alignment: .center)
-            .background(self.myData.slTheme(sc: self.myData.myColorScheme) == .dark ? Color(.black) : Color(.white))
+            .background(MyData.slTheme(sc: self.myData.myColorScheme, colorScheme: colorScheme) == .dark ? Color(.black) : Color(.white))
             .cornerRadius(25)
         }
     }
@@ -152,10 +154,6 @@ struct ContentView: View {
         case .setting: return "设置"
         case .smallWidget: return "Widgets"
         }
-    }
-    
-    static func slTheme(cs: MyColorScheme){
-        
     }
     
     

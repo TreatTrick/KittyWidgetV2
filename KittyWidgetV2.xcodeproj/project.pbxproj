@@ -12,6 +12,8 @@
 		97318E6F254573A7002CF887 /* SmallWidgetView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97318E6E254573A7002CF887 /* SmallWidgetView3.swift */; };
 		97318EA425459A52002CF887 /* SmallWidgetView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97318E6E254573A7002CF887 /* SmallWidgetView3.swift */; };
 		9737C9522543F6DA00DAE7A9 /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A41E251F258F003BF5DE /* MyData.swift */; };
+		974D21A52546A32000FDADF3 /* MiddleWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */; };
+		974D21B12546A37200FDADF3 /* MiddleWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */; };
 		97620B8A25447B9700DE61D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
 		9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771D1C1251FA60B004E1E15 /* SmallSetting.swift */; };
 		97996B2E253D9EB600835772 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
@@ -34,16 +36,6 @@
 		97996B3F253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */; };
 		97996B40253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */; };
 		97996B41253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */; };
-		97996B46253DB40D00835772 /* QianTuXiaoTuTi-2.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B25253D9EB400835772 /* QianTuXiaoTuTi-2.ttf */; };
-		97996B47253DB40D00835772 /* RuiZiZhenYanTi.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B26253D9EB400835772 /* RuiZiZhenYanTi.ttf */; };
-		97996B48253DB40D00835772 /* ShouMoMoYingBiShouXieTi-2.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B2A253D9EB600835772 /* ShouMoMoYingBiShouXieTi-2.ttf */; };
-		97996B49253DB40D00835772 /* SourceHanSansCN-Bold-2.otf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B2B253D9EB600835772 /* SourceHanSansCN-Bold-2.otf */; };
-		97996B4A253DB40D00835772 /* SourceHanSerifCN-Bold-2.otf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B29253D9EB500835772 /* SourceHanSerifCN-Bold-2.otf */; };
-		97996B4B253DB40D00835772 /* XianErTi-2.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
-		97996B4C253DB40D00835772 /* YangRenDongZhuShiTi-2.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B27253D9EB400835772 /* YangRenDongZhuShiTi-2.ttf */; };
-		97996B4D253DB40D00835772 /* YanShiXiaXingKai-2.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B28253D9EB500835772 /* YanShiXiaXingKai-2.ttf */; };
-		97996B4E253DB40D00835772 /* YaoSuiXinShouXieTi-2.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */; };
-		97996B4F253DB40D00835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */; };
 		97B3D50A254090FD00F6052D /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B3D509254090FD00F6052D /* IntentHandler.swift */; };
 		97B3D50E254090FD00F6052D /* DynamicIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 97B3D507254090FD00F6052D /* DynamicIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */; };
@@ -118,6 +110,7 @@
 /* Begin PBXFileReference section */
 		97016A4F25394A5400C564CE /* SmallWidgetView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallWidgetView2.swift; sourceTree = "<group>"; };
 		97318E6E254573A7002CF887 /* SmallWidgetView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallWidgetView3.swift; sourceTree = "<group>"; };
+		974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleWidgetView.swift; sourceTree = "<group>"; };
 		9771D1C1251FA60B004E1E15 /* SmallSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallSetting.swift; sourceTree = "<group>"; };
 		97996B24253D9EB400835772 /* XianErTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XianErTi-2.ttf"; sourceTree = "<group>"; };
 		97996B25253D9EB400835772 /* QianTuXiaoTuTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "QianTuXiaoTuTi-2.ttf"; sourceTree = "<group>"; };
@@ -267,6 +260,7 @@
 				97318E6E254573A7002CF887 /* SmallWidgetView3.swift */,
 				97C2A411251F2560003BF5DE /* ImagePicker.swift */,
 				97C2A3DB251F24F4003BF5DE /* ContentView.swift */,
+				974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */,
 				97C2A455251F2877003BF5DE /* Assets.xcassets */,
 				97C2A3E2251F24F6003BF5DE /* Info.plist */,
 				97C2A3DF251F24F6003BF5DE /* Preview Content */,
@@ -552,16 +546,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97996B46253DB40D00835772 /* QianTuXiaoTuTi-2.ttf in Sources */,
-				97996B47253DB40D00835772 /* RuiZiZhenYanTi.ttf in Sources */,
-				97996B48253DB40D00835772 /* ShouMoMoYingBiShouXieTi-2.ttf in Sources */,
-				97996B49253DB40D00835772 /* SourceHanSansCN-Bold-2.otf in Sources */,
-				97996B4A253DB40D00835772 /* SourceHanSerifCN-Bold-2.otf in Sources */,
-				97996B4B253DB40D00835772 /* XianErTi-2.ttf in Sources */,
-				97996B4C253DB40D00835772 /* YangRenDongZhuShiTi-2.ttf in Sources */,
-				97996B4D253DB40D00835772 /* YanShiXiaXingKai-2.ttf in Sources */,
-				97996B4E253DB40D00835772 /* YaoSuiXinShouXieTi-2.ttf in Sources */,
-				97996B4F253DB40D00835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Sources */,
 				97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */,
 				97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */,
 				97318E6F254573A7002CF887 /* SmallWidgetView3.swift in Sources */,
@@ -570,6 +554,7 @@
 				97C2A412251F2560003BF5DE /* ImagePicker.swift in Sources */,
 				9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */,
 				97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */,
+				974D21A52546A32000FDADF3 /* MiddleWidgetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +584,7 @@
 				97016A5125394A5400C564CE /* SmallWidgetView2.swift in Sources */,
 				9737C9522543F6DA00DAE7A9 /* MyData.swift in Sources */,
 				97C2A432251F2608003BF5DE /* kittyWidgetExtension.swift in Sources */,
+				974D21B12546A37200FDADF3 /* MiddleWidgetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

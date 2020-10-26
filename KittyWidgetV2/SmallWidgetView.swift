@@ -11,6 +11,7 @@ import WidgetKit
 struct SmallWidgetView: View {
     @EnvironmentObject var myData: MyData
     @Environment(\.editMode) var editMode
+    @Environment(\.colorScheme) var colorScheme
     var basicData: BasicData
     var isKitty: Bool
     var isWord: Bool
@@ -29,12 +30,12 @@ struct SmallWidgetView: View {
                         HStack{
                                 if is24Hour{
                                     Time(dateSetting: .time,a: false, is24Hour: is24Hour)
-                                        .font(.custom(font.rawValue, size: 35))
+                                        .font(.custom(font.rawValue, size: 32))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                         .opacity(0.6)
                                 } else {
                                     Time(dateSetting: .time,a: false, is24Hour: is24Hour)
-                                        .font(.custom(font.rawValue, size: 30))
+                                        .font(.custom(font.rawValue, size: 27))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                         .opacity(0.6)
                                     Time(dateSetting: .time, a: true, is24Hour: is24Hour)
@@ -46,7 +47,7 @@ struct SmallWidgetView: View {
                             
                             if editMode?.wrappedValue != .inactive {
                                 Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(.red)
                             }
                         }
                     
@@ -100,17 +101,22 @@ struct SmallWidgetView: View {
                             .offset(y: 5)
                     }
                     if isKitty{
-                        Kitty(uiImage: basicData.kitty)
-                            .frame(width: 70, height:100)
+                        Image(uiImage: basicData.kitty)
+                            .resizable()
+                            .scaledToFit()
                     }
                     
                 }
                 
             }
+            .frame(width: 170, height: 170)
+            .background( calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData) )
+            .environment(\.sizeCategory, .extraExtraExtraLarge)
+            .cornerRadius(CGFloat(Coefficients.cornerRadius))
             
             if editMode?.wrappedValue != .inactive && !isWord{
                 Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
-                    .foregroundColor(.blue)
+                    .foregroundColor(.red)
                     .padding(4)
                     .background(calBlurBackground(isBlur: true, img: self.basicData.blurBackground))
                     .cornerRadius(10)
@@ -124,12 +130,6 @@ struct SmallWidgetView: View {
             }
         }
         .animation(.easeInOut)
-        
-        .frame(width: 170, height: 170)
-        .background( calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData) )
-        .environment(\.sizeCategory, .extraExtraExtraLarge)
-        .cornerRadius(CGFloat(Coefficients.cornerRadius))
-        .animation(.easeInOut)
     }
     
     func selectItem(){
@@ -142,7 +142,7 @@ struct SmallWidgetView: View {
             if isBlur{
                 ZStack{
                     Image(uiImage: img).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
-                    Color(.white).opacity(0.4)
+                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.4 : 0.3)
                 }
             } else {
                 EmptyView()
@@ -155,7 +155,8 @@ struct SmallWidgetView: View {
             if isAllBlur{
                 ZStack {
                     Image(uiImage: basicData.blurBackground).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
-                    Color(.white).opacity(0.2)
+                    Color(self.colorScheme == .light ? .white : .black)
+                        .opacity(0.2)
                 }
             } else {
                 Image(uiImage: basicData.background).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
@@ -239,15 +240,6 @@ struct Time: View{
     }
 }
 
-
-//MARK: - Kitty view
-struct Kitty: View{
-    var uiImage: UIImage
-    var body:some View{
-        Image(uiImage: uiImage)
-            .resizable()
-    }
-}
 
 //MARK: - Preview
 

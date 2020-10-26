@@ -25,10 +25,9 @@ class MyData: ObservableObject{
     var storedData: [StoredData] = []
     @Published var is24Hour: Bool = false
     @Published var myColorScheme: MyColorScheme = .system
-    @Environment(\.colorScheme)  var colorScheme
     static let context = CIContext()
     static var is24Hour: Bool = UserDefaults(suiteName: UserDataKeys.suiteName)!.bool(forKey: UserDataKeys.is24Hour)
-    static var defaultData = BasicData(id: UUID().uuidString, background: UIImage(named:"img1-mini")!, display: .date, kitty: UIImage(named:"kitty1-mini")!, name: "default widget")
+    static var defaultData = BasicData(id: UUID().uuidString, background: UIImage(named:"img1")!, display: .date, kitty: UIImage(named:"kitty1")!, name: "default widget")
     static var staticDataStream: [BasicData] = MyData.getStoredData() ?? []
     
     init(){
@@ -50,13 +49,14 @@ class MyData: ObservableObject{
                     let isAllBlur = data.isAllBlur
                     let font = data.font
                     let url = data.url
+                    let isCustomWord = data.isCustomWord
                     let customWord1 = data.customWord1
                     let customWord2 = data.customWord2
                     let customFont1 = data.customFont1
                     let customFont2 = data.customFont2
                     let name = data.name
                     let isRename = data.isRename
-                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
+                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
                     self.dataStream.append(bd)
 
                 }
@@ -67,7 +67,7 @@ class MyData: ObservableObject{
             dataStream = []
             storedData = []
             for i in 0..<4{
-                let id = UUID().uuidString
+                let id = MyData.staticDataStream[i].id
                 let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!)!
                 let name = "widget " + String(i+1)
                 let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, name: name)
@@ -101,13 +101,13 @@ class MyData: ObservableObject{
         return nil
     }
     
-     func slTheme(sc: MyColorScheme) -> ColorScheme{
-        switch sc{
-        case .system: return colorScheme
-        case .myDark: return .dark
-        case .myLight: return .light
-        }
-    }
+    static func slTheme(sc: MyColorScheme, colorScheme: ColorScheme) -> ColorScheme{
+       switch sc{
+       case .system: return colorScheme
+       case .myDark: return .dark
+       case .myLight: return .light
+       }
+   }
     
     
     static func getStoredData() -> [BasicData]?{
@@ -128,13 +128,14 @@ class MyData: ObservableObject{
                     let isAllBlur = data.isAllBlur
                     let font = data.font
                     let url = data.url
+                    let isCustomWord = data.isCustomWord
                     let customWord1 = data.customWord1
                     let customWord2 = data.customWord2
                     let customFont1 = data.customFont1
                     let customFont2 = data.customFont2
                     let name = data.name
                     let isRename = data.isRename
-                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
+                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
                     dataStream.append(bd)
                 }
                 return dataStream

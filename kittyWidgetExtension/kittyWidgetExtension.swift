@@ -26,8 +26,8 @@ struct Provider: IntentTimelineProvider {
         var entries: [SimpleEntry] = []
 
 
-        for secendOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .minute, value: secendOffset, to: currentDate)!
+        for secendOffset in 0 ..< 10 {
+            let entryDate = Calendar.current.date(byAdding: .second, value: secendOffset, to: currentDate)!
             let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: MyData.is24Hour, basicData: selectedWidget, id: configuration.widgets?.identifier ?? "NO ID")
             entries.append(entry)
         }
@@ -37,9 +37,11 @@ struct Provider: IntentTimelineProvider {
     }
     
     func selectWidget(for configuration: ConfigurationIntent) -> BasicData{
-        MyData.staticDataStream = MyData.getStoredData()!
+        var data: [BasicData]
+        data = MyData.getStoredData()!
+        
         if let idString = configuration.widgets?.identifier{
-            if let finalData =  MyData.staticDataStream.first(where: { $0.id == idString }){
+            if let finalData =  data.first(where: { $0.id == idString }){
                 return finalData
             }
             print("in let finalData")
@@ -59,11 +61,18 @@ struct SimpleEntry: TimelineEntry {
 }
 
 struct kittyWidgetExtensionEntryView : View {
+    @Environment(\.widgetFamily) var family
     var entry: Provider.Entry
 
     var body: some View {
-        SmallWidgetView3(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font)
-        
+        switch family {
+        case .systemSmall:
+            SmallWidgetView3(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font)
+                .widgetURL(URL(string: entry.basicData.url))
+        default :
+            MiddleWidgetView(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font)
+                .widgetURL(URL(string: entry.basicData.url))
+        }
     }
 }
 
@@ -77,7 +86,7 @@ struct kittyWidgetExtension: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
-        .supportedFamilies([.systemSmall])
+        .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
 

@@ -21,7 +21,7 @@ class IntentHandler: INExtension, ConfigurationIntentHandling {
     
 
 
-    private func defaultWidget(for intent: ConfigurationIntent) -> Widgets? {
+    internal func defaultWidgets(for intent: ConfigurationIntent) -> Widgets? {
         let id = MyData.staticDataStream.first?.id ?? ""
         let name = MyData.staticDataStream.first?.name ?? "Unknown"
         let widget = Widgets(identifier: id , display: name)
@@ -30,5 +30,4 @@ class IntentHandler: INExtension, ConfigurationIntentHandling {
     override func handler(for intent: INIntent) -> Any {
         return self
     }
-    
 }

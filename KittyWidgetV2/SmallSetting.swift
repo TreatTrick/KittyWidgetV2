@@ -25,7 +25,7 @@ struct SmallSetting: View {
     @State var isAllBlur: Bool
     var is24Hour: Bool
     @State var font: FontNames
-    @State var customURL: String 
+    @State var customURL: String
     
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
@@ -36,18 +36,24 @@ struct SmallSetting: View {
     
     var body: some View {
         VStack{
-            HStack{
-                Spacer()
-                VStack{
-                    SmallWidgetView3(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
-                    Text(self.basicData.name)
+            ScrollView(.horizontal){
+                HStack{
+                    VStack{
+                        SmallWidgetView2(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
+                        Text(self.basicData.name)
+                    }
+                    .padding()
+                    VStack{
+                        MiddleWidgetView(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
+                        Text(self.basicData.name)
+                    }
+                    .padding()
                 }
-                Spacer()
             }
             .padding()
             .background(
                 Group{
-                    if self.myData.slTheme(sc: self.myData.myColorScheme) == .light{
+                    if MyData.slTheme(sc: self.myData.myColorScheme, colorScheme: colorScheme) == .light{
                         MyColor.backPurple
                     } else {
                         Color(hex: 0x1c1c1e)
@@ -187,59 +193,17 @@ struct SmallSetting: View {
             }
             .animation(.easeInOut)
             
-            ZStack{
-                Rectangle()
-                    .frame(width: 100, height: 40)
-                    .foregroundColor(self.myData.slTheme(sc: self.myData.myColorScheme) == .dark ? Color(hex: 0x4548d) : MyColor.blue.light)
-                    .cornerRadius(CGFloat(Coefficients.cornerRadius))
-                Text("确定")
-                    .font(Font.system(size: 20, weight:.semibold, design: .default))
-                    .foregroundColor(.white)
+            Button(action: {self.OKButtonTapped() } ) {
+                ZStack{
+                    Rectangle()
+                        .frame(width: 100, height: 40)
+                        .foregroundColor(MyData.slTheme(sc: self.myData.myColorScheme, colorScheme: colorScheme) == .dark ? Color(hex: 0x4548d) : MyColor.blue.light)
+                        .cornerRadius(CGFloat(Coefficients.cornerRadius))
+                    Text("确定")
+                        .font(Font.system(size: 20, weight:.semibold, design: .default))
+                        .foregroundColor(.white)
+                }
             }
-            .onTapGesture{
-                let ind2 = ind
-                self.myData.dataStream[ind2].kitty = self.basicData.kitty
-                self.myData.dataStream[ind2].background = self.basicData.background
-                self.myData.dataStream[ind2].blurBackground = self.basicData.blurBackground
-                self.myData.dataStream[ind2].fontColor = self.basicData.fontColor
-                self.myData.dataStream[ind2].isKitty = self.isKitty
-                self.myData.dataStream[ind2].isWord = self.isWord
-                self.myData.dataStream[ind2].isBlur = self.isBlur
-                self.myData.dataStream[ind2].isAllBlur = self.isAllBlur
-                self.myData.dataStream[ind2].font = self.font
-                self.myData.dataStream[ind2].url = self.basicData.url
-                self.myData.dataStream[ind2].isCustomWord = self.basicData.isCustomWord
-                self.myData.dataStream[ind2].customWord1 = self.basicData.customWord1
-                self.myData.dataStream[ind2].customWord2 = self.basicData.customWord2
-                self.myData.dataStream[ind2].customFont1 = self.basicData.customFont1
-                self.myData.dataStream[ind2].customFont2 = self.basicData.customFont2
-                
-               
-                
-                DispatchQueue.global(qos:.userInitiated).async{
-                    self.myData.storedData[ind2].kitty = self.basicData.kitty.pngData()!
-                    self.myData.storedData[ind2].background = self.basicData.background.pngData()!
-                    self.myData.storedData[ind2].blurBackground = self.basicData.blurBackground.pngData()!
-                    self.myData.storedData[ind2].fontColor = self.basicData.fontColor
-                    self.myData.storedData[ind2].isKitty = self.isKitty
-                    self.myData.storedData[ind2].isWord = self.isWord
-                    self.myData.storedData[ind2].isBlur = self.isBlur
-                    self.myData.storedData[ind2].isAllBlur = self.isAllBlur
-                    self.myData.storedData[ind2].font = self.font
-                    self.myData.storedData[ind2].url = self.basicData.url
-                    self.myData.storedData[ind2].customWord1 = self.basicData.customWord1
-                    self.myData.storedData[ind2].customWord2 = self.basicData.customWord2
-                    self.myData.storedData[ind2].customFont1 = self.basicData.customFont1
-                    self.myData.storedData[ind2].customFont2 = self.basicData.customFont2
-                   print("befor userdefaults")
-                    UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
-                    WidgetCenter.shared.reloadAllTimelines()
-                print("after userdefaults")
-               }
-                self.navi.wrappedValue.dismiss()
-
-            }
-            
         }
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -318,6 +282,51 @@ extension SmallSetting{
                 EmptyView()
             }
         }
+    }
+    
+    func OKButtonTapped(){
+        let ind2 = ind
+        self.myData.dataStream[ind2].kitty = self.basicData.kitty
+        self.myData.dataStream[ind2].background = self.basicData.background
+        self.myData.dataStream[ind2].blurBackground = self.basicData.blurBackground
+        self.myData.dataStream[ind2].fontColor = self.basicData.fontColor
+        self.myData.dataStream[ind2].isKitty = self.isKitty
+        self.myData.dataStream[ind2].isWord = self.isWord
+        self.myData.dataStream[ind2].isBlur = self.isBlur
+        self.myData.dataStream[ind2].isAllBlur = self.isAllBlur
+        self.myData.dataStream[ind2].font = self.font
+        self.myData.dataStream[ind2].url = self.basicData.url
+        self.myData.dataStream[ind2].isCustomWord = self.basicData.isCustomWord
+        self.myData.dataStream[ind2].customWord1 = self.basicData.customWord1
+        self.myData.dataStream[ind2].customWord2 = self.basicData.customWord2
+        self.myData.dataStream[ind2].customFont1 = self.basicData.customFont1
+        self.myData.dataStream[ind2].customFont2 = self.basicData.customFont2
+        
+       
+        DispatchQueue.global(qos:.userInitiated).async{
+            self.myData.storedData[ind2].kitty = self.basicData.kitty.pngData()!
+            self.myData.storedData[ind2].background = self.basicData.background.pngData()!
+            self.myData.storedData[ind2].blurBackground = self.basicData.blurBackground.pngData()!
+            self.myData.storedData[ind2].fontColor = self.basicData.fontColor
+            self.myData.storedData[ind2].isKitty = self.isKitty
+            self.myData.storedData[ind2].isWord = self.isWord
+            self.myData.storedData[ind2].isBlur = self.isBlur
+            self.myData.storedData[ind2].isAllBlur = self.isAllBlur
+            self.myData.storedData[ind2].font = self.font
+            self.myData.storedData[ind2].url = self.basicData.url
+            self.myData.storedData[ind2].isCustomWord = self.basicData.isCustomWord
+            self.myData.storedData[ind2].customWord1 = self.basicData.customWord1
+            self.myData.storedData[ind2].customWord2 = self.basicData.customWord2
+            self.myData.storedData[ind2].customFont1 = self.basicData.customFont1
+            self.myData.storedData[ind2].customFont2 = self.basicData.customFont2
+            print("befor userdefaults")
+            //let temp = MyData.getStoredData()!
+            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
+            print("after userdefaults")
+            WidgetCenter.shared.reloadAllTimelines()
+            print("widgetcenter.reload")
+       }
+        self.navi.wrappedValue.dismiss()
     }
 }
 
@@ -632,7 +641,7 @@ extension SmallSetting{
                 .background(fontBack(self.font == .font10))
                 
             }
-            .foregroundColor(self.myData.slTheme(sc: self.myData.myColorScheme) == .dark ? .white : .black)
+            .foregroundColor(MyData.slTheme(sc: self.myData.myColorScheme, colorScheme: colorScheme) == .dark ? .white : .black)
             
         }
     }

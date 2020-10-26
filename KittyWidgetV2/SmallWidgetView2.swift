@@ -90,9 +90,14 @@ struct SmallWidgetView2: View {
                         .offset(y: 5)
                 }
                 if isKitty{
-                    Image(uiImage: basicData.kitty)
-                        .resizable()
-                        .scaledToFit()
+                    ZStack{
+                        Image(uiImage: basicData.kitty)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 70, height: 99)
+                            .clipped()
+                    }
+                    .frame(width: 70, height: 99)
                 }
                 
             }

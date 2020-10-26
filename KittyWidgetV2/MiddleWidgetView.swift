@@ -101,12 +101,15 @@ struct MiddleWidgetView: View {
             }
             
             if isKitty{
-                VStack{
-                Image(uiImage: basicData.kitty)
-                    .resizable()
-                    .scaledToFit()
+                ZStack{
+                    Image(uiImage: basicData.kitty)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 120, height: 170)
+                        .clipped()
                 }
-                
+                .frame(width: 120, height: 170)
+                .background(Color(.red))
             }
             
         }

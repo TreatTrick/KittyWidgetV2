@@ -26,6 +26,13 @@ struct SmallSetting: View {
     var is24Hour: Bool
     @State var font: FontNames
     @State var customURL: String
+    @State var img: UIImage = UIImage(systemName: "photo")!
+    @State var isImageClip = false
+    
+    @GestureState var gesturePanOffset: CGSize = .zero
+    @GestureState var gestureZoomScale: CGFloat = 1.0
+    @State var finalOffset: CGSize = .zero
+    @State var finalZoomScale: CGFloat = 1.0
     
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
@@ -35,179 +42,244 @@ struct SmallSetting: View {
     let mini = "-mini"
     
     var body: some View {
-        VStack{
-            ScrollView(.horizontal){
-                HStack{
-                    VStack{
-                        SmallWidgetView2(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
-                        Text(self.basicData.name)
+        ZStack {
+            VStack{
+                    ScrollView(.horizontal){
+                        HStack{
+                            VStack{
+                                SmallWidgetView2(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
+                                Text(self.basicData.name)
+                            }
+                            .padding()
+                            VStack{
+                                MiddleWidgetView(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
+                                Text(self.basicData.name)
+                            }
+                            .padding()
+                        }
                     }
                     .padding()
-                    VStack{
-                        MiddleWidgetView(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
-                        Text(self.basicData.name)
-                    }
-                    .padding()
-                }
-            }
-            .padding()
-            .background(
-                Group{
-                    if MyData.slTheme(sc: self.myData.myColorScheme, colorScheme: colorScheme) == .light{
-                        MyColor.backPurple
-                    } else {
-                        Color(hex: 0x1c1c1e)
-                    }
-                }
-            )
-            
-            Form{
-                Section(header: Text("喵咪")){
-                    KittyCluster
-                }
-                
-                Section(header: Text("默认背景")){
-                    backgroundCluster
-                    if isPureColor{
-                        PureColorCluster
-                    }
-                }
-                
-                Section(header: Text("字体设置")){
-                    CircleCluster
-                    FontCluster
-                }
-                
-                Section(header:Text("其他个性化设置")){
-                    HStack{
-                        Text("选取自定义背景")
-                        Spacer()
-                        Button(action: {isPicker = true}){
-                            Image(systemName: "plus.circle")
+                    .background(
+                        Group{
+                            if MyData.slTheme(sc: self.myData.myColorScheme, colorScheme: colorScheme) == .light{
+                                MyColor.backPurple
+                            } else {
+                                Color(hex: 0x1c1c1e)
+                            }
                         }
-                        .sheet(isPresented: $isPicker){
-                            ImagePicker(basicData: $basicData)
+                    )
+                    
+                    Form{
+                        Section(header: Text("喵咪")){
+                            KittyCluster
                         }
-                    }
-                    
-                    Toggle(isOn: $isKitty){
-                        Text("显示猫咪")
-                    }
-                    
-                    Toggle(isOn: $isWord){
-                        Text("显示时间日期")
-                    }
-                    .onChange(of: isWord, perform: { value in
-                        if value && self.basicData.isCustomWord{
-                            self.basicData.isCustomWord = false
+                        
+                        Section(header: Text("默认背景")){
+                            backgroundCluster
+                            if isPureColor{
+                                PureColorCluster
+                            }
                         }
-                    })
-                    
-                    Toggle(isOn: $isBlur){
-                        Text("模糊文字背景")
-                    }
-                    
-                    Toggle(isOn: $isAllBlur){
-                        Text("模糊背景")
-                    }
-                    
-                    Toggle(isOn: $basicData.isCustomWord){
-                        Text("自定义文字")
-                    }
-                    .onChange(of: basicData.isCustomWord, perform: { value in
-                        if value && self.isWord{
-                            self.isWord = false
+                        
+                        Section(header: Text("字体设置")){
+                            CircleCluster
+                            FontCluster
                         }
-                    })
-                }
-                
-                if basicData.isCustomWord{
-                    Section(header:
-                                HStack{
-                                    Spacer()
-                                    Image(systemName: "chevron.forward")
-                                        .rotationEffect(.degrees(90))
-                                    Spacer()
+                        
+                        Section(header:Text("其他个性化设置")){
+                            HStack{
+                                Text("选取自定义背景")
+                                Spacer()
+                                Button(action: {isPicker = true}){
+                                    Image(systemName: "plus.circle")
                                 }
-                    ){
-                        HStack{
-                            TextField("第一行", text: $basicData.customWord1)
-                            Button("确定"){
-                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                                .sheet(isPresented: $isPicker){
+                                    ImagePicker(img: $img, isImageClip: $isImageClip)
+                                }
                             }
-                            .buttonStyle(BorderlessButtonStyle())
-                        }
-                        
-                        HStack{
-                            Stepper("自定义第一行字体大小：" + String(Int(self.basicData.customFont1)), onIncrement:{self.basicData.customFont1 += 1},
-                                    onDecrement:{
-                                        self.basicData.customFont1 -= 1
-                                        if self.basicData.customFont1 < 0 {
-                                            self.basicData.customFont1 = 0
-                                        }
-                                    })
-                        }
-                        
-                        HStack{
-                            TextField("第二行", text: $basicData.customWord2)
-                            Button("确定"){
-                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                            
+                            Toggle(isOn: $isKitty){
+                                Text("显示猫咪")
                             }
-                            .buttonStyle(BorderlessButtonStyle())
+                            
+                            Toggle(isOn: $isWord){
+                                Text("显示时间日期")
+                            }
+                            .onChange(of: isWord, perform: { value in
+                                if value && self.basicData.isCustomWord{
+                                    self.basicData.isCustomWord = false
+                                }
+                            })
+                            
+                            Toggle(isOn: $isBlur){
+                                Text("模糊文字背景")
+                            }
+                            
+                            Toggle(isOn: $isAllBlur){
+                                Text("模糊背景")
+                            }
+                            
+                            Toggle(isOn: $basicData.isCustomWord){
+                                Text("自定义文字")
+                            }
+                            .onChange(of: basicData.isCustomWord, perform: { value in
+                                if value && self.isWord{
+                                    self.isWord = false
+                                }
+                            })
                         }
                         
-                        HStack{
-                            Stepper("自定义第二行字体大小：" + String(Int(self.basicData.customFont2)), onIncrement:{self.basicData.customFont2 += 1},
-                                    onDecrement:{
-                                        self.basicData.customFont2 -= 1
-                                        if self.basicData.customFont2 < 0 {
-                                            self.basicData.customFont2 = 0
+                        if basicData.isCustomWord{
+                            Section(header:
+                                        HStack{
+                                            Spacer()
+                                            Image(systemName: "chevron.forward")
+                                                .rotationEffect(.degrees(90))
+                                            Spacer()
                                         }
-                                    })
-                        }
-                    }
+                            ){
+                                HStack{
+                                    TextField("第一行", text: $basicData.customWord1)
+                                    Button("确定"){
+                                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                                    }
+                                    .buttonStyle(BorderlessButtonStyle())
+                                }
+                                
+                                HStack{
+                                    Stepper("自定义第一行字体大小：" + String(Int(self.basicData.customFont1)), onIncrement:{self.basicData.customFont1 += 1},
+                                            onDecrement:{
+                                                self.basicData.customFont1 -= 1
+                                                if self.basicData.customFont1 < 0 {
+                                                    self.basicData.customFont1 = 0
+                                                }
+                                            })
+                                }
+                                
+                                HStack{
+                                    TextField("第二行", text: $basicData.customWord2)
+                                    Button("确定"){
+                                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                                    }
+                                    .buttonStyle(BorderlessButtonStyle())
+                                }
+                                
+                                HStack{
+                                    Stepper("自定义第二行字体大小：" + String(Int(self.basicData.customFont2)), onIncrement:{self.basicData.customFont2 += 1},
+                                            onDecrement:{
+                                                self.basicData.customFont2 -= 1
+                                                if self.basicData.customFont2 < 0 {
+                                                    self.basicData.customFont2 = 0
+                                                }
+                                            })
+                                }
+                            }
 
-                }
-                
-                Section{
-                    Picker( "小插件对应快捷方式", selection: $basicData.url,content: {
-                        Text("未选择").tag("")
-                        Text("微信扫一扫").tag("weixin://scanqrcode")
-                        Text("支付宝扫一扫").tag("alipayqr://platformapi/startapp?saId=10000007")
-                        Text("支付宝收款码").tag("alipays://platformapi/startapp?appId=20000123")
-                        Text("支付宝付款码").tag("alipay://platformapi/startapp?appId=20000056")
-                        Text("支付宝滴滴").tag("alipay://platformapi/startapp?appId=20000778")
-                        Text("支付宝蚂蚁森林") .tag("alipay://platformapi/startapp?appId=60000002")
-                        Text("网易云音乐听歌识曲").tag("orpheuswidget://recognize")
-                        Text("网易云音乐下载音乐").tag("orpheuswidget://download")
-                    })
-                    HStack{
-                        TextField("自定义URLScheme快捷方式", text: $customURL)
-                        Button("确定"){
-                            self.basicData.url = self.customURL
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
                         }
-                        .buttonStyle(BorderlessButtonStyle())
+                        
+                        Section{
+                            Picker( "小插件对应快捷方式", selection: $basicData.url,content: {
+                                Text("未选择").tag("")
+                                Text("微信扫一扫").tag("weixin://scanqrcode")
+                                Text("支付宝扫一扫").tag("alipayqr://platformapi/startapp?saId=10000007")
+                                Text("支付宝收款码").tag("alipays://platformapi/startapp?appId=20000123")
+                                Text("支付宝付款码").tag("alipay://platformapi/startapp?appId=20000056")
+                                Text("支付宝滴滴").tag("alipay://platformapi/startapp?appId=20000778")
+                                Text("支付宝蚂蚁森林") .tag("alipay://platformapi/startapp?appId=60000002")
+                                Text("网易云音乐听歌识曲").tag("orpheuswidget://recognize")
+                                Text("网易云音乐下载音乐").tag("orpheuswidget://download")
+                            })
+                            HStack{
+                                TextField("自定义URLScheme快捷方式", text: $customURL)
+                                Button("确定"){
+                                    self.basicData.url = self.customURL
+                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                                }
+                                .buttonStyle(BorderlessButtonStyle())
+                            }
+                        }
+                    }
+                    .animation(.easeInOut)
+                    
+                    Button(action: {self.OKButtonTapped() } ) {
+                        ZStack{
+                            Rectangle()
+                                .frame(width: 100, height: 40)
+                                .foregroundColor(MyData.slTheme(sc: self.myData.myColorScheme, colorScheme: colorScheme) == .dark ? Color(hex: 0x4548d) : MyColor.blue.light)
+                                .cornerRadius(CGFloat(Coefficients.cornerRadius))
+                            Text("确定")
+                                .font(Font.system(size: 20, weight:.semibold, design: .default))
+                                .foregroundColor(.white)
+                        }
                     }
                 }
-            }
-            .animation(.easeInOut)
+            .navigationBarTitleDisplayMode(.inline)
             
-            Button(action: {self.OKButtonTapped() } ) {
+            if isImageClip{
                 ZStack{
-                    Rectangle()
-                        .frame(width: 100, height: 40)
-                        .foregroundColor(MyData.slTheme(sc: self.myData.myColorScheme, colorScheme: colorScheme) == .dark ? Color(hex: 0x4548d) : MyColor.blue.light)
-                        .cornerRadius(CGFloat(Coefficients.cornerRadius))
-                    Text("确定")
-                        .font(Font.system(size: 20, weight:.semibold, design: .default))
-                        .foregroundColor(.white)
+                    Image(uiImage: self.img)
+                        .resizable()
+                        .scaledToFill()
+                        .offset(x: self.gesturePanOffset.width  + self.finalOffset.width , y: self.gesturePanOffset.height  + self.finalOffset.height)
+                        .scaleEffect(self.gestureZoomScale * self.finalZoomScale)
+                        .gesture(panGesture())
+                        .gesture(zoomGesture())
+
+                    }
+                    .frame(width: 180, height: 255)
+                .padding(2)
+
+                FixedRect().fill(style: .init(eoFill: true)).opacity(0.7).ignoresSafeArea()
+                VStack{
+                    Spacer()
+                    HStack{
+                        Button("取消"){
+                            self.isImageClip = false
+                        }
+                        .font(.headline)
+                        .padding()
+                        Spacer()
+                        Button("确定"){
+                            self.basicData.background = takeScreenshot(origin: CGPoint(x: (UIScreen.main.bounds.width - 180)/2, y: (UIScreen.main.bounds.height - 255)/2), size: CGSize(width: 180, height: 255))
+                            self.basicData.blurBackground =  MyData.blurImage(usingImage: self.basicData.background.resized(withPercentage: 0.5)!)!
+                            self.isImageClip = false
+                        }
+                        .font(.headline)
+                        .padding()
+                    }
+                    .padding()
+                    .background(
+                        Group{
+                            if MyData.slTheme(sc: self.myData.myColorScheme, colorScheme: colorScheme) == .light{
+                                Color(.white)
+                            } else {
+                                Color(.black)
+                            }
+                        }
+                    )
                 }
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
+//MARK: - shape
+struct FixedRect: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        path.addRect(CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+
+        path.move(to: CGPoint(x: (UIScreen.main.bounds.width - 180)/2, y: (UIScreen.main.bounds.height - 255)/2))
+        path.addLine(to: CGPoint(x: (UIScreen.main.bounds.width - 180)/2, y: UIScreen.main.bounds.height/2 + 255/2))
+        path.addLine(to: CGPoint(x: UIScreen.main.bounds.width/2 + 180/2, y: UIScreen.main.bounds.height/2 + 255/2))
+        path.addLine(to: CGPoint(x: UIScreen.main.bounds.width/2 + 180/2, y: (UIScreen.main.bounds.height - 255)/2))
+        path.addLine(to: CGPoint(x: (UIScreen.main.bounds.width - 180)/2, y: (UIScreen.main.bounds.height - 255)/2))
+        
+        
+        return path
+    }
+}
+
 
 //MARK: - Preview
 struct SmallSetting_Previews: PreviewProvider {
@@ -220,7 +292,39 @@ struct SmallSetting_Previews: PreviewProvider {
 
 //MARK: - Function Extension of SmallSetting
 extension SmallSetting{
-    func kittyTapped(num: Int){
+    
+    private func takeScreenshot(origin: CGPoint , size: CGSize) -> UIImage {
+        let window = UIWindow(frame: CGRect(origin: origin, size: size))
+        let hosting = UIHostingController(rootView: self)
+        hosting.view.frame = window.frame
+        window.addSubview(hosting.view)
+        window.makeKeyAndVisible()
+        return hosting.view.renderedImage
+    }
+    
+    
+    private func panGesture() -> some Gesture {
+        DragGesture()
+            .updating($gesturePanOffset) { latestDragGestureValue, gesturePanOffset, transaction in
+                gesturePanOffset = latestDragGestureValue.translation
+        }
+        .onEnded { finalDragGestureValue in
+            self.finalOffset.width += finalDragGestureValue.translation.width
+            self.finalOffset.height += finalDragGestureValue.translation.height
+        }
+    }
+    
+    private func zoomGesture() -> some Gesture {
+        MagnificationGesture()
+            .updating($gestureZoomScale) { latestGestureScale, gestureZoomScale, transaction in
+                gestureZoomScale = latestGestureScale
+            }
+            .onEnded { finalGestureScale in
+                self.finalZoomScale *= finalGestureScale
+            }
+    }
+    
+    private func kittyTapped(num: Int){
         self.basicData.kitty = UIImage(named: "kitty" + String(num))!
     }
     
@@ -331,6 +435,7 @@ extension SmallSetting{
 }
 
 //MARK: - View Extension of SmallSetting
+
 extension SmallSetting{
     var KittyCluster: some View{
         HStack{

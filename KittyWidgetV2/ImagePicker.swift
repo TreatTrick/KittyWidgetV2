@@ -11,8 +11,9 @@ import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable{
 
-    @EnvironmentObject var myData: MyData
-    @Binding var basicData : BasicData
+    //@EnvironmentObject var myData: MyData
+    @Binding var img : UIImage
+    @Binding var isImageClip: Bool
     @Environment(\.presentationMode) var sheet
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
      
@@ -42,10 +43,11 @@ struct ImagePicker: UIViewControllerRepresentable{
         }
      
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-     
+
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                parent.basicData.background = image
-                parent.basicData.blurBackground = MyData.blurImage(usingImage: image.resized(withPercentage: 0.5)!, blurAmount: 10)!
+                parent.isImageClip = true
+                parent.img = image
+//                parent.basicData.blurBackground = MyData.blurImage(usingImage: image.resized(withPercentage: 0.5)!, blurAmount: 10)!
             }
             parent.sheet.wrappedValue.dismiss()
         }

@@ -32,16 +32,13 @@ struct SmallWidgetView: View {
                                     Time(dateSetting: .time,a: false, is24Hour: is24Hour)
                                         .font(.custom(font.rawValue, size: 32))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                        .opacity(0.6)
                                 } else {
                                     Time(dateSetting: .time,a: false, is24Hour: is24Hour)
                                         .font(.custom(font.rawValue, size: 27))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                        .opacity(0.6)
                                     Time(dateSetting: .time, a: true, is24Hour: is24Hour)
                                         .font(.custom(font.rawValue, size: Coefficients.apSize))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                        .opacity(0.6)
                                         .offset(x: -4, y: 10)
                                 }
                             
@@ -147,7 +144,7 @@ struct SmallWidgetView: View {
             if isBlur{
                 ZStack{
                     Image(uiImage: img).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
-                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.4 : 0.3)
+                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.4 : 0.25)
                 }
             } else {
                 EmptyView()

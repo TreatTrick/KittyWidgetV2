@@ -21,22 +21,16 @@ struct SmallWidgetView3: View {
                                 Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()))
                                     .font(.custom(font.rawValue, size: 32))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                   // .opacity(0.6)
                                 
                             } else {
                                 Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()).split(separator: ":")[0] + ":" + dateSetting(.time, is24Hour: self.is24Hour, date: Date()).split(separator: ":")[1])
                                     .font(.custom(font.rawValue, size: 27))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    //.opacity(0.6)
-                                
-                                
                                 
                                 Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()).split(separator: ":")[2])
                                     .font(.custom(font.rawValue, size: Coefficients.apSize))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .offset(x: -4, y: 10)
-                                   // .opacity(0.6)
-                                
                             }
                         }
                         
@@ -159,7 +153,7 @@ struct SmallWidgetView3: View {
             if isBlur{
                 ZStack{
                     Image(uiImage: self.basicData.blurBackground).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
-                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.4 : 0.3)
+                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.4 : 0.25)
                 }
             } else {
                 EmptyView()

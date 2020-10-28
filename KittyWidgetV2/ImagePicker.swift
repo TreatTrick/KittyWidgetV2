@@ -45,9 +45,8 @@ struct ImagePicker: UIViewControllerRepresentable{
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                parent.isImageClip = true
                 parent.img = image
-//                parent.basicData.blurBackground = MyData.blurImage(usingImage: image.resized(withPercentage: 0.5)!, blurAmount: 10)!
+                parent.isImageClip = true
             }
             parent.sheet.wrappedValue.dismiss()
         }

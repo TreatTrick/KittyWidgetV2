@@ -59,6 +59,8 @@
 		97E920012540A03000593FC8 /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
 		97E920072540A04B00593FC8 /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A407251F2553003BF5DE /* SmallWidgetView.swift */; };
 		97E9202C2540A09E00593FC8 /* kittyWidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A433251F2608003BF5DE /* kittyWidgetExtension.intentdefinition */; };
+		97EA23F825497F0A00720824 /* ImageClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EA23F725497F0A00720824 /* ImageClipView.swift */; };
+		97EA23FF25497FA600720824 /* SmallSettingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EA23FE25497FA600720824 /* SmallSettingExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +153,8 @@
 		97E845AB2544451900CAE584 /* KittyWidgetV2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KittyWidgetV2.entitlements; sourceTree = "<group>"; };
 		97E845B62544453100CAE584 /* kittyWidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kittyWidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
 		97E845B72544455300CAE584 /* DynamicIntent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DynamicIntent.entitlements; sourceTree = "<group>"; };
+		97EA23F725497F0A00720824 /* ImageClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClipView.swift; sourceTree = "<group>"; };
+		97EA23FE25497FA600720824 /* SmallSettingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallSettingExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +260,8 @@
 				97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */,
 				97C2A407251F2553003BF5DE /* SmallWidgetView.swift */,
 				9771D1C1251FA60B004E1E15 /* SmallSetting.swift */,
+				97EA23F725497F0A00720824 /* ImageClipView.swift */,
+				97EA23FE25497FA600720824 /* SmallSettingExtension.swift */,
 				97016A4F25394A5400C564CE /* SmallWidgetView2.swift */,
 				97318E6E254573A7002CF887 /* SmallWidgetView3.swift */,
 				97C2A411251F2560003BF5DE /* ImagePicker.swift */,
@@ -550,10 +556,12 @@
 				97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */,
 				97318E6F254573A7002CF887 /* SmallWidgetView3.swift in Sources */,
 				97C2A41F251F258F003BF5DE /* MyData.swift in Sources */,
+				97EA23FF25497FA600720824 /* SmallSettingExtension.swift in Sources */,
 				97C2A408251F2553003BF5DE /* SmallWidgetView.swift in Sources */,
 				97C2A412251F2560003BF5DE /* ImagePicker.swift in Sources */,
 				9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */,
 				97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */,
+				97EA23F825497F0A00720824 /* ImageClipView.swift in Sources */,
 				974D21A52546A32000FDADF3 /* MiddleWidgetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

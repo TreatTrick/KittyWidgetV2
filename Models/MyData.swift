@@ -54,9 +54,11 @@ class MyData: ObservableObject{
                     let customWord2 = data.customWord2
                     let customFont1 = data.customFont1
                     let customFont2 = data.customFont2
+                    let midCustomFont1 = data.midCustomFont1
+                    let midCustomFont2 = data.midCustomFont2
                     let name = data.name
                     let isRename = data.isRename
-                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
+                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename)
                     self.dataStream.append(bd)
 
                 }
@@ -133,9 +135,11 @@ class MyData: ObservableObject{
                     let customWord2 = data.customWord2
                     let customFont1 = data.customFont1
                     let customFont2 = data.customFont2
+                    let midCustomFont1 = data.midCustomFont1
+                    let midCustomFont2 = data.midCustomFont2
                     let name = data.name
                     let isRename = data.isRename
-                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: isRename)
+                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename)
                     dataStream.append(bd)
                 }
                 return dataStream
@@ -199,6 +203,8 @@ struct ColorSeries{
     var customWord2 = ""
     var customFont1: CGFloat = 25
     var customFont2: CGFloat = 15
+    var midCustomFont1: CGFloat = 28
+    var midCustomFont2: CGFloat = 18
     var name : String
     var isRename: Bool = false
 }
@@ -222,6 +228,8 @@ struct BasicData:Hashable{
     var customWord2 = ""
     var customFont1: CGFloat = 25
     var customFont2: CGFloat = 15
+    var midCustomFont1: CGFloat = 28
+    var midCustomFont2: CGFloat = 18
     var name : String
     var isRename: Bool = false
 }
@@ -245,6 +253,8 @@ struct  StaticBasicData:Hashable{
     var customWord2 = ""
     var customFont1: CGFloat = 25
     var customFont2: CGFloat = 15
+    var midCustomFont1: CGFloat = 28
+    var midCustomFont2: CGFloat = 18
     var name : String
     var isRename: Bool = false
 }
@@ -363,31 +373,4 @@ struct FuncForSmallWidgets{
         }
     }
 
-}
-
-
-extension UIView {
-    var renderedImage: UIImage {
-        // rect of capure
-        let rect = self.bounds
-        // create the context of bitmap
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
-        let context: CGContext = UIGraphicsGetCurrentContext()!
-        self.layer.render(in: context)
-        // get a image from current context bitmap
-        let capturedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return capturedImage
-    }
-}
-
-extension View {
-    func takeScreenshot(origin: CGPoint, size: CGSize) -> UIImage {
-        let window = UIWindow(frame: CGRect(origin: origin, size: size))
-        let hosting = UIHostingController(rootView: self)
-        hosting.view.frame = window.frame
-        window.addSubview(hosting.view)
-        window.makeKeyAndVisible()
-        return hosting.view.renderedImage
-    }
 }

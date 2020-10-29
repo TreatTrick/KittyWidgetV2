@@ -63,12 +63,10 @@ struct SmallWidgetView2: View {
             }
             .padding(3)
             
-            if isKitty{
-                Spacer()
-            }
             
             HStack{
                 if isWord{
+                    Spacer()
                     Time(dateSetting: .week, a: false, is24Hour: is24Hour)
                         .font(.custom(font.rawValue, size: 23))
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
@@ -76,8 +74,10 @@ struct SmallWidgetView2: View {
                         .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
                         .cornerRadius(10)
                         .padding(3)
+                    Spacer()
                 }
                 if basicData.isCustomWord && basicData.customWord2 != ""{
+                    Spacer()
                     Text(basicData.customWord2)
                         .font(.custom(font.rawValue, size: basicData.customFont2))
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
@@ -85,22 +85,20 @@ struct SmallWidgetView2: View {
                         .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
                         .cornerRadius(10)
                         .offset(y: 5)
+                    Spacer()
                 }
                 if isKitty{
                     ZStack{
                         Image(uiImage: basicData.kitty)
                             .resizable()
-                            .scaledToFill()
-                            .frame(width: 70, height: 99)
+                            .scaledToFit()
                             .clipped()
                     }
-                    .frame(width: 70, height: 99)
                 }
                 
             }
             
         }
-        .animation(.easeInOut)
         .frame(width: 170, height: 170)
         .background(calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData) )
         .environment(\.sizeCategory, .extraExtraExtraLarge)
@@ -139,7 +137,7 @@ struct SmallWidgetView2: View {
 
 struct SmallWidgetView2_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView2(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!, name: "widget 1"), isKitty: true, isWord: true, isBlur: true, isAllBlur: false, is24Hour: false, font: .font4)
+        SmallWidgetView2(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img8")!, display: .date, kitty: UIImage(named: "kitty1")!, name: "widget 1"), isKitty: true, isWord: true, isBlur: true, isAllBlur: false, is24Hour: false, font: .font4)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

@@ -17,6 +17,7 @@ struct MiddleWidgetView: View {
     var isAllBlur: Bool
     var is24Hour: Bool
     var font: FontNames
+    var date = Date()
     
     var body: some View {
         HStack{
@@ -26,22 +27,16 @@ struct MiddleWidgetView: View {
                     VStack(alignment: .leading){
                         HStack{
                             if is24Hour{
-                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()))
-//                                Text("55:55")
+                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: date))
                                     .font(.custom(font.rawValue, size: 40))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                // .opacity(0.6)
                                 
                             } else {
-                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()).split(separator: ":")[0] + ":" + dateSetting(.time, is24Hour: self.is24Hour, date: Date()).split(separator: ":")[1])
-//                                Text("88:88")
+                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: ":")[0] + ":" + dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: ":")[1])
                                     .font(.custom(font.rawValue, size: 38))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                //.opacity(0.6)
                                 
-                                
-                                
-                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()).split(separator: ":")[2])
+                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: ":")[2])
                                     .font(.custom(font.rawValue, size: 11))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .offset(x: -4, y: 13)
@@ -50,7 +45,7 @@ struct MiddleWidgetView: View {
                             }
                         }
                         
-                        Text(dateSetting(.date, is24Hour: self.is24Hour, date: Date()))
+                        Text(dateSetting(.date, is24Hour: self.is24Hour, date: date))
                             .font(.custom(font.rawValue, size: 11))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                             .offset(x: 8)
@@ -60,7 +55,7 @@ struct MiddleWidgetView: View {
                     //.cornerRadius(10)
                     .offset(y: 6)
                     
-                    Text(dateSetting(.week, is24Hour: self.is24Hour, date: Date()))                        .font(.custom(font.rawValue, size: 25))
+                    Text(dateSetting(.week, is24Hour: self.is24Hour, date: date))                        .font(.custom(font.rawValue, size: 25))
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                         .padding(3)
                         .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
@@ -74,7 +69,6 @@ struct MiddleWidgetView: View {
             }
             
                 VStack{
-                    
                     if basicData.isCustomWord && basicData.customWord1 != "" {
                         Text(basicData.customWord1)
                             .font(.custom(font.rawValue, size: basicData.midCustomFont1))
@@ -95,20 +89,16 @@ struct MiddleWidgetView: View {
                     }
                 }
                 
-
-            if (isWord || (basicData.isCustomWord && (basicData.customWord1 != "" || basicData.customWord2 != ""))){
-                Spacer()
-            }
+            Spacer()
             
             if isKitty{
                 ZStack{
                     Image(uiImage: basicData.kitty)
                         .resizable()
-                        .scaledToFill()
-                        .frame(width: 120, height: 170)
+                        .scaledToFit()
                         .clipped()
                 }
-                .frame(width: 120, height: 170)
+                //.frame(width: 105, height: 150)
             }
             
         }
@@ -197,7 +187,7 @@ struct MiddleWidgetView: View {
 
 struct MiddleWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        MiddleWidgetView(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!, isCustomWord: false, customWord1: "1222lvow", customWord2: "MEMEEMDA", name: "widget 1"), isKitty: true, isWord: true, isBlur: true, isAllBlur: false, is24Hour: false, font: .font4)
+        MiddleWidgetView(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img8")!, display: .date, kitty: UIImage(named: "kitty1")!, isCustomWord: false, customWord1: "1222lvow", customWord2: "MEMEEMDA", name: "widget 1"), isKitty: true, isWord: true, isBlur: true, isAllBlur: false, is24Hour: false, font: .font4)
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

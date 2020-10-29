@@ -10,25 +10,35 @@ import SwiftUI
 import Intents
 
 struct Provider: IntentTimelineProvider {
+    let dateFormatter = DateFormatter()
 //    let defaultData = BasicData(background: UIImage(named:"img1")!, display: .date, kitty: UIImage(named:"kitty1")!, name: "widget 1")
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationIntent(), is24Hour: MyData.is24Hour, basicData: MyData.defaultData, id: MyData.defaultData.id)
+        SimpleEntry(date: Date(), configuration: ConfigurationIntent(), is24Hour: MyData.is24Hour, basicData: MyData.defaultData)
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), configuration: configuration, is24Hour: MyData.is24Hour, basicData: MyData.defaultData, id: MyData.defaultData.id)
+        let entry = SimpleEntry(date: Date(), configuration: configuration, is24Hour: MyData.is24Hour, basicData: MyData.defaultData)
         completion(entry)
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         let selectedWidget = selectWidget(for: configuration)
         let currentDate = Date()
+//        dateFormatter.dateFormat =  "mm"
+//        let second = Int(dateFormatter.string(from: currentDate))!
+//        if second < 37{
+//            selectedWidget.kitty = UIImage(named: "kitty1")!
+//        } else if second < 39{
+//            selectedWidget.kitty = UIImage(named: "kitty2")!
+//        } else {
+//            selectedWidget.kitty = UIImage(named: "kitty3")!
+//        }
         var entries: [SimpleEntry] = []
 
 
         for secendOffset in 0 ..< 10 {
-            let entryDate = Calendar.current.date(byAdding: .second, value: secendOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: MyData.is24Hour, basicData: selectedWidget, id: configuration.widgets?.identifier ?? "NO ID")
+            let entryDate = Calendar.current.date(byAdding: .minute, value: secendOffset, to: currentDate)!
+            let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: MyData.is24Hour, basicData: selectedWidget)
             entries.append(entry)
         }
 
@@ -57,7 +67,6 @@ struct SimpleEntry: TimelineEntry {
     let configuration: ConfigurationIntent
     let is24Hour: Bool
     let basicData: BasicData
-    let id: String
 }
 
 struct kittyWidgetExtensionEntryView : View {
@@ -67,10 +76,11 @@ struct kittyWidgetExtensionEntryView : View {
     var body: some View {
         switch family {
         case .systemSmall:
-            SmallWidgetView3(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font)
+            SmallWidgetView3(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font, date: entry.date)
                 .widgetURL(URL(string: entry.basicData.url))
+
         default :
-            MiddleWidgetView(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font)
+            MiddleWidgetView2(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font, date: entry.date)
                 .widgetURL(URL(string: entry.basicData.url))
         }
     }

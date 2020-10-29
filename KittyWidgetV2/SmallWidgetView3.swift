@@ -10,92 +10,93 @@ struct SmallWidgetView3: View {
     var isAllBlur: Bool
     var is24Hour: Bool
     var font: FontNames
+    var date = Date()
     
     var body: some View {
-        VStack(alignment:.center){
-            Group{
-                if isWord{
-                    VStack(alignment: .leading){
-                        HStack{
-                            if is24Hour{
-                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()))
-                                    .font(.custom(font.rawValue, size: 32))
-                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                
-                            } else {
-                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()).split(separator: ":")[0] + ":" + dateSetting(.time, is24Hour: self.is24Hour, date: Date()).split(separator: ":")[1])
-                                    .font(.custom(font.rawValue, size: 27))
-                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                
-                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: Date()).split(separator: ":")[2])
-                                    .font(.custom(font.rawValue, size: Coefficients.apSize))
-                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    .offset(x: -4, y: 10)
+        ZStack {
+            calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData)
+            VStack(alignment:.center){
+                Group{
+                    if isWord{
+                        VStack(alignment: .leading){
+                            HStack{
+                                if is24Hour{
+                                    Text(dateSetting(.time, is24Hour: self.is24Hour, date: date))
+                                        .font(.custom(font.rawValue, size: 32))
+                                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                    
+                                } else {
+                                    Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: ":")[0] + ":" + dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: ":")[1])
+                                        .font(.custom(font.rawValue, size: 27))
+                                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                    
+                                    Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: ":")[2])
+                                        .font(.custom(font.rawValue, size: Coefficients.apSize))
+                                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                        .offset(x: -4, y: 10)
+                                }
                             }
+                            
+                            Text(dateSetting(.date, is24Hour: self.is24Hour, date: date))
+                                .font(.custom(font.rawValue, size: 10))
+                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
+                                .offset(x: 8)
                         }
-                        
-                        Text(dateSetting(.date, is24Hour: self.is24Hour, date: Date()))
-                            .font(.custom(font.rawValue, size: 10))
-                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
-                            .offset(x: 8)
-                    }
-                    .padding(4)
-                    .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                    //.cornerRadius(10)
-                    .offset(y: 6)
-                    
-                }
-                
-                if basicData.isCustomWord && basicData.customWord1 != ""{
-                    Text(basicData.customWord1)
-                        .font(.custom(font.rawValue, size: basicData.customFont1))
-                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                         .padding(4)
                         .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                    //.cornerRadius(10)
-
-                }
-            }
-            .padding(3)
-            
-            if isKitty{
-                Spacer()
-            }
-            
-            HStack{
-                if isWord{
-                    Text(dateSetting(.week, is24Hour: self.is24Hour, date: Date()))                        .font(.custom(font.rawValue, size: 23))
-                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
-                        .padding(3)
-                        .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                         //.cornerRadius(10)
-                        .padding(3)
-                }
-                if basicData.isCustomWord && basicData.customWord2 != ""{
-                    Text(basicData.customWord2)
-                        .font(.custom(font.rawValue, size: basicData.customFont2))
-                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                        .padding(3)
-                        .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                        //.cornerRadius(10)
-                        .offset(y: 5)
-                }
-                if isKitty{
-                    ZStack{
-                        Image(uiImage: basicData.kitty)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 70, height: 99)
-                            .clipped()
+                        .offset(y: 6)
+                        
                     }
-                    .frame(width: 70, height: 99)
+                    
+                    
+                    if basicData.isCustomWord && basicData.customWord1 != ""{
+                        Text(basicData.customWord1)
+                            .font(.custom(font.rawValue, size: basicData.customFont1))
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                            .padding(4)
+                            .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                        //.cornerRadius(10)
+
+                    }
                 }
+                .padding(3)
                 
+                HStack{
+                    if isWord{
+                        Spacer()
+                        Text(dateSetting(.week, is24Hour: self.is24Hour, date: date))                        .font(.custom(font.rawValue, size: 23))
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
+                            .padding(3)
+                            .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                            //.cornerRadius(10)
+                            .padding(3)
+                        Spacer()
+                    }
+                    if basicData.isCustomWord && basicData.customWord2 != ""{
+                        Spacer()
+                        Text(basicData.customWord2)
+                            .font(.custom(font.rawValue, size: basicData.customFont2))
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                            .padding(3)
+                            .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                            //.cornerRadius(10)
+                            .offset(y: 5)
+                        Spacer()
+                    }
+                    if isKitty{
+                        ZStack{
+                            Image(uiImage: basicData.kitty)
+                                .resizable()
+                                .scaledToFit()
+                                .clipped()
+                        }
+                    }
+                    
+                }
             }
-            
         }
-        .frame(width: 170, height: 170, alignment: .center)
-        .background(calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData))
+        .animation(.easeInOut)
         //.cornerRadius(CGFloat(Coefficients//.cornerRadius))
         .environment(\.sizeCategory, .extraExtraExtraLarge)
     }
@@ -177,7 +178,7 @@ struct SmallWidgetView3: View {
 
 struct SmallWidgetView3_Previews: PreviewProvider {
     static var previews: some View {
-        SmallWidgetView3(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!, name: "widget 1"), isKitty: true, isWord: true, isBlur: true, isAllBlur: false, is24Hour: true, font: .font4)
+        SmallWidgetView3(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img8")!, display: .date, kitty: UIImage(named: "kitty1")!, name: "widget 1"), isKitty: true, isWord: true, isBlur: true, isAllBlur: false, is24Hour: true, font: .font4)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

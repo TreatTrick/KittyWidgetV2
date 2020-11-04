@@ -281,7 +281,7 @@ struct UserDataKeys{
     static var storedData = "storedData"
     static var is24Hour = "is24Hour"
     static var myColorScheme = "myColorScheme"
-    static var suiteName = "group.sora.ttt"
+    static var suiteName = "group.sora.takanashi"
     static var idName = "idName"
 }
 

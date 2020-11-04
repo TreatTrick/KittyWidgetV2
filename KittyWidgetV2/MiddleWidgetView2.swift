@@ -28,16 +28,14 @@ struct MiddleWidgetView2: View {
                                     // .opacity(0.6)
                                     
                                 } else {
-//                                    Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
-                                    Text("233")
+                                    Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
                                         .font(.custom(font.rawValue, size: 38))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     //.opacity(0.6)
                                     
                                     
                                     
-//                                    Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
-                                    Text("233")
+                                    Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
                                         .font(.custom(font.rawValue, size: 11))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                         .offset(x: -4, y: 13)

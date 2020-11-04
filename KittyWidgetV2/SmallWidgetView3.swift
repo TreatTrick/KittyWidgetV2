@@ -26,15 +26,11 @@ struct SmallWidgetView3: View {
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     
                                 } else {
-//                                    Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
-                                    Text("233")
-
+                                    Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
                                         .font(.custom(font.rawValue, size: 27))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     
-//                                    Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
-                                    Text("233")
-
+                                    Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
                                         .font(.custom(font.rawValue, size: Coefficients.apSize))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                         .offset(x: -4, y: 10)

@@ -73,7 +73,7 @@ struct SmallSetting: View {
                     )
                     
                     Form{
-                        Section(header: Text("喵咪")){
+                        Section(header: Text("前景")){
                             KittyCluster
                         }
                         

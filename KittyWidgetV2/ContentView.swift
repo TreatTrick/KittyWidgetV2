@@ -75,17 +75,9 @@ struct ContentView: View {
                             
                             if isAbout{
                                 VStack(alignment: .center){
-                                    HStack{
-                                        Spacer()
-                                        Image("kitty1-mini").imageScale(.small).padding(3)
-                                        Image("kitty2-mini").imageScale(.medium).padding(3)
-                                        Image("kitty3-mini").imageScale(.medium).padding(3)
-                                        Image("kitty4-mini").imageScale(.medium).padding(3)
-                                        Spacer()
-                                    }
                                     Text("KittyWidget V1.0.0").font(.headline).padding()
-                                    Text("猫咪小组件 V1.0.0").font(.headline).padding()
                                     Text("Developed by SORA").padding()
+                                    Text("Special appreciation to Roujiangrong for providing photos").padding()
                                 }
                             }
                         }

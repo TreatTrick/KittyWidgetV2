@@ -8,14 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
-		97016A5125394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
+		9707F1052552789D0028DC14 /* kittyWidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A433251F2608003BF5DE /* kittyWidgetExtension.intentdefinition */; };
 		97318E6F254573A7002CF887 /* SmallWidgetView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97318E6E254573A7002CF887 /* SmallWidgetView3.swift */; };
 		97318EA425459A52002CF887 /* SmallWidgetView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97318E6E254573A7002CF887 /* SmallWidgetView3.swift */; };
 		9737C9522543F6DA00DAE7A9 /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A41E251F258F003BF5DE /* MyData.swift */; };
 		973F8ADC254AD99C00438B10 /* MiddleWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */; };
 		973F8AE8254ADA3200438B10 /* MiddleWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */; };
 		974D21A52546A32000FDADF3 /* MiddleWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */; };
-		974D21B12546A37200FDADF3 /* MiddleWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */; };
 		97620B8A25447B9700DE61D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
 		9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771D1C1251FA60B004E1E15 /* SmallSetting.swift */; };
 		97996B2E253D9EB600835772 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
@@ -40,6 +39,19 @@
 		97996B41253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */; };
 		97B3D50A254090FD00F6052D /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B3D509254090FD00F6052D /* IntentHandler.swift */; };
 		97B3D50E254090FD00F6052D /* DynamicIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 97B3D507254090FD00F6052D /* DynamicIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		97BD95782552B1FF00048E08 /* MiddleWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */; };
+		97BD957E2552B20400048E08 /* SmallWidgetView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97318E6E254573A7002CF887 /* SmallWidgetView3.swift */; };
+		97BD959A2552B3D500048E08 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B3D509254090FD00F6052D /* IntentHandler.swift */; };
+		97BD95A02552B3E900048E08 /* SourceHanSansCN-Bold-2.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2B253D9EB600835772 /* SourceHanSansCN-Bold-2.otf */; };
+		97BD95A12552B3E900048E08 /* YanShiXiaXingKai-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B28253D9EB500835772 /* YanShiXiaXingKai-2.ttf */; };
+		97BD95A22552B3E900048E08 /* QianTuXiaoTuTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B25253D9EB400835772 /* QianTuXiaoTuTi-2.ttf */; };
+		97BD95A32552B3E900048E08 /* RuiZiZhenYanTi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B26253D9EB400835772 /* RuiZiZhenYanTi.ttf */; };
+		97BD95A42552B3E900048E08 /* ShouMoMoYingBiShouXieTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2A253D9EB600835772 /* ShouMoMoYingBiShouXieTi-2.ttf */; };
+		97BD95A52552B3E900048E08 /* YangRenDongZhuShiTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B27253D9EB400835772 /* YangRenDongZhuShiTi-2.ttf */; };
+		97BD95A62552B3E900048E08 /* YaoSuiXinShouXieTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */; };
+		97BD95A72552B3E900048E08 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
+		97BD95A82552B3E900048E08 /* SourceHanSerifCN-Bold-2.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B29253D9EB500835772 /* SourceHanSerifCN-Bold-2.otf */; };
+		97BD95A92552B3E900048E08 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */; };
 		97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */; };
 		97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3DB251F24F4003BF5DE /* ContentView.swift */; };
 		97C2A3E1251F24F6003BF5DE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A3E0251F24F6003BF5DE /* Preview Assets.xcassets */; };
@@ -58,7 +70,6 @@
 		97C2A456251F2877003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
 		97C2A46A251F3F55003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
 		97E91FEF254094B600593FC8 /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A41E251F258F003BF5DE /* MyData.swift */; };
-		97E920072540A04B00593FC8 /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A407251F2553003BF5DE /* SmallWidgetView.swift */; };
 		97E9202C2540A09E00593FC8 /* kittyWidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A433251F2608003BF5DE /* kittyWidgetExtension.intentdefinition */; };
 		97EA23F825497F0A00720824 /* ImageClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EA23F725497F0A00720824 /* ImageClipView.swift */; };
 		97EA23FF25497FA600720824 /* SmallSettingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EA23FE25497FA600720824 /* SmallSettingExtension.swift */; };
@@ -431,7 +442,6 @@
 		97C2A3CE251F24F4003BF5DE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = NO;
 				LastSwiftUpdateCheck = 1210;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
@@ -481,6 +491,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97BD95A52552B3E900048E08 /* YangRenDongZhuShiTi-2.ttf in Resources */,
+				97BD95A32552B3E900048E08 /* RuiZiZhenYanTi.ttf in Resources */,
+				97BD95A22552B3E900048E08 /* QianTuXiaoTuTi-2.ttf in Resources */,
+				97BD95A72552B3E900048E08 /* XianErTi-2.ttf in Resources */,
+				97BD95A12552B3E900048E08 /* YanShiXiaXingKai-2.ttf in Resources */,
+				97BD95A82552B3E900048E08 /* SourceHanSerifCN-Bold-2.otf in Resources */,
+				97BD95A92552B3E900048E08 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */,
+				97BD95A42552B3E900048E08 /* ShouMoMoYingBiShouXieTi-2.ttf in Resources */,
+				97BD95A02552B3E900048E08 /* SourceHanSansCN-Bold-2.otf in Resources */,
+				97BD95A62552B3E900048E08 /* YaoSuiXinShouXieTi-2.ttf in Resources */,
 				97620B8A25447B9700DE61D2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -546,7 +566,8 @@
 			files = (
 				97B3D50A254090FD00F6052D /* IntentHandler.swift in Sources */,
 				97E9202C2540A09E00593FC8 /* kittyWidgetExtension.intentdefinition in Sources */,
-				97E920072540A04B00593FC8 /* SmallWidgetView.swift in Sources */,
+				97BD957E2552B20400048E08 /* SmallWidgetView3.swift in Sources */,
+				97BD95782552B1FF00048E08 /* MiddleWidgetView2.swift in Sources */,
 				97E91FEF254094B600593FC8 /* MyData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -558,6 +579,7 @@
 				97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */,
 				97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */,
 				97318E6F254573A7002CF887 /* SmallWidgetView3.swift in Sources */,
+				9707F1052552789D0028DC14 /* kittyWidgetExtension.intentdefinition in Sources */,
 				97C2A41F251F258F003BF5DE /* MyData.swift in Sources */,
 				97EA23FF25497FA600720824 /* SmallSettingExtension.swift in Sources */,
 				97C2A408251F2553003BF5DE /* SmallWidgetView.swift in Sources */,
@@ -594,10 +616,9 @@
 				97C2A446251F262D003BF5DE /* SmallWidgetView.swift in Sources */,
 				973F8AE8254ADA3200438B10 /* MiddleWidgetView2.swift in Sources */,
 				97C2A437251F2609003BF5DE /* kittyWidgetExtension.intentdefinition in Sources */,
-				97016A5125394A5400C564CE /* SmallWidgetView2.swift in Sources */,
+				97BD959A2552B3D500048E08 /* IntentHandler.swift in Sources */,
 				9737C9522543F6DA00DAE7A9 /* MyData.swift in Sources */,
 				97C2A432251F2608003BF5DE /* kittyWidgetExtension.swift in Sources */,
-				974D21B12546A37200FDADF3 /* MiddleWidgetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -127,7 +127,7 @@ extension SmallSetting{
             Button(action: {kittyTapped(num: 1)}){
                 Image("kitty1" + mini)
                     .resizable()
-                    .frame(width: 40, height: 70)
+                    .frame(width: 40, height: 56)
             }
             .buttonStyle(BorderlessButtonStyle())
             
@@ -136,7 +136,7 @@ extension SmallSetting{
             Button(action: {kittyTapped(num: 2)}) {
                 Image("kitty2" + mini)
                     .resizable()
-                    .frame(width: 40, height: 70)
+                    .frame(width: 40, height: 56)
             }
             .buttonStyle(BorderlessButtonStyle())
             
@@ -145,7 +145,7 @@ extension SmallSetting{
             Button(action: {kittyTapped(num: 3)}) {
                 Image("kitty3" + mini)
                     .resizable()
-                    .frame(width: 40, height: 70)
+                    .frame(width: 40, height: 56)
             }
             .buttonStyle(BorderlessButtonStyle())
             
@@ -154,7 +154,7 @@ extension SmallSetting{
             Button(action: {kittyTapped(num: 4)}) {
                 Image("kitty4" + mini)
                     .resizable()
-                    .frame(width: 40, height: 70)
+                    .frame(width: 40, height: 56)
             }
             .buttonStyle(BorderlessButtonStyle())
             

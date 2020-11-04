@@ -48,6 +48,7 @@ struct ContentView: View {
                                 self.myData.is24Hour = value
                                 //                                MyData.is24Hour = value
                                 UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
+                                WidgetCenter.shared.reloadAllTimelines()
                             }
                             Picker(selection: $myColorScheme, label: Text("主题选择"), content: {
                                 Text(MyColorScheme.system.rawValue).tag(MyColorScheme.system)

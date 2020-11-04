@@ -122,7 +122,7 @@ struct MiddleWidgetView2: View {
                 let ymd = dateString.split(separator: ":")
                 displayString = ymd[0] + ":" + ymd[1]
             } else {
-                dateFormatter.dateFormat = "H:mm a"
+                dateFormatter.dateFormat = "h:mm a"
                 let dateString = dateFormatter.string(from: date)
                 let ymd = dateString.split(separator:":")
                 displayString = ymd[0] + ":" + ymd[1] + ":" + ymd[2]

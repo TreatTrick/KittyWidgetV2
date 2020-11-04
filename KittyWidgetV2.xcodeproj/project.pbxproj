@@ -7,15 +7,82 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97016A4F25394A5400C564CE /* SmallWidgetView2.swift */; };
+		9707F1052552789D0028DC14 /* kittyWidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A433251F2608003BF5DE /* kittyWidgetExtension.intentdefinition */; };
+		97318E6F254573A7002CF887 /* SmallWidgetView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97318E6E254573A7002CF887 /* SmallWidgetView3.swift */; };
+		97318EA425459A52002CF887 /* SmallWidgetView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97318E6E254573A7002CF887 /* SmallWidgetView3.swift */; };
+		9737C9522543F6DA00DAE7A9 /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A41E251F258F003BF5DE /* MyData.swift */; };
+		973F8ADC254AD99C00438B10 /* MiddleWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */; };
+		973F8AE8254ADA3200438B10 /* MiddleWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */; };
+		974D21A52546A32000FDADF3 /* MiddleWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */; };
+		97620B8A25447B9700DE61D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
+		9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771D1C1251FA60B004E1E15 /* SmallSetting.swift */; };
+		97996B2E253D9EB600835772 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
+		97996B2F253D9EB600835772 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
+		97996B30253D9EB600835772 /* QianTuXiaoTuTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B25253D9EB400835772 /* QianTuXiaoTuTi-2.ttf */; };
+		97996B31253D9EB600835772 /* QianTuXiaoTuTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B25253D9EB400835772 /* QianTuXiaoTuTi-2.ttf */; };
+		97996B32253D9EB600835772 /* RuiZiZhenYanTi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B26253D9EB400835772 /* RuiZiZhenYanTi.ttf */; };
+		97996B33253D9EB600835772 /* RuiZiZhenYanTi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B26253D9EB400835772 /* RuiZiZhenYanTi.ttf */; };
+		97996B34253D9EB600835772 /* YangRenDongZhuShiTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B27253D9EB400835772 /* YangRenDongZhuShiTi-2.ttf */; };
+		97996B35253D9EB600835772 /* YangRenDongZhuShiTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B27253D9EB400835772 /* YangRenDongZhuShiTi-2.ttf */; };
+		97996B36253D9EB600835772 /* YanShiXiaXingKai-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B28253D9EB500835772 /* YanShiXiaXingKai-2.ttf */; };
+		97996B37253D9EB600835772 /* YanShiXiaXingKai-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B28253D9EB500835772 /* YanShiXiaXingKai-2.ttf */; };
+		97996B38253D9EB600835772 /* SourceHanSerifCN-Bold-2.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B29253D9EB500835772 /* SourceHanSerifCN-Bold-2.otf */; };
+		97996B39253D9EB600835772 /* SourceHanSerifCN-Bold-2.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B29253D9EB500835772 /* SourceHanSerifCN-Bold-2.otf */; };
+		97996B3A253D9EB600835772 /* ShouMoMoYingBiShouXieTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2A253D9EB600835772 /* ShouMoMoYingBiShouXieTi-2.ttf */; };
+		97996B3B253D9EB600835772 /* ShouMoMoYingBiShouXieTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2A253D9EB600835772 /* ShouMoMoYingBiShouXieTi-2.ttf */; };
+		97996B3C253D9EB600835772 /* SourceHanSansCN-Bold-2.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2B253D9EB600835772 /* SourceHanSansCN-Bold-2.otf */; };
+		97996B3D253D9EB600835772 /* SourceHanSansCN-Bold-2.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2B253D9EB600835772 /* SourceHanSansCN-Bold-2.otf */; };
+		97996B3E253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */; };
+		97996B3F253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */; };
+		97996B40253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */; };
+		97996B41253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */; };
+		97B3D50A254090FD00F6052D /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B3D509254090FD00F6052D /* IntentHandler.swift */; };
+		97B3D50E254090FD00F6052D /* DynamicIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 97B3D507254090FD00F6052D /* DynamicIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		97BD95782552B1FF00048E08 /* MiddleWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */; };
+		97BD957E2552B20400048E08 /* SmallWidgetView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97318E6E254573A7002CF887 /* SmallWidgetView3.swift */; };
+		97BD959A2552B3D500048E08 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B3D509254090FD00F6052D /* IntentHandler.swift */; };
+		97BD95A02552B3E900048E08 /* SourceHanSansCN-Bold-2.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2B253D9EB600835772 /* SourceHanSansCN-Bold-2.otf */; };
+		97BD95A12552B3E900048E08 /* YanShiXiaXingKai-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B28253D9EB500835772 /* YanShiXiaXingKai-2.ttf */; };
+		97BD95A22552B3E900048E08 /* QianTuXiaoTuTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B25253D9EB400835772 /* QianTuXiaoTuTi-2.ttf */; };
+		97BD95A32552B3E900048E08 /* RuiZiZhenYanTi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B26253D9EB400835772 /* RuiZiZhenYanTi.ttf */; };
+		97BD95A42552B3E900048E08 /* ShouMoMoYingBiShouXieTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2A253D9EB600835772 /* ShouMoMoYingBiShouXieTi-2.ttf */; };
+		97BD95A52552B3E900048E08 /* YangRenDongZhuShiTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B27253D9EB400835772 /* YangRenDongZhuShiTi-2.ttf */; };
+		97BD95A62552B3E900048E08 /* YaoSuiXinShouXieTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */; };
+		97BD95A72552B3E900048E08 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
+		97BD95A82552B3E900048E08 /* SourceHanSerifCN-Bold-2.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B29253D9EB500835772 /* SourceHanSerifCN-Bold-2.otf */; };
+		97BD95A92552B3E900048E08 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */; };
 		97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */; };
 		97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3DB251F24F4003BF5DE /* ContentView.swift */; };
-		97C2A3DE251F24F6003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A3DD251F24F6003BF5DE /* Assets.xcassets */; };
 		97C2A3E1251F24F6003BF5DE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A3E0251F24F6003BF5DE /* Preview Assets.xcassets */; };
 		97C2A3EC251F24F7003BF5DE /* KittyWidgetV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3EB251F24F7003BF5DE /* KittyWidgetV2Tests.swift */; };
 		97C2A3F7251F24F7003BF5DE /* KittyWidgetV2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3F6251F24F7003BF5DE /* KittyWidgetV2UITests.swift */; };
+		97C2A408251F2553003BF5DE /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A407251F2553003BF5DE /* SmallWidgetView.swift */; };
+		97C2A412251F2560003BF5DE /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A411251F2560003BF5DE /* ImagePicker.swift */; };
+		97C2A41F251F258F003BF5DE /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A41E251F258F003BF5DE /* MyData.swift */; };
+		97C2A42D251F2608003BF5DE /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C2A42C251F2608003BF5DE /* WidgetKit.framework */; };
+		97C2A42F251F2608003BF5DE /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C2A42E251F2608003BF5DE /* SwiftUI.framework */; };
+		97C2A432251F2608003BF5DE /* kittyWidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A431251F2608003BF5DE /* kittyWidgetExtension.swift */; };
+		97C2A435251F2609003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A434251F2609003BF5DE /* Assets.xcassets */; };
+		97C2A437251F2609003BF5DE /* kittyWidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A433251F2608003BF5DE /* kittyWidgetExtension.intentdefinition */; };
+		97C2A43B251F2609003BF5DE /* kittyWidgetExtensionExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 97C2A42A251F2608003BF5DE /* kittyWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		97C2A446251F262D003BF5DE /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A407251F2553003BF5DE /* SmallWidgetView.swift */; };
+		97C2A456251F2877003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
+		97C2A46A251F3F55003BF5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
+		97E91FEF254094B600593FC8 /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A41E251F258F003BF5DE /* MyData.swift */; };
+		97E9202C2540A09E00593FC8 /* kittyWidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A433251F2608003BF5DE /* kittyWidgetExtension.intentdefinition */; };
+		97EA23F825497F0A00720824 /* ImageClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EA23F725497F0A00720824 /* ImageClipView.swift */; };
+		97EA23FF25497FA600720824 /* SmallSettingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EA23FE25497FA600720824 /* SmallSettingExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		97B3D50C254090FD00F6052D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C2A3CE251F24F4003BF5DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97B3D506254090FD00F6052D;
+			remoteInfo = DynamicIntent;
+		};
 		97C2A3E8251F24F7003BF5DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97C2A3CE251F24F4003BF5DE /* Project object */;
@@ -30,13 +97,53 @@
 			remoteGlobalIDString = 97C2A3D5251F24F4003BF5DE;
 			remoteInfo = KittyWidgetV2;
 		};
+		97C2A439251F2609003BF5DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C2A3CE251F24F4003BF5DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97C2A429251F2608003BF5DE;
+			remoteInfo = kittyWidgetExtensionExtension;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		97C2A43F251F260A003BF5DE /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				97B3D50E254090FD00F6052D /* DynamicIntent.appex in Embed App Extensions */,
+				97C2A43B251F2609003BF5DE /* kittyWidgetExtensionExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		97016A4F25394A5400C564CE /* SmallWidgetView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallWidgetView2.swift; sourceTree = "<group>"; };
+		97318E6E254573A7002CF887 /* SmallWidgetView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallWidgetView3.swift; sourceTree = "<group>"; };
+		973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleWidgetView2.swift; sourceTree = "<group>"; };
+		974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleWidgetView.swift; sourceTree = "<group>"; };
+		9771D1C1251FA60B004E1E15 /* SmallSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallSetting.swift; sourceTree = "<group>"; };
+		97996B24253D9EB400835772 /* XianErTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XianErTi-2.ttf"; sourceTree = "<group>"; };
+		97996B25253D9EB400835772 /* QianTuXiaoTuTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "QianTuXiaoTuTi-2.ttf"; sourceTree = "<group>"; };
+		97996B26253D9EB400835772 /* RuiZiZhenYanTi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RuiZiZhenYanTi.ttf; sourceTree = "<group>"; };
+		97996B27253D9EB400835772 /* YangRenDongZhuShiTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YangRenDongZhuShiTi-2.ttf"; sourceTree = "<group>"; };
+		97996B28253D9EB500835772 /* YanShiXiaXingKai-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanShiXiaXingKai-2.ttf"; sourceTree = "<group>"; };
+		97996B29253D9EB500835772 /* SourceHanSerifCN-Bold-2.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSerifCN-Bold-2.otf"; sourceTree = "<group>"; };
+		97996B2A253D9EB600835772 /* ShouMoMoYingBiShouXieTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ShouMoMoYingBiShouXieTi-2.ttf"; sourceTree = "<group>"; };
+		97996B2B253D9EB600835772 /* SourceHanSansCN-Bold-2.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSansCN-Bold-2.otf"; sourceTree = "<group>"; };
+		97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YaoSuiXinShouXieTi-2.ttf"; sourceTree = "<group>"; };
+		97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZhanKuKuaiLeTi2016XiuDingBan-1.ttf"; sourceTree = "<group>"; };
+		97B3D33125407F8500F6052D /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		97B3D507254090FD00F6052D /* DynamicIntent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DynamicIntent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		97B3D509254090FD00F6052D /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		97B3D50B254090FD00F6052D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97C2A3D6251F24F4003BF5DE /* KittyWidgetV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KittyWidgetV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KittyWidgetV2App.swift; sourceTree = "<group>"; };
 		97C2A3DB251F24F4003BF5DE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		97C2A3DD251F24F6003BF5DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C2A3E0251F24F6003BF5DE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		97C2A3E2251F24F6003BF5DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97C2A3E7251F24F7003BF5DE /* KittyWidgetV2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KittyWidgetV2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,9 +152,32 @@
 		97C2A3F2251F24F7003BF5DE /* KittyWidgetV2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KittyWidgetV2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C2A3F6251F24F7003BF5DE /* KittyWidgetV2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KittyWidgetV2UITests.swift; sourceTree = "<group>"; };
 		97C2A3F8251F24F7003BF5DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97C2A407251F2553003BF5DE /* SmallWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallWidgetView.swift; sourceTree = "<group>"; };
+		97C2A411251F2560003BF5DE /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		97C2A41E251F258F003BF5DE /* MyData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyData.swift; sourceTree = "<group>"; };
+		97C2A42A251F2608003BF5DE /* kittyWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = kittyWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		97C2A42C251F2608003BF5DE /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		97C2A42E251F2608003BF5DE /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		97C2A431251F2608003BF5DE /* kittyWidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kittyWidgetExtension.swift; sourceTree = "<group>"; };
+		97C2A433251F2608003BF5DE /* kittyWidgetExtension.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = kittyWidgetExtension.intentdefinition; sourceTree = "<group>"; };
+		97C2A434251F2609003BF5DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		97C2A436251F2609003BF5DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97C2A455251F2877003BF5DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		97E845AB2544451900CAE584 /* KittyWidgetV2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KittyWidgetV2.entitlements; sourceTree = "<group>"; };
+		97E845B62544453100CAE584 /* kittyWidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kittyWidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
+		97E845B72544455300CAE584 /* DynamicIntent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DynamicIntent.entitlements; sourceTree = "<group>"; };
+		97EA23F725497F0A00720824 /* ImageClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClipView.swift; sourceTree = "<group>"; };
+		97EA23FE25497FA600720824 /* SmallSettingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallSettingExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		97B3D504254090FD00F6052D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C2A3D3251F24F4003BF5DE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -69,15 +199,57 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		97C2A427251F2608003BF5DE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97C2A42F251F2608003BF5DE /* SwiftUI.framework in Frameworks */,
+				97C2A42D251F2608003BF5DE /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		97996B23253D9E7900835772 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				97996B25253D9EB400835772 /* QianTuXiaoTuTi-2.ttf */,
+				97996B26253D9EB400835772 /* RuiZiZhenYanTi.ttf */,
+				97996B2A253D9EB600835772 /* ShouMoMoYingBiShouXieTi-2.ttf */,
+				97996B2B253D9EB600835772 /* SourceHanSansCN-Bold-2.otf */,
+				97996B29253D9EB500835772 /* SourceHanSerifCN-Bold-2.otf */,
+				97996B24253D9EB400835772 /* XianErTi-2.ttf */,
+				97996B27253D9EB400835772 /* YangRenDongZhuShiTi-2.ttf */,
+				97996B28253D9EB500835772 /* YanShiXiaXingKai-2.ttf */,
+				97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */,
+				97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		97B3D508254090FD00F6052D /* DynamicIntent */ = {
+			isa = PBXGroup;
+			children = (
+				97E845B72544455300CAE584 /* DynamicIntent.entitlements */,
+				97B3D509254090FD00F6052D /* IntentHandler.swift */,
+				97B3D50B254090FD00F6052D /* Info.plist */,
+			);
+			path = DynamicIntent;
+			sourceTree = "<group>";
+		};
 		97C2A3CD251F24F4003BF5DE = {
 			isa = PBXGroup;
 			children = (
+				97E845B62544453100CAE584 /* kittyWidgetExtensionExtension.entitlements */,
+				97996B23253D9E7900835772 /* Fonts */,
+				97C2A461251F38EB003BF5DE /* Models */,
 				97C2A3D8251F24F4003BF5DE /* KittyWidgetV2 */,
 				97C2A3EA251F24F7003BF5DE /* KittyWidgetV2Tests */,
 				97C2A3F5251F24F7003BF5DE /* KittyWidgetV2UITests */,
+				97C2A430251F2608003BF5DE /* kittyWidgetExtension */,
+				97B3D508254090FD00F6052D /* DynamicIntent */,
+				97C2A42B251F2608003BF5DE /* Frameworks */,
 				97C2A3D7251F24F4003BF5DE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +260,8 @@
 				97C2A3D6251F24F4003BF5DE /* KittyWidgetV2.app */,
 				97C2A3E7251F24F7003BF5DE /* KittyWidgetV2Tests.xctest */,
 				97C2A3F2251F24F7003BF5DE /* KittyWidgetV2UITests.xctest */,
+				97C2A42A251F2608003BF5DE /* kittyWidgetExtensionExtension.appex */,
+				97B3D507254090FD00F6052D /* DynamicIntent.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +269,19 @@
 		97C2A3D8251F24F4003BF5DE /* KittyWidgetV2 */ = {
 			isa = PBXGroup;
 			children = (
+				97E845AB2544451900CAE584 /* KittyWidgetV2.entitlements */,
 				97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */,
+				97C2A407251F2553003BF5DE /* SmallWidgetView.swift */,
+				9771D1C1251FA60B004E1E15 /* SmallSetting.swift */,
+				97EA23F725497F0A00720824 /* ImageClipView.swift */,
+				97EA23FE25497FA600720824 /* SmallSettingExtension.swift */,
+				97016A4F25394A5400C564CE /* SmallWidgetView2.swift */,
+				97318E6E254573A7002CF887 /* SmallWidgetView3.swift */,
+				97C2A411251F2560003BF5DE /* ImagePicker.swift */,
 				97C2A3DB251F24F4003BF5DE /* ContentView.swift */,
-				97C2A3DD251F24F6003BF5DE /* Assets.xcassets */,
+				974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */,
+				973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */,
+				97C2A455251F2877003BF5DE /* Assets.xcassets */,
 				97C2A3E2251F24F6003BF5DE /* Info.plist */,
 				97C2A3DF251F24F6003BF5DE /* Preview Content */,
 			);
@@ -130,9 +314,55 @@
 			path = KittyWidgetV2UITests;
 			sourceTree = "<group>";
 		};
+		97C2A42B251F2608003BF5DE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97C2A42C251F2608003BF5DE /* WidgetKit.framework */,
+				97C2A42E251F2608003BF5DE /* SwiftUI.framework */,
+				97B3D33125407F8500F6052D /* IntentsUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		97C2A430251F2608003BF5DE /* kittyWidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				97C2A431251F2608003BF5DE /* kittyWidgetExtension.swift */,
+				97C2A433251F2608003BF5DE /* kittyWidgetExtension.intentdefinition */,
+				97C2A434251F2609003BF5DE /* Assets.xcassets */,
+				97C2A436251F2609003BF5DE /* Info.plist */,
+			);
+			path = kittyWidgetExtension;
+			sourceTree = "<group>";
+		};
+		97C2A461251F38EB003BF5DE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				97C2A41E251F258F003BF5DE /* MyData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		97B3D506254090FD00F6052D /* DynamicIntent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 97B3D50F254090FD00F6052D /* Build configuration list for PBXNativeTarget "DynamicIntent" */;
+			buildPhases = (
+				97B3D503254090FD00F6052D /* Sources */,
+				97B3D504254090FD00F6052D /* Frameworks */,
+				97B3D505254090FD00F6052D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DynamicIntent;
+			productName = DynamicIntent;
+			productReference = 97B3D507254090FD00F6052D /* DynamicIntent.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		97C2A3D5251F24F4003BF5DE /* KittyWidgetV2 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C2A3FB251F24F7003BF5DE /* Build configuration list for PBXNativeTarget "KittyWidgetV2" */;
@@ -140,10 +370,13 @@
 				97C2A3D2251F24F4003BF5DE /* Sources */,
 				97C2A3D3251F24F4003BF5DE /* Frameworks */,
 				97C2A3D4251F24F4003BF5DE /* Resources */,
+				97C2A43F251F260A003BF5DE /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				97C2A43A251F2609003BF5DE /* PBXTargetDependency */,
+				97B3D50D254090FD00F6052D /* PBXTargetDependency */,
 			);
 			name = KittyWidgetV2;
 			productName = KittyWidgetV2;
@@ -186,15 +419,35 @@
 			productReference = 97C2A3F2251F24F7003BF5DE /* KittyWidgetV2UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		97C2A429251F2608003BF5DE /* kittyWidgetExtensionExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 97C2A43C251F260A003BF5DE /* Build configuration list for PBXNativeTarget "kittyWidgetExtensionExtension" */;
+			buildPhases = (
+				97C2A426251F2608003BF5DE /* Sources */,
+				97C2A427251F2608003BF5DE /* Frameworks */,
+				97C2A428251F2608003BF5DE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = kittyWidgetExtensionExtension;
+			productName = kittyWidgetExtensionExtension;
+			productReference = 97C2A42A251F2608003BF5DE /* kittyWidgetExtensionExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		97C2A3CE251F24F4003BF5DE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1210;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
+					97B3D506254090FD00F6052D = {
+						CreatedOnToolsVersion = 12.1;
+					};
 					97C2A3D5251F24F4003BF5DE = {
 						CreatedOnToolsVersion = 12.0.1;
 					};
@@ -205,6 +458,9 @@
 					97C2A3F1251F24F7003BF5DE = {
 						CreatedOnToolsVersion = 12.0.1;
 						TestTargetID = 97C2A3D5251F24F4003BF5DE;
+					};
+					97C2A429251F2608003BF5DE = {
+						CreatedOnToolsVersion = 12.0.1;
 					};
 				};
 			};
@@ -224,17 +480,47 @@
 				97C2A3D5251F24F4003BF5DE /* KittyWidgetV2 */,
 				97C2A3E6251F24F7003BF5DE /* KittyWidgetV2Tests */,
 				97C2A3F1251F24F7003BF5DE /* KittyWidgetV2UITests */,
+				97C2A429251F2608003BF5DE /* kittyWidgetExtensionExtension */,
+				97B3D506254090FD00F6052D /* DynamicIntent */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		97B3D505254090FD00F6052D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97BD95A52552B3E900048E08 /* YangRenDongZhuShiTi-2.ttf in Resources */,
+				97BD95A32552B3E900048E08 /* RuiZiZhenYanTi.ttf in Resources */,
+				97BD95A22552B3E900048E08 /* QianTuXiaoTuTi-2.ttf in Resources */,
+				97BD95A72552B3E900048E08 /* XianErTi-2.ttf in Resources */,
+				97BD95A12552B3E900048E08 /* YanShiXiaXingKai-2.ttf in Resources */,
+				97BD95A82552B3E900048E08 /* SourceHanSerifCN-Bold-2.otf in Resources */,
+				97BD95A92552B3E900048E08 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */,
+				97BD95A42552B3E900048E08 /* ShouMoMoYingBiShouXieTi-2.ttf in Resources */,
+				97BD95A02552B3E900048E08 /* SourceHanSansCN-Bold-2.otf in Resources */,
+				97BD95A62552B3E900048E08 /* YaoSuiXinShouXieTi-2.ttf in Resources */,
+				97620B8A25447B9700DE61D2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C2A3D4251F24F4003BF5DE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97996B32253D9EB600835772 /* RuiZiZhenYanTi.ttf in Resources */,
+				97996B38253D9EB600835772 /* SourceHanSerifCN-Bold-2.otf in Resources */,
+				97996B30253D9EB600835772 /* QianTuXiaoTuTi-2.ttf in Resources */,
+				97996B3E253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf in Resources */,
+				97996B34253D9EB600835772 /* YangRenDongZhuShiTi-2.ttf in Resources */,
+				97996B3C253D9EB600835772 /* SourceHanSansCN-Bold-2.otf in Resources */,
+				97996B2E253D9EB600835772 /* XianErTi-2.ttf in Resources */,
+				97C2A456251F2877003BF5DE /* Assets.xcassets in Resources */,
+				97996B3A253D9EB600835772 /* ShouMoMoYingBiShouXieTi-2.ttf in Resources */,
 				97C2A3E1251F24F6003BF5DE /* Preview Assets.xcassets in Resources */,
-				97C2A3DE251F24F6003BF5DE /* Assets.xcassets in Resources */,
+				97996B36253D9EB600835772 /* YanShiXiaXingKai-2.ttf in Resources */,
+				97996B40253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,15 +538,57 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		97C2A428251F2608003BF5DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97996B33253D9EB600835772 /* RuiZiZhenYanTi.ttf in Resources */,
+				97996B39253D9EB600835772 /* SourceHanSerifCN-Bold-2.otf in Resources */,
+				97996B31253D9EB600835772 /* QianTuXiaoTuTi-2.ttf in Resources */,
+				97996B3F253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf in Resources */,
+				97996B35253D9EB600835772 /* YangRenDongZhuShiTi-2.ttf in Resources */,
+				97996B3D253D9EB600835772 /* SourceHanSansCN-Bold-2.otf in Resources */,
+				97996B2F253D9EB600835772 /* XianErTi-2.ttf in Resources */,
+				97C2A46A251F3F55003BF5DE /* Assets.xcassets in Resources */,
+				97996B3B253D9EB600835772 /* ShouMoMoYingBiShouXieTi-2.ttf in Resources */,
+				97C2A435251F2609003BF5DE /* Assets.xcassets in Resources */,
+				97996B37253D9EB600835772 /* YanShiXiaXingKai-2.ttf in Resources */,
+				97996B41253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		97B3D503254090FD00F6052D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97B3D50A254090FD00F6052D /* IntentHandler.swift in Sources */,
+				97E9202C2540A09E00593FC8 /* kittyWidgetExtension.intentdefinition in Sources */,
+				97BD957E2552B20400048E08 /* SmallWidgetView3.swift in Sources */,
+				97BD95782552B1FF00048E08 /* MiddleWidgetView2.swift in Sources */,
+				97E91FEF254094B600593FC8 /* MyData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C2A3D2251F24F4003BF5DE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */,
 				97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */,
+				97318E6F254573A7002CF887 /* SmallWidgetView3.swift in Sources */,
+				9707F1052552789D0028DC14 /* kittyWidgetExtension.intentdefinition in Sources */,
+				97C2A41F251F258F003BF5DE /* MyData.swift in Sources */,
+				97EA23FF25497FA600720824 /* SmallSettingExtension.swift in Sources */,
+				97C2A408251F2553003BF5DE /* SmallWidgetView.swift in Sources */,
+				97C2A412251F2560003BF5DE /* ImagePicker.swift in Sources */,
+				9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */,
 				97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */,
+				97EA23F825497F0A00720824 /* ImageClipView.swift in Sources */,
+				973F8ADC254AD99C00438B10 /* MiddleWidgetView2.swift in Sources */,
+				974D21A52546A32000FDADF3 /* MiddleWidgetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,9 +608,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		97C2A426251F2608003BF5DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97318EA425459A52002CF887 /* SmallWidgetView3.swift in Sources */,
+				97C2A446251F262D003BF5DE /* SmallWidgetView.swift in Sources */,
+				973F8AE8254ADA3200438B10 /* MiddleWidgetView2.swift in Sources */,
+				97C2A437251F2609003BF5DE /* kittyWidgetExtension.intentdefinition in Sources */,
+				97BD959A2552B3D500048E08 /* IntentHandler.swift in Sources */,
+				9737C9522543F6DA00DAE7A9 /* MyData.swift in Sources */,
+				97C2A432251F2608003BF5DE /* kittyWidgetExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		97B3D50D254090FD00F6052D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 97B3D506254090FD00F6052D /* DynamicIntent */;
+			targetProxy = 97B3D50C254090FD00F6052D /* PBXContainerItemProxy */;
+		};
 		97C2A3E9251F24F7003BF5DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 97C2A3D5251F24F4003BF5DE /* KittyWidgetV2 */;
@@ -293,9 +640,56 @@
 			target = 97C2A3D5251F24F4003BF5DE /* KittyWidgetV2 */;
 			targetProxy = 97C2A3F3251F24F7003BF5DE /* PBXContainerItemProxy */;
 		};
+		97C2A43A251F2609003BF5DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 97C2A429251F2608003BF5DE /* kittyWidgetExtensionExtension */;
+			targetProxy = 97C2A439251F2609003BF5DE /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		97B3D510254090FD00F6052D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DynamicIntent/DynamicIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
+				INFOPLIST_FILE = DynamicIntent/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = sora.KittyWidgetV2.DynamicIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		97B3D511254090FD00F6052D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DynamicIntent/DynamicIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
+				INFOPLIST_FILE = DynamicIntent/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = sora.KittyWidgetV2.DynamicIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		97C2A3F9251F24F7003BF5DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -415,10 +809,13 @@
 		97C2A3FC251F24F7003BF5DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = KittyWidgetV2/KittyWidgetV2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"KittyWidgetV2/Preview Content\"";
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = KittyWidgetV2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -426,20 +823,24 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = sora.KittyWidgetV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		97C2A3FD251F24F7003BF5DE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = KittyWidgetV2/KittyWidgetV2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"KittyWidgetV2/Preview Content\"";
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = KittyWidgetV2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -447,10 +848,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = sora.KittyWidgetV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -534,9 +936,62 @@
 			};
 			name = Release;
 		};
+		97C2A43D251F260A003BF5DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = kittyWidgetExtensionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
+				INFOPLIST_FILE = kittyWidgetExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = sora.KittyWidgetV2.kittyWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		97C2A43E251F260A003BF5DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = kittyWidgetExtensionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
+				INFOPLIST_FILE = kittyWidgetExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = sora.KittyWidgetV2.kittyWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		97B3D50F254090FD00F6052D /* Build configuration list for PBXNativeTarget "DynamicIntent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97B3D510254090FD00F6052D /* Debug */,
+				97B3D511254090FD00F6052D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		97C2A3D1251F24F4003BF5DE /* Build configuration list for PBXProject "KittyWidgetV2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -569,6 +1024,15 @@
 			buildConfigurations = (
 				97C2A402251F24F7003BF5DE /* Debug */,
 				97C2A403251F24F7003BF5DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		97C2A43C251F260A003BF5DE /* Build configuration list for PBXNativeTarget "kittyWidgetExtensionExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97C2A43D251F260A003BF5DE /* Debug */,
+				97C2A43E251F260A003BF5DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

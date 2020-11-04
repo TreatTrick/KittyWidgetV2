@@ -102,7 +102,7 @@ struct SmallSetting: View {
                             }
                             
                             Toggle(isOn: $isKitty){
-                                Text("显示猫咪")
+                                Text("显示前景")
                             }
                             
                             Toggle(isOn: $isWord){

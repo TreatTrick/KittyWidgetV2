@@ -209,7 +209,7 @@ struct Time: View{
             } else {
 //                dateFormatter.timeStyle = .short
 //                dateFormatter.dateStyle = .none
-                dateFormatter.dateFormat = "H:mm a"
+                dateFormatter.dateFormat = "h:mm a"
                 let dateString = dateFormatter.string(from: date)
 //                let ymd = dateString.split(separator:":")
 //                displayString = ymd[0] + ":" + ymd[1] + ":" + ymd[2]

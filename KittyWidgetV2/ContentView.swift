@@ -32,11 +32,10 @@ struct ContentView: View {
                             SmallWidgetGrid(dataStream: $myData.dataStream, isEdit: $isEdit, id: $id, isReName: $isReName)
                                 .padding()
                         }
-                        .animation(.easeInOut)
                         .environment(\.editMode, $isEdit)
                     }
                     .tabItem {
-                        Label("widget", systemImage: "w.square.fill")
+                        Label("小组件", systemImage: "w.square.fill")
                     }
                     .tag(Tabs.smallWidget)
                     
@@ -85,7 +84,7 @@ struct ContentView: View {
                                         Spacer()
                                     }
                                     Text("KittyWidget V1.0.0").font(.headline).padding()
-                                    Text("猫咪小插件 V1.0.0").font(.headline).padding()
+                                    Text("猫咪小组件 V1.0.0").font(.headline).padding()
                                     Text("Developed by SORA").padding()
                                 }
                             }
@@ -152,7 +151,7 @@ struct ContentView: View {
     func naviBarTitle(tabSelection: Tabs) -> String {
         switch tabSelection{
         case .setting: return "设置"
-        case .smallWidget: return "Widgets"
+        case .smallWidget: return "小组件"
         }
     }
     
@@ -194,7 +193,6 @@ struct ContentView: View {
                 EmptyView()
             }
         }
-        .font(.title2)
     }
     
     
@@ -238,6 +236,7 @@ struct ContentView: View {
         self.isEdit = .inactive
         DispatchQueue.global(qos: .userInitiated).async {
             UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
+            WidgetCenter.shared.reloadAllTimelines()
         }
         
     }

@@ -201,7 +201,7 @@ struct SmallSetting: View {
                         }
                         
                         Section{
-                            Picker( "小插件对应快捷方式", selection: $basicData.url,content: {
+                            Picker( "小组件对应快捷方式", selection: $basicData.url,content: {
                                 Text("未选择").tag("")
                                 Text("微信扫一扫").tag("weixin://scanqrcode")
                                 Text("支付宝扫一扫").tag("alipayqr://platformapi/startapp?saId=10000007")

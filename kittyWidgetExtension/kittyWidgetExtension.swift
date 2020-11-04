@@ -76,7 +76,7 @@ struct kittyWidgetExtensionEntryView : View {
     var body: some View {
         switch family {
         case .systemSmall:
-            SmallWidgetView3(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font, date: entry.date)
+            SmallWidgetView3(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font,date: entry.date)
                 .widgetURL(URL(string: entry.basicData.url))
 
         default :

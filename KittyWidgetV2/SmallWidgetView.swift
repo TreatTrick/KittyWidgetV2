@@ -43,7 +43,7 @@ struct SmallWidgetView: View {
                                 }
                             
                             if editMode?.wrappedValue != .inactive {
-                                Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
+                                Image(systemName: withAnimation(.easeInOut){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
                                     .foregroundColor(.red)
                             }
                         }
@@ -115,7 +115,7 @@ struct SmallWidgetView: View {
             .cornerRadius(CGFloat(Coefficients.cornerRadius))
             
             if editMode?.wrappedValue != .inactive && !isWord{
-                Image(systemName: withAnimation(.none){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
+                Image(systemName: withAnimation(.easeInOut){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
                     .foregroundColor(.red)
                     .padding(4)
                     .background(calBlurBackground(isBlur: true, img: self.basicData.blurBackground))
@@ -179,12 +179,11 @@ struct Time: View{
             if is24Hour{
                 Text(dateSetting(dateSetting))
             } else {
-                let strSetting = dateSetting(.time).split(separator: ":")
+                let strSetting = dateSetting(.time).split(separator: " ")
                 if a {
-                    Text(strSetting[2])
+                    Text(strSetting.last!)
                 } else{
-                    
-                    Text(strSetting[0] + ":" + strSetting[1])
+                    Text(strSetting.first!)
                 }
             }
         }
@@ -208,10 +207,13 @@ struct Time: View{
                 let ymd = dateString.split(separator: ":")
                 displayString = ymd[0] + ":" + ymd[1]
             } else {
-                dateFormatter.dateFormat = "h:mm:a"
+//                dateFormatter.timeStyle = .short
+//                dateFormatter.dateStyle = .none
+                dateFormatter.dateFormat = "H:mm a"
                 let dateString = dateFormatter.string(from: date)
-                let ymd = dateString.split(separator:":")
-                displayString = ymd[0] + ":" + ymd[1] + ":" + ymd[2]
+//                let ymd = dateString.split(separator:":")
+//                displayString = ymd[0] + ":" + ymd[1] + ":" + ymd[2]
+                displayString = dateString
             }
         case .week:
             let weekid = Calendar.current.component(.weekday, from: date)

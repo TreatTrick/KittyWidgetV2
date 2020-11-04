@@ -32,11 +32,11 @@ struct MiddleWidgetView: View {
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 
                             } else {
-                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: ":")[0] + ":" + dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: ":")[1])
+                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
                                     .font(.custom(font.rawValue, size: 38))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 
-                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: ":")[2])
+                                Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
                                     .font(.custom(font.rawValue, size: 11))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     .offset(x: -4, y: 13)
@@ -52,14 +52,14 @@ struct MiddleWidgetView: View {
                     }
                     .padding(4)
                     .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                    //.cornerRadius(10)
+                    .cornerRadius(10)
                     .offset(y: 6)
                     
                     Text(dateSetting(.week, is24Hour: self.is24Hour, date: date))                        .font(.custom(font.rawValue, size: 25))
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                         .padding(3)
                         .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                        //.cornerRadius(10)
+                        .cornerRadius(10)
                         .padding(8)
                 }
             }
@@ -75,7 +75,7 @@ struct MiddleWidgetView: View {
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                             .padding(4)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                            //.cornerRadius(10)
+                            .cornerRadius(10)
                     }
                     
                     if basicData.isCustomWord && basicData.customWord2 != "" {
@@ -84,7 +84,7 @@ struct MiddleWidgetView: View {
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                             .padding(4)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                            //.cornerRadius(10)
+                            .cornerRadius(10)
                             .offset(y: 5)
                     }
                 }
@@ -104,7 +104,7 @@ struct MiddleWidgetView: View {
         }
         .frame(width: 360, height: 170, alignment: .center)
         .background(calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData))
-        //.cornerRadius(CGFloat(Coefficients//.cornerRadius))
+        .cornerRadius(CGFloat(Coefficients.cornerRadius))
         .environment(\.sizeCategory, .extraExtraExtraLarge)
     }
     
@@ -125,10 +125,10 @@ struct MiddleWidgetView: View {
                 let ymd = dateString.split(separator: ":")
                 displayString = ymd[0] + ":" + ymd[1]
             } else {
-                dateFormatter.dateFormat = "h:mm:a"
+                dateFormatter.dateFormat = "H:mm a"
                 let dateString = dateFormatter.string(from: date)
-                let ymd = dateString.split(separator:":")
-                displayString = ymd[0] + ":" + ymd[1] + ":" + ymd[2]
+//                let ymd = dateString.split(separator:":")
+                displayString = dateString
             }
         case .week:
             let weekid = Calendar.current.component(.weekday, from: date)

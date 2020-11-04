@@ -431,6 +431,7 @@
 		97C2A3CE251F24F4003BF5DE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = NO;
 				LastSwiftUpdateCheck = 1210;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
@@ -652,6 +653,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = DynamicIntent/DynamicIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				INFOPLIST_FILE = DynamicIntent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -800,10 +802,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = sora.KittyWidgetV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -816,6 +819,7 @@
 				CODE_SIGN_ENTITLEMENTS = KittyWidgetV2/KittyWidgetV2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"KittyWidgetV2/Preview Content\"";
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = KittyWidgetV2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -823,10 +827,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = sora.KittyWidgetV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -939,6 +944,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = kittyWidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				INFOPLIST_FILE = kittyWidgetExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

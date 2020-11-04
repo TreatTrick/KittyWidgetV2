@@ -167,7 +167,7 @@ class MyData: ObservableObject{
 
 struct MyColor{
     static var blue: ColorSeries = ColorSeries(main: Color(hex: 0x0080FF), light: Color(hex: 0x00BFFF), heavy:Color(hex: 0x084B8A))
-    static var red: ColorSeries = ColorSeries(main: Color(hex: 0xFF0040), light: Color(hex: 0xF781BE), heavy:Color(hex: 0xDF013A))
+    static var red: ColorSeries = ColorSeries(main: Color(hex: 0xFF0040), light: Color(hex: 0xFF0040), heavy:Color(hex: 0xDF013A))
     static var purple: ColorSeries = ColorSeries(main: Color(hex: 0xD358F7), light: Color(hex: 0xBE81F7), heavy:Color(hex: 0xA901DB))
     static var green: ColorSeries = ColorSeries(main: Color(hex: 0x3dc02f), light: Color(hex: 0x22d268), heavy:Color(hex: 0x04a400))
     static var yellow: ColorSeries = ColorSeries(main: Color(hex: 0xd7d400), light: Color(hex: 0xd7d400), heavy:Color(hex: 0xFFBF00))
@@ -278,10 +278,10 @@ enum MyColorScheme: String, Codable{
 }
 
 struct UserDataKeys{
-    static var storedData = "dataStream"
+    static var storedData = "storedData"
     static var is24Hour = "is24Hour"
     static var myColorScheme = "myColorScheme"
-    static var suiteName = "group.sora.takanashi"
+    static var suiteName = "group.sora.ttt"
     static var idName = "idName"
 }
 

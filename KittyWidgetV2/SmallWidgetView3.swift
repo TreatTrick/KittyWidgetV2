@@ -50,7 +50,7 @@ struct SmallWidgetView3: View {
                     }
 
 
-                    if basicData.isCustomWord && basicData.customWord1 != ""{
+                    if basicData.isCustomWord && basicData.customWord1 != "" && isKitty{
                         Text(basicData.customWord1)
                             .font(.custom(font.rawValue, size: basicData.customFont1))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
@@ -74,7 +74,7 @@ struct SmallWidgetView3: View {
                             .padding(3)
                         Spacer()
                     }
-                    if basicData.isCustomWord && basicData.customWord2 != ""{
+                    if basicData.isCustomWord && basicData.customWord2 != "" && isKitty{
                         Spacer()
                         Text(basicData.customWord2)
                             .font(.custom(font.rawValue, size: basicData.customFont2))
@@ -96,6 +96,30 @@ struct SmallWidgetView3: View {
                     }
                     
                 }
+            }
+            
+            if basicData.isCustomWord && (basicData.customWord2 != "" || basicData.customWord1 != "") && !isKitty{
+                HStack{
+                    VStack(alignment: .leading){
+                        Spacer()
+                        Text(basicData.customWord1)
+                            .font(.custom(font.rawValue, size: basicData.customFont1))
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                            //.padding(4)
+                            .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                            .cornerRadius(10)
+                        
+                        Text(basicData.customWord2)
+                            .font(.custom(font.rawValue, size: basicData.customFont2))
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                            //.padding(3)
+                            .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                            .cornerRadius(10)
+                            //.offset(y: 5)
+                    }
+                    Spacer()
+                }
+                .padding(10)
             }
         }
         .animation(.easeInOut)

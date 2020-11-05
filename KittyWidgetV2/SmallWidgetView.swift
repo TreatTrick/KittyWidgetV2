@@ -62,7 +62,7 @@ struct SmallWidgetView: View {
                     .offset(y: 6)
                     }
                     
-                    if basicData.isCustomWord && basicData.customWord1 != ""{
+                    if basicData.isCustomWord && basicData.customWord1 != "" && isKitty{
                         Text(basicData.customWord1)
                             .font(.custom(font.rawValue, size: basicData.customFont1))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
@@ -85,7 +85,7 @@ struct SmallWidgetView: View {
                             .padding(3)
                         Spacer()
                     }
-                    if basicData.isCustomWord && basicData.customWord2 != ""{
+                    if basicData.isCustomWord && basicData.customWord2 != "" && isKitty{
                         Spacer()
                         Text(basicData.customWord2)
                             .font(.custom(font.rawValue, size: basicData.customFont2))
@@ -115,6 +115,36 @@ struct SmallWidgetView: View {
             .environment(\.sizeCategory, .extraExtraExtraLarge)
             .cornerRadius(CGFloat(Coefficients.cornerRadius))
             
+            
+            if basicData.isCustomWord && (basicData.customWord2 != "" || basicData.customWord1 != "") && !isKitty{
+                HStack{
+                    VStack(alignment: .leading){
+                        Spacer()
+                        Text(basicData.customWord1)
+                            .font(.custom(font.rawValue, size: basicData.customFont1))
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                            //.padding(4)
+                            .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
+                            .cornerRadius(10)
+                        
+                        Text(basicData.customWord2)
+                            .font(.custom(font.rawValue, size: basicData.customFont2))
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                            //.padding(3)
+                            .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
+                            .cornerRadius(10)
+                            //.offset(y: 5)
+                    }
+                    Spacer()
+                }
+                .padding(10)
+                .frame(width: 150, height: 150)
+                .background(calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData) )
+                .environment(\.sizeCategory, .extraExtraExtraLarge)
+                .cornerRadius(CGFloat(Coefficients.cornerRadius))
+                .animation(.easeInOut)
+            }
+            
             if editMode?.wrappedValue != .inactive && !isWord{
                 Image(systemName: withAnimation(.easeInOut){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
                     .foregroundColor(.red)
@@ -129,6 +159,9 @@ struct SmallWidgetView: View {
                     Color(.clear)
                 }
             }
+            
+            
+            
         }
         .animation(.easeInOut)
     }

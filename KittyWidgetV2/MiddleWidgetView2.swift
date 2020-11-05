@@ -25,25 +25,21 @@ struct MiddleWidgetView2: View {
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date))
                                         .font(.custom(font.rawValue, size: 40))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    // .opacity(0.6)
-                                    
+
                                 } else {
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
                                         .font(.custom(font.rawValue, size: 38))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    //.opacity(0.6)
-                                    
-                                    
-                                    
+
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
                                         .font(.custom(font.rawValue, size: 11))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                         .offset(x: -4, y: 13)
-                                    // .opacity(0.6)
-                                    
+
                                 }
+//
                             }
-                            
+//
                             Text(dateSetting(.date, is24Hour: self.is24Hour, date: date))
                                 .font(.custom(font.rawValue, size: 11))
                                 .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
@@ -51,22 +47,22 @@ struct MiddleWidgetView2: View {
                         }
                         .padding(4)
                         .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                        //.cornerRadius(10)
+                        .cornerRadius(10)
                         .offset(y: 6)
-                        
+
                         Text(dateSetting(.week, is24Hour: self.is24Hour, date: date))                        .font(.custom(font.rawValue, size: 25))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                             .padding(3)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                            //.cornerRadius(10)
+                            .cornerRadius(10)
                             .padding(8)
                     }
                 }
-                
+//
                 if (self.basicData.isCustomWord && (self.basicData.customWord1 != "" || self.basicData.customWord2 != "")){
                     Spacer()
                 }
-                
+
                     VStack{
                         if basicData.isCustomWord && basicData.customWord1 != "" {
                             Text(basicData.customWord1)
@@ -74,16 +70,16 @@ struct MiddleWidgetView2: View {
                                 .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 .padding(4)
                                 .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                                //.cornerRadius(10)
+                                .cornerRadius(10)
                         }
-                        
+
                         if basicData.isCustomWord && basicData.customWord2 != "" {
                             Text(basicData.customWord2)
                                 .font(.custom(font.rawValue, size: basicData.midCustomFont2))
                                 .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 .padding(4)
                                 .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                                //.cornerRadius(10)
+                                .cornerRadius(10)
                                 .offset(y: 5)
                         }
                     }
@@ -102,7 +98,6 @@ struct MiddleWidgetView2: View {
             }
         }
         .environment(\.sizeCategory, .extraExtraExtraLarge)
-        //.cornerRadius(CGFloat(Coefficients//.cornerRadius))
     }
     
     func dateSetting(_ timeOrDate: tdSelection, is24Hour: Bool, date: Date) -> String{
@@ -122,10 +117,11 @@ struct MiddleWidgetView2: View {
                 let ymd = dateString.split(separator: ":")
                 displayString = ymd[0] + ":" + ymd[1]
             } else {
+//                dateFormatter.dateFormat = "h:mm:a"
                 dateFormatter.dateFormat = "h:mm a"
                 let dateString = dateFormatter.string(from: date)
-                let ymd = dateString.split(separator:":")
-                displayString = ymd[0] + ":" + ymd[1] + ":" + ymd[2]
+//                let ymd = dateString.split(separator:":")
+                displayString = dateString
             }
         case .week:
             let weekid = Calendar.current.component(.weekday, from: date)

@@ -24,21 +24,12 @@ struct Provider: IntentTimelineProvider {
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         let selectedWidget = selectWidget(for: configuration)
         let currentDate = Date()
-//        dateFormatter.dateFormat =  "mm"
-//        let second = Int(dateFormatter.string(from: currentDate))!
-//        if second < 37{
-//            selectedWidget.kitty = UIImage(named: "kitty1")!
-//        } else if second < 39{
-//            selectedWidget.kitty = UIImage(named: "kitty2")!
-//        } else {
-//            selectedWidget.kitty = UIImage(named: "kitty3")!
-//        }
         var entries: [SimpleEntry] = []
-
+        let is24 = UserDefaults(suiteName: UserDataKeys.suiteName)!.bool(forKey: UserDataKeys.is24Hour)
 
         for secendOffset in 0 ..< 10 {
             let entryDate = Calendar.current.date(byAdding: .minute, value: secendOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: MyData.is24Hour, basicData: selectedWidget)
+            let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
             entries.append(entry)
         }
 
@@ -82,6 +73,7 @@ struct kittyWidgetExtensionEntryView : View {
         default :
             MiddleWidgetView2(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font, date: entry.date)
                 .widgetURL(URL(string: entry.basicData.url))
+        
         }
     }
 }
@@ -94,8 +86,8 @@ struct kittyWidgetExtension: Widget {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             kittyWidgetExtensionEntryView(entry: entry)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("KittyWidget")
+        .description("请选择想要添加到屏幕的小组件")
         .supportedFamilies([.systemSmall, .systemMedium])
     }
 }

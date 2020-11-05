@@ -44,7 +44,7 @@ struct SmallWidgetView3: View {
                         }
                         .padding(4)
                         .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                        //.cornerRadius(10)
+                        .cornerRadius(10)
                         .offset(y: 6)
                         
                     }
@@ -56,7 +56,7 @@ struct SmallWidgetView3: View {
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                             .padding(4)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                        //.cornerRadius(10)
+                        .cornerRadius(10)
 
                     }
                 }
@@ -70,7 +70,7 @@ struct SmallWidgetView3: View {
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                             .padding(3)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                            //.cornerRadius(10)
+                            .cornerRadius(10)
                             .padding(3)
                         Spacer()
                     }
@@ -81,7 +81,7 @@ struct SmallWidgetView3: View {
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                             .padding(3)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                            //.cornerRadius(10)
+                            .cornerRadius(10)
                             .offset(y: 5)
                         Spacer()
                     }
@@ -98,7 +98,6 @@ struct SmallWidgetView3: View {
             }
         }
         .animation(.easeInOut)
-        //.cornerRadius(CGFloat(Coefficients//.cornerRadius))
         .environment(\.sizeCategory, .extraExtraExtraLarge)
     }
     

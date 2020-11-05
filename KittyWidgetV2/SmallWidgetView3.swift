@@ -24,19 +24,19 @@ struct SmallWidgetView3: View {
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date))
                                         .font(.custom(font.rawValue, size: 32))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    
+
                                 } else {
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
                                         .font(.custom(font.rawValue, size: 27))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    
+
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
                                         .font(.custom(font.rawValue, size: Coefficients.apSize))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                         .offset(x: -4, y: 10)
                                 }
                             }
-                            
+
                             Text(dateSetting(.date, is24Hour: self.is24Hour, date: date))
                                 .font(.custom(font.rawValue, size: 10))
                                 .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
@@ -46,10 +46,10 @@ struct SmallWidgetView3: View {
                         .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                         .cornerRadius(10)
                         .offset(y: 6)
-                        
+
                     }
-                    
-                    
+
+
                     if basicData.isCustomWord && basicData.customWord1 != ""{
                         Text(basicData.customWord1)
                             .font(.custom(font.rawValue, size: basicData.customFont1))
@@ -57,11 +57,11 @@ struct SmallWidgetView3: View {
                             .padding(4)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                         .cornerRadius(10)
-
                     }
                 }
                 .padding(3)
                 
+
                 HStack{
                     if isWord{
                         Spacer()
@@ -92,6 +92,7 @@ struct SmallWidgetView3: View {
                                 .scaledToFit()
                                 .clipped()
                         }
+                        //.frame(maxWidth: 70, maxHeight: 98, alignment: .center)
                     }
                     
                 }
@@ -119,10 +120,16 @@ struct SmallWidgetView3: View {
                 displayString = ymd[0] + ":" + ymd[1]
             } else {
 //                dateFormatter.dateFormat = "h:mm:a"
-                dateFormatter.dateFormat = "h:mm a"
-                let dateString = dateFormatter.string(from: date)
-//                let ymd = dateString.split(separator:":")
-                displayString = dateString
+                dateFormatter.dateFormat = "HH:mm"
+                let dateString = dateFormatter.string(from: date).split(separator:":")
+                var ap = ""
+                if Int(dateString.first!)! > 12 {
+                    ap = "PM"
+                } else {
+                    ap = "AM"
+                }
+                let hour = Int(dateString.first!)! % 12
+                displayString = String(hour) + ":" + dateString.last! + " " + ap
             }
         case .week:
             let weekid = Calendar.current.component(.weekday, from: date)

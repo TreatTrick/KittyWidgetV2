@@ -10,13 +10,13 @@ import WidgetKit
 
 struct SmallWidgetView2: View {
     @Environment(\.colorScheme)  var colorScheme
-    var basicData: BasicData
-    var isKitty: Bool
-    var isWord: Bool
-    var isBlur: Bool
-    var isAllBlur: Bool
-    var is24Hour: Bool
-    var font: FontNames
+     var basicData: BasicData
+     var isKitty: Bool
+     var isWord: Bool
+     var isBlur: Bool
+     var isAllBlur: Bool
+     var is24Hour: Bool
+     var font: FontNames
     
     var body: some View {
         VStack(alignment:.center){
@@ -63,7 +63,6 @@ struct SmallWidgetView2: View {
             }
             .padding(3)
             
-            
             HStack{
                 if isWord{
                     Spacer()
@@ -94,12 +93,13 @@ struct SmallWidgetView2: View {
                             .scaledToFit()
                             .clipped()
                     }
+                    //.frame(maxWidth: 70, maxHeight: 98, alignment: .center)
                 }
                 
             }
             
         }
-        .frame(width: 170, height: 170)
+        .frame(width: 150, height: 150)
         .background(calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData) )
         .environment(\.sizeCategory, .extraExtraExtraLarge)
         .cornerRadius(CGFloat(Coefficients.cornerRadius))

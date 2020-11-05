@@ -25,7 +25,7 @@ struct SmallSetting: View {
     @State var isAllBlur: Bool
     var is24Hour: Bool
     @State var font: FontNames
-    @State var customURL: String
+//    @State var customURL: String
     @State var img: UIImage = UIImage(systemName: "photo")!
     @State var isImageClip = false
     
@@ -37,7 +37,7 @@ struct SmallSetting: View {
     @State var isKittyClip = false
     
     @State var img2: UIImage = UIImage(systemName: "photo")!
-    
+        
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
     }
@@ -54,12 +54,12 @@ struct SmallSetting: View {
                                 SmallWidgetView2(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
                                 Text(self.basicData.name)
                             }
-                            .padding()
+                            .padding(4)
                             VStack{
                                 MiddleWidgetView(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
                                 Text(self.basicData.name)
                             }
-                            .padding()
+                            .padding(4)
                         }
                     }
                     .background(
@@ -90,6 +90,17 @@ struct SmallSetting: View {
                         }
                         
                         Section(header:Text("其他个性化设置")){
+                            HStack{
+                                Text("选取自定义前景")
+                                Spacer()
+                                Button(action: {isCustomKitty = true}){
+                                    Image(systemName: "plus.circle")
+                                }
+                                .sheet(isPresented: $isCustomKitty){
+                                    ImagePicker(img: $img, isImageClip: $isKittyClip)
+                                }
+                            }
+                            
                             HStack{
                                 Text("选取自定义背景")
                                 Spacer()
@@ -213,9 +224,9 @@ struct SmallSetting: View {
                                 Text("网易云音乐下载音乐").tag("orpheuswidget://download")
                             })
                             HStack{
-                                TextField("自定义URLScheme快捷方式", text: $customURL)
+                                TextField("自定义URLScheme快捷方式", text: $basicData.url)
                                 Button("确定"){
-                                    self.basicData.url = self.customURL
+//                                    self.basicData.url = self.customURL
                                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
                                 }
                                 .buttonStyle(BorderlessButtonStyle())
@@ -254,7 +265,7 @@ struct SmallSetting: View {
 //MARK: - Preview
 struct SmallSetting_Previews: PreviewProvider {
     static var previews: some View {
-        SmallSetting(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!, name: "widget 1"), isKitty: true, selectedCircle: .blue, isWord: true,isBlur: true, isAllBlur: true, is24Hour: true, font: .font4, customURL: "")
+        SmallSetting(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!, name: "widget 1"), isKitty: true, selectedCircle: .blue, isWord: true,isBlur: true, isAllBlur: true, is24Hour: true, font: .font4)
             .environment(\.colorScheme, .dark)
     }
 }

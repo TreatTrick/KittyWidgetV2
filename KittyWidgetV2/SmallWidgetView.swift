@@ -72,7 +72,7 @@ struct SmallWidgetView: View {
                     }
                 }
                 .padding(3)
-
+                
                 HStack{
                     if isWord{
                         Spacer()
@@ -104,12 +104,13 @@ struct SmallWidgetView: View {
                                 //.frame(width: 70, height: 99)
                                 .clipped()
                         }
+                        //.frame(maxWidth: 70, maxHeight: 98, alignment: .center)
                         //.frame(width: 70, height: 99)
                     }
                     
                 }
             }
-            .frame(width: 170, height: 170)
+            .frame(width: 150, height: 150)
             .background( calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData) )
             .environment(\.sizeCategory, .extraExtraExtraLarge)
             .cornerRadius(CGFloat(Coefficients.cornerRadius))
@@ -179,11 +180,13 @@ struct Time: View{
             if is24Hour{
                 Text(dateSetting(dateSetting))
             } else {
-                let strSetting = dateSetting(.time).split(separator: " ")
+                let strSetting = dateSetting(.time).split(separator: ":")
                 if a {
-                    Text(strSetting.last!)
+                    Text(Int(strSetting.first!)! > 12 ? "PM" : "AM")
                 } else{
-                    Text(strSetting.first!)
+                    let str = strSetting.first!
+                    let hour = Int(str)! % 12
+                    Text(String(hour) + ":" + strSetting.last!)
                 }
             }
         }
@@ -209,7 +212,7 @@ struct Time: View{
             } else {
 //                dateFormatter.timeStyle = .short
 //                dateFormatter.dateStyle = .none
-                dateFormatter.dateFormat = "h:mm a"
+                dateFormatter.dateFormat = "HH:mm"
                 let dateString = dateFormatter.string(from: date)
 //                let ymd = dateString.split(separator:":")
 //                displayString = ymd[0] + ":" + ymd[1] + ":" + ymd[2]

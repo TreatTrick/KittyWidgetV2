@@ -64,16 +64,17 @@ struct MiddleWidgetView: View {
                 }
             }
             
-            if (self.basicData.isCustomWord && (self.basicData.customWord1 != "" || self.basicData.customWord2 != "")){
-                Spacer()
-            }
+//            if (self.basicData.isCustomWord && (self.basicData.customWord1 != "" || self.basicData.customWord2 != "")){
+//                Spacer()
+//            }
             
-                VStack{
+            VStack(alignment: .leading){
+                    Spacer()
                     if basicData.isCustomWord && basicData.customWord1 != "" {
                         Text(basicData.customWord1)
                             .font(.custom(font.rawValue, size: basicData.midCustomFont1))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                            .padding(4)
+                          //  .padding(4)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                             .cornerRadius(10)
                     }
@@ -82,12 +83,14 @@ struct MiddleWidgetView: View {
                         Text(basicData.customWord2)
                             .font(.custom(font.rawValue, size: basicData.midCustomFont2))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                            .padding(4)
+                           // .padding(4)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                             .cornerRadius(10)
                             .offset(y: 5)
                     }
                 }
+                .padding(12)
+
                 
             Spacer()
             
@@ -102,7 +105,7 @@ struct MiddleWidgetView: View {
             }
             
         }
-        .frame(width: 360, height: 170, alignment: .center)
+        .frame(width: 317, height: 150, alignment: .center)
         .background(calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData))
         .cornerRadius(CGFloat(Coefficients.cornerRadius))
         .environment(\.sizeCategory, .extraExtraExtraLarge)
@@ -125,10 +128,16 @@ struct MiddleWidgetView: View {
                 let ymd = dateString.split(separator: ":")
                 displayString = ymd[0] + ":" + ymd[1]
             } else {
-                dateFormatter.dateFormat = "H:mm a"
-                let dateString = dateFormatter.string(from: date)
-//                let ymd = dateString.split(separator:":")
-                displayString = dateString
+                dateFormatter.dateFormat = "HH:mm"
+                let dateString = dateFormatter.string(from: date).split(separator:":")
+                var ap = ""
+                if Int(dateString.first!)! > 12 {
+                    ap = "PM"
+                } else {
+                    ap = "AM"
+                }
+                let hour = Int(dateString.first!)! % 12
+                displayString = String(hour) + ":" + dateString.last! + " " + ap
             }
         case .week:
             let weekid = Calendar.current.component(.weekday, from: date)

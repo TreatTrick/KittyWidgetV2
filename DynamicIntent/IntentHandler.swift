@@ -10,7 +10,8 @@ import SwiftUI
 
 class IntentHandler: INExtension, ConfigurationIntentHandling {
     func provideWidgetsOptionsCollection(for intent: ConfigurationIntent, with completion: @escaping (INObjectCollection<Widgets>?, Error?) -> Void) {
-        let widgets: [Widgets] = MyData.staticDataStream.map{
+        let data = MyData.getStoredData()!
+        let widgets: [Widgets] = data.map{
             let widget = Widgets(identifier: $0.id, display: $0.name)
             return widget
         }

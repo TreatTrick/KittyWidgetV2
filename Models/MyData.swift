@@ -74,9 +74,9 @@ class MyData: ObservableObject{
                 let name = "widget " + String(i+1)
                 let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, name: name)
                 dataStream.append(basicData)
-                let background = UIImage(named: "img" + String(i+1))!.pngData()!
-                let kitty = UIImage(named: "kitty" + String(i+1))!.pngData()!
-                let sd = StoredData(id: id, background: background, kitty: kitty, blurBackground: blurBack.pngData()!, name: name)
+                let background = UIImage(named: "img" + String(i+1))!.jpegData(compressionQuality: 0.5)!
+                let kitty = UIImage(named: "kitty" + String(i+1))!.jpegData(compressionQuality: 0.5)!
+                let sd = StoredData(id: id, background: background, kitty: kitty, blurBackground: blurBack.jpegData(compressionQuality: 0.5)!, name: name)
                 
                 storedData.append(sd)
                 print("img\(i)")
@@ -153,9 +153,9 @@ class MyData: ObservableObject{
                 let name = "widget " + String(i+1)
                 let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, name: name)
                 dataStream.append(basicData)
-                let background = UIImage(named: "img" + String(i+1))!.pngData()!
-                let kitty = UIImage(named: "kitty" + String(i+1))!.pngData()!
-                storedData.append(StoredData(id: id, background: background, kitty: kitty, blurBackground: blurBack.pngData()!, name: name))
+                let background = UIImage(named: "img" + String(i+1))!.jpegData(compressionQuality: 0.5)!
+                let kitty = UIImage(named: "kitty" + String(i+1))!.jpegData(compressionQuality: 0.5)!
+                storedData.append(StoredData(id: id, background: background, kitty: kitty, blurBackground: blurBack.jpegData(compressionQuality: 0.5)!, name: name))
             }
             let jsonData: Data? = try? JSONEncoder().encode(storedData)
             UserDefaults(suiteName: UserDataKeys.suiteName)!.set(jsonData,forKey: UserDataKeys.storedData)
@@ -187,14 +187,14 @@ struct ColorSeries{
 
  struct StoredData:Hashable, Codable{
     var id : String
-    var background: Data = UIImage(named: "img1")!.pngData()!
+    var background: Data = UIImage(named: "img1")!.jpegData(compressionQuality: 0.5)!
     var display: displayMode = .date
-    var kitty: Data = UIImage(named: "kitty1")!.pngData()!
+    var kitty: Data = UIImage(named: "kitty1")!.jpegData(compressionQuality: 0.5)!
     var isKitty: Bool = true
     var fontColor: FontColor = .blue
     var isWord: Bool = true
     var isBlur: Bool = true
-    var blurBackground: Data = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!.pngData()!
+    var blurBackground: Data = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!.jpegData(compressionQuality: 0.5)!
     var isAllBlur: Bool = false
     var font: FontNames = .font4
     var url: String = ""
@@ -226,10 +226,10 @@ struct BasicData:Hashable{
     var isCustomWord = false
     var customWord1 = ""
     var customWord2 = ""
-    var customFont1: CGFloat = 25
-    var customFont2: CGFloat = 15
-    var midCustomFont1: CGFloat = 28
-    var midCustomFont2: CGFloat = 18
+    var customFont1: CGFloat = 14
+    var customFont2: CGFloat = 11
+    var midCustomFont1: CGFloat = 18
+    var midCustomFont2: CGFloat = 13
     var name : String
     var isRename: Bool = false
 }
@@ -251,10 +251,10 @@ struct  StaticBasicData:Hashable{
     var isCustomWord = false
     var customWord1 = ""
     var customWord2 = ""
-    var customFont1: CGFloat = 25
-    var customFont2: CGFloat = 15
-    var midCustomFont1: CGFloat = 28
-    var midCustomFont2: CGFloat = 18
+    var customFont1: CGFloat = 14
+    var customFont2: CGFloat = 11
+    var midCustomFont1: CGFloat = 18
+    var midCustomFont2: CGFloat = 13
     var name : String
     var isRename: Bool = false
 }
@@ -283,6 +283,8 @@ struct UserDataKeys{
     static var myColorScheme = "myColorScheme"
     static var suiteName = "group.sora.takanashi"
     static var idName = "idName"
+    static var kind = "kittyWidgetExtension"
+
 }
 
 struct Coefficients{

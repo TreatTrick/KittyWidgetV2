@@ -86,7 +86,7 @@ struct kittyWidgetExtension: Widget {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             kittyWidgetExtensionEntryView(entry: entry)
         }
-        .configurationDisplayName("KittyWidget")
+        .configurationDisplayName("PhotoWidget")
         .description("请选择想要添加到屏幕的小组件")
         .supportedFamilies([.systemSmall, .systemMedium])
     }

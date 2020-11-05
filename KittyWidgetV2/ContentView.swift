@@ -46,8 +46,8 @@ struct ContentView: View {
                             }
                             .onChange(of: is24Hour){value in
                                 self.myData.is24Hour = value
-                                //                                MyData.is24Hour = value
-                                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.is24Hour, forKey: UserDataKeys.is24Hour)
+                                print("here is in toggle")
+                                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(value, forKey: UserDataKeys.is24Hour)
                                 WidgetCenter.shared.reloadAllTimelines()
                             }
                             Picker(selection: $myColorScheme, label: Text("主题选择"), content: {
@@ -76,7 +76,7 @@ struct ContentView: View {
                             
                             if isAbout{
                                 VStack(alignment: .center){
-                                    Text("KittyWidget V1.0.0").font(.headline).padding()
+                                    Text("PhotoWidget V1.0.0").font(.headline).padding()
                                     Text("Developed by SORA").padding()
                                     Text("Special appreciation to Roujiangrong for providing photos").padding()
                                 }
@@ -227,11 +227,10 @@ struct ContentView: View {
             self.myData.dataStream[i].isChecked = false
         }
         self.isEdit = .inactive
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
             WidgetCenter.shared.reloadAllTimelines()
         }
-        
     }
 }
 
@@ -252,7 +251,7 @@ struct SmallWidgetGrid: View{
             LazyVGrid(columns: columns){
                 ForEach(dataStream, id: \.self){ basicData in
                     VStack(alignment: .center){
-                        NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font, customURL: basicData.url)){
+                        NavigationLink(destination: SmallSetting(basicData:basicData, isKitty: basicData.isKitty, selectedCircle: basicData.fontColor, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)){
                             
                             SmallWidgetView(basicData: basicData, isKitty: basicData.isKitty, isWord: basicData.isWord,isBlur: basicData.isBlur, isAllBlur: basicData.isAllBlur, is24Hour: myData.is24Hour, font: basicData.font)
                         }

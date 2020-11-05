@@ -22,12 +22,12 @@ struct SmallWidgetView3: View {
                             HStack{
                                 if is24Hour{
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date))
-                                        .font(.custom(font.rawValue, size: 32))
+                                        .font(.custom(font.rawValue, size: 30))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
 
                                 } else {
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
-                                        .font(.custom(font.rawValue, size: 27))
+                                        .font(.custom(font.rawValue, size: 25))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
 
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
@@ -66,7 +66,7 @@ struct SmallWidgetView3: View {
                     if isWord{
                         Spacer()
                         Text(dateSetting(.week, is24Hour: self.is24Hour, date: date))
-                            .font(.custom(font.rawValue, size: 23))
+                            .font(.custom(font.rawValue, size: 21))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                             .padding(3)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))

@@ -30,11 +30,11 @@ struct SmallWidgetView: View {
                         HStack{
                                 if is24Hour{
                                     Time(dateSetting: .time,a: false, is24Hour: is24Hour)
-                                        .font(.custom(font.rawValue, size: 32))
+                                        .font(.custom(font.rawValue, size: 30))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 } else {
                                     Time(dateSetting: .time,a: false, is24Hour: is24Hour)
-                                        .font(.custom(font.rawValue, size: 27))
+                                        .font(.custom(font.rawValue, size: 25))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     Time(dateSetting: .time, a: true, is24Hour: is24Hour)
                                         .font(.custom(font.rawValue, size: Coefficients.apSize))
@@ -77,7 +77,7 @@ struct SmallWidgetView: View {
                     if isWord{
                         Spacer()
                         Time(dateSetting: .week, a: false, is24Hour: is24Hour)
-                            .font(.custom(font.rawValue, size: 23))
+                            .font(.custom(font.rawValue, size: 21))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                             .padding(3)
                             .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))

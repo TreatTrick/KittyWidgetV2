@@ -22,21 +22,21 @@ struct SmallWidgetView3: View {
                             HStack{
                                 if is24Hour{
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date))
-                                        .font(.custom(font.rawValue, size: 32))
+                                        .font(.custom(font.rawValue, size: 30))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    
+
                                 } else {
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
-                                        .font(.custom(font.rawValue, size: 27))
+                                        .font(.custom(font.rawValue, size: 25))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    
+
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
                                         .font(.custom(font.rawValue, size: Coefficients.apSize))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                        .offset(x: -4, y: 10)
+                                        .offset(x: -4, y: 5)
                                 }
                             }
-                            
+
                             Text(dateSetting(.date, is24Hour: self.is24Hour, date: date))
                                 .font(.custom(font.rawValue, size: 10))
                                 .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
@@ -44,61 +44,89 @@ struct SmallWidgetView3: View {
                         }
                         .padding(4)
                         .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                        //.cornerRadius(10)
+                        .cornerRadius(10)
                         .offset(y: 6)
-                        
+
                     }
-                    
-                    
-                    if basicData.isCustomWord && basicData.customWord1 != ""{
+
+
+                    if basicData.isCustomWord && basicData.customWord1 != "" && isKitty{
                         Text(basicData.customWord1)
                             .font(.custom(font.rawValue, size: basicData.customFont1))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                             .padding(4)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                        //.cornerRadius(10)
-
+                        .cornerRadius(10)
                     }
                 }
                 .padding(3)
+                
+                if isKitty{
+                    Spacer()
+                }
                 
                 HStack{
                     if isWord{
                         Spacer()
                         Text(dateSetting(.week, is24Hour: self.is24Hour, date: date))
-                            .font(.custom(font.rawValue, size: 23))
+                            .font(.custom(font.rawValue, size: 19))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                             .padding(3)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                            //.cornerRadius(10)
+                            .cornerRadius(10)
                             .padding(3)
                         Spacer()
                     }
-                    if basicData.isCustomWord && basicData.customWord2 != ""{
+                    if basicData.isCustomWord && basicData.customWord2 != "" && isKitty{
                         Spacer()
                         Text(basicData.customWord2)
                             .font(.custom(font.rawValue, size: basicData.customFont2))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                             .padding(3)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                            //.cornerRadius(10)
+                            .cornerRadius(10)
                             .offset(y: 5)
                         Spacer()
                     }
                     if isKitty{
+                        Spacer()
                         ZStack{
                             Image(uiImage: basicData.kitty)
                                 .resizable()
                                 .scaledToFit()
                                 .clipped()
                         }
+                        //.frame(maxWidth: 70, maxHeight: 98, alignment: .center)
                     }
                     
                 }
             }
+            
+            if basicData.isCustomWord && (basicData.customWord2 != "" || basicData.customWord1 != "") && !isKitty{
+                HStack{
+                    VStack(alignment: .leading){
+                        Spacer()
+                        Text(basicData.customWord1)
+                            .font(.custom(font.rawValue, size: basicData.customFont1))
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                            //.padding(4)
+                            .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                            .cornerRadius(10)
+                        
+                        Text(basicData.customWord2)
+                            .font(.custom(font.rawValue, size: basicData.customFont2))
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                            //.padding(3)
+                            .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                            .cornerRadius(10)
+                            //.offset(y: 5)
+                    }
+                    Spacer()
+                }
+                .padding(10)
+            }
         }
         .animation(.easeInOut)
-        //.cornerRadius(CGFloat(Coefficients//.cornerRadius))
         .environment(\.sizeCategory, .extraExtraExtraLarge)
     }
     
@@ -120,10 +148,21 @@ struct SmallWidgetView3: View {
                 displayString = ymd[0] + ":" + ymd[1]
             } else {
 //                dateFormatter.dateFormat = "h:mm:a"
-                dateFormatter.dateFormat = "h:mm a"
-                let dateString = dateFormatter.string(from: date)
-//                let ymd = dateString.split(separator:":")
-                displayString = dateString
+                dateFormatter.dateFormat = "HH:mm"
+                let dateString = dateFormatter.string(from: date).split(separator:":")
+                var ap = ""
+                if Int(dateString.first!)! >= 12 {
+                    ap = "PM"
+                } else {
+                    ap = "AM"
+                }
+                var hour: Int
+                if Int(dateString.first!)! == 12{
+                     hour = 12
+                } else {
+                     hour = Int(dateString.first!)! % 12
+                }
+                displayString = String(hour) + ":" + dateString.last! + " " + ap
             }
         case .week:
             let weekid = Calendar.current.component(.weekday, from: date)
@@ -156,7 +195,7 @@ struct SmallWidgetView3: View {
             if isBlur{
                 ZStack{
                     Image(uiImage: self.basicData.blurBackground).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
-                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.4 : 0.25)
+                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.3 : 0.25)
                 }
             } else {
                 EmptyView()

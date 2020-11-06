@@ -25,7 +25,7 @@ struct SmallSetting: View {
     @State var isAllBlur: Bool
     var is24Hour: Bool
     @State var font: FontNames
-    @State var customURL: String
+//    @State var customURL: String
     @State var img: UIImage = UIImage(systemName: "photo")!
     @State var isImageClip = false
     
@@ -37,7 +37,10 @@ struct SmallSetting: View {
     @State var isKittyClip = false
     
     @State var img2: UIImage = UIImage(systemName: "photo")!
+    @State var isKeyboard: Bool = false
     
+   
+        
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
     }
@@ -54,12 +57,12 @@ struct SmallSetting: View {
                                 SmallWidgetView2(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
                                 Text(self.basicData.name)
                             }
-                            .padding()
+                            .padding(4)
                             VStack{
                                 MiddleWidgetView(basicData: basicData, isKitty: isKitty, isWord: isWord, isBlur: isBlur, isAllBlur: isAllBlur, is24Hour: is24Hour, font: font)
                                 Text(self.basicData.name)
                             }
-                            .padding()
+                            .padding(4)
                         }
                     }
                     .background(
@@ -73,7 +76,7 @@ struct SmallSetting: View {
                     )
                     
                     Form{
-                        Section(header: Text("前景")){
+                        Section(header: Text("默认前景")){
                             KittyCluster
                         }
                         
@@ -90,6 +93,17 @@ struct SmallSetting: View {
                         }
                         
                         Section(header:Text("其他个性化设置")){
+                            HStack{
+                                Text("选取自定义前景")
+                                Spacer()
+                                Button(action: {isCustomKitty = true}){
+                                    Image(systemName: "plus.circle")
+                                }
+                                .sheet(isPresented: $isCustomKitty){
+                                    ImagePicker(img: $img, isImageClip: $isKittyClip)
+                                }
+                            }
+                            
                             HStack{
                                 Text("选取自定义背景")
                                 Spacer()
@@ -113,6 +127,10 @@ struct SmallSetting: View {
                                     self.basicData.isCustomWord = false
                                 }
                             })
+                            
+                            Toggle(isOn: $basicData.isCalendar){
+                                Text("在中号组件中显示日历")
+                            }
                             
                             Toggle(isOn: $isBlur){
                                 Text("模糊文字背景")
@@ -145,6 +163,7 @@ struct SmallSetting: View {
                                     TextField("第一行", text: $basicData.customWord1)
                                     Button("确定"){
                                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                                        
                                     }
                                     .buttonStyle(BorderlessButtonStyle())
                                 }
@@ -213,9 +232,9 @@ struct SmallSetting: View {
                                 Text("网易云音乐下载音乐").tag("orpheuswidget://download")
                             })
                             HStack{
-                                TextField("自定义URLScheme快捷方式", text: $customURL)
+                                TextField("自定义URLScheme快捷方式", text: $basicData.url)
                                 Button("确定"){
-                                    self.basicData.url = self.customURL
+//                                    self.basicData.url = self.customURL
                                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
                                 }
                                 .buttonStyle(BorderlessButtonStyle())
@@ -238,12 +257,27 @@ struct SmallSetting: View {
                 }
             .navigationBarTitleDisplayMode(.inline)
             
+            if isKeyboard{
+                Button(action: {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        self.isKeyboard = false }){
+                Rectangle()
+                    .foregroundColor(.clear)
+                }
+            }
+         
+            
             if isImageClip{
                 ImageClipView(img: $img, basicData: $basicData, returnTwoImgs: true, isClip: $isImageClip, myRect: CGSize(width: 360, height: 170))
             }
             
             if isKittyClip{
                 ImageClipView(img: $img, basicData: $basicData, returnTwoImgs: false, isClip: $isKittyClip, myRect: CGSize(width: 180, height: 255))
+            }
+        }
+        .onAppear{
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { key in
+                self.isKeyboard = true
             }
         }
     }
@@ -254,7 +288,7 @@ struct SmallSetting: View {
 //MARK: - Preview
 struct SmallSetting_Previews: PreviewProvider {
     static var previews: some View {
-        SmallSetting(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!, name: "widget 1"), isKitty: true, selectedCircle: .blue, isWord: true,isBlur: true, isAllBlur: true, is24Hour: true, font: .font4, customURL: "")
+        SmallSetting(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!, name: "widget 1"), isKitty: true, selectedCircle: .blue, isWord: true,isBlur: true, isAllBlur: true, is24Hour: true, font: .font4)
             .environment(\.colorScheme, .dark)
     }
 }

@@ -58,7 +58,8 @@ class MyData: ObservableObject{
                     let midCustomFont2 = data.midCustomFont2
                     let name = data.name
                     let isRename = data.isRename
-                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename)
+                    let isCalendar = data.isCalendar
+                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar)
                     self.dataStream.append(bd)
 
                 }
@@ -72,11 +73,18 @@ class MyData: ObservableObject{
                 let id = MyData.staticDataStream[i].id
                 let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!)!
                 let name = "widget " + String(i+1)
-                let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, name: name)
+                var font: FontNames
+                switch i{
+                case 0: font = .font6
+                case 1: font = .font1
+                case 2: font = .font3
+                default: font = .font4
+                }
+                let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, font: font, name: name)
                 dataStream.append(basicData)
-                let background = UIImage(named: "img" + String(i+1))!.pngData()!
-                let kitty = UIImage(named: "kitty" + String(i+1))!.pngData()!
-                let sd = StoredData(id: id, background: background, kitty: kitty, blurBackground: blurBack.pngData()!, name: name)
+                let background = UIImage(named: "img" + String(i+1))!.jpegData(compressionQuality: 0.5)!
+                let kitty = UIImage(named: "kitty" + String(i+1))!.jpegData(compressionQuality: 0.5)!
+                let sd = StoredData(id: id, background: background, kitty: kitty, blurBackground: blurBack.jpegData(compressionQuality: 0.5)!, font: font, name: name)
                 
                 storedData.append(sd)
                 print("img\(i)")
@@ -90,7 +98,7 @@ class MyData: ObservableObject{
         
     }
     
-    static func blurImage(usingImage image: UIImage, blurAmount: CGFloat = 15) -> UIImage?{
+    static func blurImage(usingImage image: UIImage, blurAmount: CGFloat = 20) -> UIImage?{
         guard let ciImg = CIImage(image: image) else { return nil }
         let inputImg: CIImage = ciImg.clampedToExtent()
         let blur = CIFilter(name: "CIGaussianBlur", parameters: [kCIInputRadiusKey: blurAmount, kCIInputImageKey: inputImg])!
@@ -139,7 +147,8 @@ class MyData: ObservableObject{
                     let midCustomFont2 = data.midCustomFont2
                     let name = data.name
                     let isRename = data.isRename
-                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename)
+                    let isCalendar = data.isCalendar
+                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar)
                     dataStream.append(bd)
                 }
                 return dataStream
@@ -151,11 +160,18 @@ class MyData: ObservableObject{
                 let id = UUID().uuidString
                 let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!)!
                 let name = "widget " + String(i+1)
-                let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, name: name)
+                var font: FontNames
+                switch i{
+                case 0: font = .font6
+                case 1: font = .font1
+                case 2: font = .font3
+                default: font = .font4
+                }
+                let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, font: font, name: name)
                 dataStream.append(basicData)
-                let background = UIImage(named: "img" + String(i+1))!.pngData()!
-                let kitty = UIImage(named: "kitty" + String(i+1))!.pngData()!
-                storedData.append(StoredData(id: id, background: background, kitty: kitty, blurBackground: blurBack.pngData()!, name: name))
+                let background = UIImage(named: "img" + String(i+1))!.jpegData(compressionQuality: 0.5)!
+                let kitty = UIImage(named: "kitty" + String(i+1))!.jpegData(compressionQuality: 0.5)!
+                storedData.append(StoredData(id: id, background: background, kitty: kitty, blurBackground: blurBack.jpegData(compressionQuality: 0.5)!,font: font, name: name))
             }
             let jsonData: Data? = try? JSONEncoder().encode(storedData)
             UserDefaults(suiteName: UserDataKeys.suiteName)!.set(jsonData,forKey: UserDataKeys.storedData)
@@ -187,26 +203,27 @@ struct ColorSeries{
 
  struct StoredData:Hashable, Codable{
     var id : String
-    var background: Data = UIImage(named: "img1")!.pngData()!
+    var background: Data = UIImage(named: "img1")!.jpegData(compressionQuality: 0.5)!
     var display: displayMode = .date
-    var kitty: Data = UIImage(named: "kitty1")!.pngData()!
+    var kitty: Data = UIImage(named: "kitty1")!.jpegData(compressionQuality: 0.5)!
     var isKitty: Bool = true
-    var fontColor: FontColor = .blue
+    var fontColor: FontColor = .white
     var isWord: Bool = true
     var isBlur: Bool = true
-    var blurBackground: Data = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!.pngData()!
+    var blurBackground: Data = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!.jpegData(compressionQuality: 0.5)!
     var isAllBlur: Bool = false
     var font: FontNames = .font4
     var url: String = ""
     var isCustomWord = false
     var customWord1 = ""
     var customWord2 = ""
-    var customFont1: CGFloat = 25
-    var customFont2: CGFloat = 15
-    var midCustomFont1: CGFloat = 28
-    var midCustomFont2: CGFloat = 18
+    var customFont1: CGFloat = 14
+    var customFont2: CGFloat = 11
+    var midCustomFont1: CGFloat = 18
+    var midCustomFont2: CGFloat = 13
     var name : String
     var isRename: Bool = false
+    var isCalendar: Bool = false
 }
 
 struct BasicData:Hashable{
@@ -216,7 +233,7 @@ struct BasicData:Hashable{
    var kitty: UIImage
    var isChecked: Bool = false
     var isKitty: Bool = true
-    var fontColor: FontColor = .blue
+    var fontColor: FontColor = .white
     var isWord: Bool = true
     var isBlur: Bool = true
     var blurBackground: UIImage = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!
@@ -226,12 +243,13 @@ struct BasicData:Hashable{
     var isCustomWord = false
     var customWord1 = ""
     var customWord2 = ""
-    var customFont1: CGFloat = 25
-    var customFont2: CGFloat = 15
-    var midCustomFont1: CGFloat = 28
-    var midCustomFont2: CGFloat = 18
+    var customFont1: CGFloat = 14
+    var customFont2: CGFloat = 11
+    var midCustomFont1: CGFloat = 18
+    var midCustomFont2: CGFloat = 13
     var name : String
     var isRename: Bool = false
+    var isCalendar: Bool = false
 }
 
 struct  StaticBasicData:Hashable{
@@ -251,10 +269,10 @@ struct  StaticBasicData:Hashable{
     var isCustomWord = false
     var customWord1 = ""
     var customWord2 = ""
-    var customFont1: CGFloat = 25
-    var customFont2: CGFloat = 15
-    var midCustomFont1: CGFloat = 28
-    var midCustomFont2: CGFloat = 18
+    var customFont1: CGFloat = 14
+    var customFont2: CGFloat = 11
+    var midCustomFont1: CGFloat = 18
+    var midCustomFont2: CGFloat = 13
     var name : String
     var isRename: Bool = false
 }
@@ -283,6 +301,8 @@ struct UserDataKeys{
     static var myColorScheme = "myColorScheme"
     static var suiteName = "group.sora.takanashi"
     static var idName = "idName"
+    static var kind = "kittyWidgetExtension"
+
 }
 
 struct Coefficients{
@@ -372,5 +392,25 @@ struct FuncForSmallWidgets{
         case .none: return MyColor.blue
         }
     }
+    
+    static func calAntiColor(fontColor: FontColor) -> Color{
+        switch fontColor{
+        case .blue: return Color(hex: 0xFFFFFF - 0x0080FF)
+        case .red: return Color(hex: 0xFFFFFF - 0xFF0040)
+        case .green: return Color(hex: 0xFFFFFF - 0x3dc02f)
+        case .yellow: return Color(hex: 0xFFFFFF - 0xd7d400)
+        case .orange: return Color(hex: 0xFFFFFF - 0xFF8000)
+        case .purple: return Color(hex: 0xFFFFFF - 0xD358F7)
+        case .white: return  Color(hex: 0xFFFFFF - 0xFAFAFA)
+        case .black: return Color(hex: 0xFFFFFF - 0x2E2E2E)
+        case .cyan: return Color(hex: 0xFFFFFF - 0x19c4be)
+        case .none: return Color(hex: 0xFFFFFF - 0x0080FF)
+        }
+    }
 
+}
+
+struct myCalendar: Hashable{
+    var id = UUID()
+    var day: String
 }

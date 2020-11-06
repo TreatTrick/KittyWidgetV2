@@ -30,16 +30,16 @@ struct SmallWidgetView: View {
                         HStack{
                                 if is24Hour{
                                     Time(dateSetting: .time,a: false, is24Hour: is24Hour)
-                                        .font(.custom(font.rawValue, size: 32))
+                                        .font(.custom(font.rawValue, size: 30))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 } else {
                                     Time(dateSetting: .time,a: false, is24Hour: is24Hour)
-                                        .font(.custom(font.rawValue, size: 27))
+                                        .font(.custom(font.rawValue, size: 25))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     Time(dateSetting: .time, a: true, is24Hour: is24Hour)
                                         .font(.custom(font.rawValue, size: Coefficients.apSize))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                        .offset(x: -4, y: 10)
+                                        .offset(x: -4, y: 5)
                                 }
                             
                             if editMode?.wrappedValue != .inactive {
@@ -62,7 +62,7 @@ struct SmallWidgetView: View {
                     .offset(y: 6)
                     }
                     
-                    if basicData.isCustomWord && basicData.customWord1 != ""{
+                    if basicData.isCustomWord && basicData.customWord1 != "" && isKitty{
                         Text(basicData.customWord1)
                             .font(.custom(font.rawValue, size: basicData.customFont1))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
@@ -72,12 +72,16 @@ struct SmallWidgetView: View {
                     }
                 }
                 .padding(3)
-
+                
+                if isKitty{
+                    Spacer()
+                }
+                
                 HStack{
                     if isWord{
                         Spacer()
                         Time(dateSetting: .week, a: false, is24Hour: is24Hour)
-                            .font(.custom(font.rawValue, size: 23))
+                            .font(.custom(font.rawValue, size: 19))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                             .padding(3)
                             .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
@@ -85,7 +89,7 @@ struct SmallWidgetView: View {
                             .padding(3)
                         Spacer()
                     }
-                    if basicData.isCustomWord && basicData.customWord2 != ""{
+                    if basicData.isCustomWord && basicData.customWord2 != "" && isKitty{
                         Spacer()
                         Text(basicData.customWord2)
                             .font(.custom(font.rawValue, size: basicData.customFont2))
@@ -97,6 +101,7 @@ struct SmallWidgetView: View {
                         Spacer()
                     }
                     if isKitty{
+                        Spacer()
                         ZStack{
                             Image(uiImage: basicData.kitty)
                                 .resizable()
@@ -104,15 +109,46 @@ struct SmallWidgetView: View {
                                 //.frame(width: 70, height: 99)
                                 .clipped()
                         }
+                        //.frame(maxWidth: 70, maxHeight: 98, alignment: .center)
                         //.frame(width: 70, height: 99)
                     }
                     
                 }
             }
-            .frame(width: 170, height: 170)
+            .frame(width: 150, height: 150)
             .background( calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData) )
             .environment(\.sizeCategory, .extraExtraExtraLarge)
             .cornerRadius(CGFloat(Coefficients.cornerRadius))
+            
+            
+            if basicData.isCustomWord && (basicData.customWord2 != "" || basicData.customWord1 != "") && !isKitty{
+                HStack{
+                    VStack(alignment: .leading){
+                        Spacer()
+                        Text(basicData.customWord1)
+                            .font(.custom(font.rawValue, size: basicData.customFont1))
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                            //.padding(4)
+                            .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
+                            .cornerRadius(10)
+                        
+                        Text(basicData.customWord2)
+                            .font(.custom(font.rawValue, size: basicData.customFont2))
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                            //.padding(3)
+                            .background(calBlurBackground(isBlur: self.isBlur, img: self.basicData.blurBackground))
+                            .cornerRadius(10)
+                            //.offset(y: 5)
+                    }
+                    Spacer()
+                }
+                .padding(10)
+                .frame(width: 150, height: 150)
+                .background(calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData) )
+                .environment(\.sizeCategory, .extraExtraExtraLarge)
+                .cornerRadius(CGFloat(Coefficients.cornerRadius))
+                .animation(.easeInOut)
+            }
             
             if editMode?.wrappedValue != .inactive && !isWord{
                 Image(systemName: withAnimation(.easeInOut){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
@@ -128,6 +164,9 @@ struct SmallWidgetView: View {
                     Color(.clear)
                 }
             }
+            
+            
+            
         }
         .animation(.easeInOut)
     }
@@ -142,7 +181,7 @@ struct SmallWidgetView: View {
             if isBlur{
                 ZStack{
                     Image(uiImage: img).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
-                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.4 : 0.25)
+                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.3 : 0.25)
                 }
             } else {
                 EmptyView()
@@ -172,6 +211,7 @@ struct Time: View{
     var dateSetting: tdSelection
     var a: Bool
     var is24Hour: Bool
+    
     var body: some View{
         if dateSetting != .time{
             Text(dateSetting(dateSetting))
@@ -179,11 +219,16 @@ struct Time: View{
             if is24Hour{
                 Text(dateSetting(dateSetting))
             } else {
-                let strSetting = dateSetting(.time).split(separator: " ")
+                let strSetting = dateSetting(.time).split(separator: ":")
                 if a {
-                    Text(strSetting.last!)
-                } else{
-                    Text(strSetting.first!)
+                    Text(Int(strSetting.first!)! >= 12 ? "PM" : "AM")
+                } else if Int(strSetting.first!)! == 12{
+                    let hour = 12
+                    Text(String(hour) + ":" + strSetting.last!)
+                } else {
+                    let str = strSetting.first!
+                    let hour = Int(str)! % 12
+                    Text(String(hour) + ":" + strSetting.last!)
                 }
             }
         }
@@ -209,7 +254,7 @@ struct Time: View{
             } else {
 //                dateFormatter.timeStyle = .short
 //                dateFormatter.dateStyle = .none
-                dateFormatter.dateFormat = "h:mm a"
+                dateFormatter.dateFormat = "HH:mm"
                 let dateString = dateFormatter.string(from: date)
 //                let ymd = dateString.split(separator:":")
 //                displayString = ymd[0] + ":" + ymd[1] + ":" + ymd[2]

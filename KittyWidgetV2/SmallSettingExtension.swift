@@ -87,12 +87,13 @@ extension SmallSetting{
         self.myData.dataStream[ind2].customFont2 = self.basicData.customFont2
         self.myData.dataStream[ind2].midCustomFont1 = self.basicData.midCustomFont1
         self.myData.dataStream[ind2].midCustomFont2 = self.basicData.midCustomFont2
+        self.myData.dataStream[ind2].isCalendar = self.basicData.isCalendar
         
        
-        DispatchQueue.global(qos:.userInitiated).async{
-            self.myData.storedData[ind2].kitty = self.basicData.kitty.pngData()!
-            self.myData.storedData[ind2].background = self.basicData.background.pngData()!
-            self.myData.storedData[ind2].blurBackground = self.basicData.blurBackground.pngData()!
+        DispatchQueue.global(qos:.userInteractive).async{
+            self.myData.storedData[ind2].kitty = self.basicData.kitty.jpegData(compressionQuality: 0.5)!
+            self.myData.storedData[ind2].background = self.basicData.background.jpegData(compressionQuality: 0.5)!
+            self.myData.storedData[ind2].blurBackground = self.basicData.blurBackground.jpegData(compressionQuality: 0.5)!
             self.myData.storedData[ind2].fontColor = self.basicData.fontColor
             self.myData.storedData[ind2].isKitty = self.isKitty
             self.myData.storedData[ind2].isWord = self.isWord
@@ -107,15 +108,15 @@ extension SmallSetting{
             self.myData.storedData[ind2].customFont2 = self.basicData.customFont2
             self.myData.storedData[ind2].midCustomFont1 = self.basicData.midCustomFont1
             self.myData.storedData[ind2].midCustomFont2 = self.basicData.midCustomFont2
+            self.myData.storedData[ind2].isCalendar = self.basicData.isCalendar
             UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
+            print("start widgetcenter")
             WidgetCenter.shared.reloadAllTimelines()
+            print("end widgetcenter")
        }
         self.navi.wrappedValue.dismiss()
     }
 }
-
-
-
 
 
 
@@ -157,16 +158,6 @@ extension SmallSetting{
                     .frame(width: 40, height: 56)
             }
             .buttonStyle(BorderlessButtonStyle())
-            
-            Spacer()
-
-            Button(action: {isCustomKitty = true}){
-                Image(systemName: "plus.circle")
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            .sheet(isPresented: $isCustomKitty){
-                ImagePicker(img: $img, isImageClip: $isKittyClip)
-            }
           
         }
     }
@@ -176,7 +167,7 @@ extension SmallSetting{
             Button(action: {backgroundTapped(num: 1)}){
                 Image("img1" + mini)
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40, height: 20)
             }
             .buttonStyle(BorderlessButtonStyle())
             
@@ -185,7 +176,7 @@ extension SmallSetting{
             Button(action: {backgroundTapped(num: 2)}) {
                 Image("img2" + mini)
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40, height: 20)
                 
             }
             .buttonStyle(BorderlessButtonStyle())
@@ -195,7 +186,7 @@ extension SmallSetting{
             Button(action: {backgroundTapped(num: 3)}) {
                 Image("img3" + mini)
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40, height: 20)
             }
             .buttonStyle(BorderlessButtonStyle())
             
@@ -204,7 +195,7 @@ extension SmallSetting{
             Button(action: {backgroundTapped(num: 4)}) {
                 Image("img4" + mini)
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40, height: 20)
             }
             .buttonStyle(BorderlessButtonStyle())
             

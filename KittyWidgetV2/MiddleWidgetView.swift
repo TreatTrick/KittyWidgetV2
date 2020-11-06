@@ -163,9 +163,28 @@ struct MiddleWidgetView: View {
     
     func dateList() -> [myCalendar]{
         let range = Calendar.current.range(of: .day, in: .month, for: self.date)!
-        let firstDay = Calendar.current.firstWeekday
+        let ymd = self.returnMonth()
+        let dayvalue = Int(ymd.split(separator: "/").last!)! - 1
+        let firstDay = Calendar.current.date(byAdding: .day, value: -dayvalue, to: self.date)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "zh_Hans_CN")
+        dateFormatter.dateStyle = .full
+        let str = dateFormatter.string(from: firstDay!)
+        var firstDayValue: Int
+        
+        switch str.split(separator: " ").last!{
+        case "星期一": firstDayValue = 2
+        case "星期二": firstDayValue = 3
+        case "星期三": firstDayValue = 4
+        case "星期四": firstDayValue = 5
+        case "星期五": firstDayValue = 6
+        case "星期六": firstDayValue = 7
+        default: firstDayValue = 1
+        }
+        
         var dateList: [myCalendar] = []
-        for _ in 0..<firstDay-1{
+        for _ in 0..<firstDayValue-1{
             dateList.append(myCalendar(day: " "))
         }
         for i in 1...range.count{

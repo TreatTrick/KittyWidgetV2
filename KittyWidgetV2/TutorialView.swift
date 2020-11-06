@@ -17,7 +17,7 @@ struct TutorialView: View {
                         .padding()
                     Text("(1) 长按桌面任意位置，直到桌面图标开始闪动。")
                     Text("(2) 点按桌面左上角的“+”进入添加小组件界面。")
-                    Text("(3) 在此界面中选择PhotoWidget。")
+                    Text("(3) 在此界面中选择PicWidgets。")
                     Text("(4) 选择您想要添加的小组件并点击“添加小组件”")
                     HStack{
                         Image("iconDance")
@@ -66,7 +66,7 @@ struct TutorialView: View {
                     Text("3.自定义小组件")
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .padding()
-                    Text("(1) 点击Photowidget进入app。")
+                    Text("(1) 点击PicWidgets进入app。")
                     Text("(2) 点击想要编辑的小组件，这里我们点击第一个widget 1，进入编辑界面。")
                     Text("(3) 在这个界面您可以对小组件进行十分自由的个性化定制，点击最下方的确定即可应用这些定制。同时桌面上的widget 1也会发生变化。这里我选择了“在中号组件中显示日历“并且更改了背景图片，可以看到桌面也发生了相应变化。")
                     HStack{

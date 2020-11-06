@@ -84,7 +84,7 @@ struct ContentView: View {
                             
                             if isAbout{
                                 VStack(alignment: .center){
-                                    Text("PhotoWidget V1.0.0").font(.headline).padding()
+                                    Text("PicWidgets V1.0.0").font(.headline).padding()
                                     Text("Developed by SORA").padding()
                                     Text("Special appreciation to Roujiangrong for providing photos").padding()
                                 }

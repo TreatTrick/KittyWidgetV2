@@ -33,7 +33,7 @@ struct SmallWidgetView3: View {
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
                                         .font(.custom(font.rawValue, size: Coefficients.apSize))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                        .offset(x: -4, y: 10)
+                                        .offset(x: -4, y: 5)
                                 }
                             }
 
@@ -61,12 +61,15 @@ struct SmallWidgetView3: View {
                 }
                 .padding(3)
                 
-
+                if isKitty{
+                    Spacer()
+                }
+                
                 HStack{
                     if isWord{
                         Spacer()
                         Text(dateSetting(.week, is24Hour: self.is24Hour, date: date))
-                            .font(.custom(font.rawValue, size: 21))
+                            .font(.custom(font.rawValue, size: 19))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                             .padding(3)
                             .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
@@ -86,6 +89,7 @@ struct SmallWidgetView3: View {
                         Spacer()
                     }
                     if isKitty{
+                        Spacer()
                         ZStack{
                             Image(uiImage: basicData.kitty)
                                 .resizable()
@@ -147,12 +151,17 @@ struct SmallWidgetView3: View {
                 dateFormatter.dateFormat = "HH:mm"
                 let dateString = dateFormatter.string(from: date).split(separator:":")
                 var ap = ""
-                if Int(dateString.first!)! > 12 {
+                if Int(dateString.first!)! >= 12 {
                     ap = "PM"
                 } else {
                     ap = "AM"
                 }
-                let hour = Int(dateString.first!)! % 12
+                var hour: Int
+                if Int(dateString.first!)! == 12{
+                     hour = 12
+                } else {
+                     hour = Int(dateString.first!)! % 12
+                }
                 displayString = String(hour) + ":" + dateString.last! + " " + ap
             }
         case .week:
@@ -186,7 +195,7 @@ struct SmallWidgetView3: View {
             if isBlur{
                 ZStack{
                     Image(uiImage: self.basicData.blurBackground).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
-                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.4 : 0.25)
+                    Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.3 : 0.25)
                 }
             } else {
                 EmptyView()

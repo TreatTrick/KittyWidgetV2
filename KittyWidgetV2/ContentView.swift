@@ -64,6 +64,14 @@ struct ContentView: View {
                         }
                         
                         Section{
+                            NavigationLink(
+                                destination: TutorialView(),
+                                label: {
+                                    Text("如何使用")
+                                })
+                        }
+                        
+                        Section{
                             HStack{
                                 Text("关于")
                                 Image(systemName: "questionmark.circle.fill")

@@ -18,44 +18,48 @@ struct MiddleWidgetView: View {
     var is24Hour: Bool
     var font: FontNames
     var date = Date()
+    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 7)
+    let weekdays: [String] = ["日","一","二","三","四","五","六"]
     
     var body: some View {
         HStack{
-            if isWord{
+            if !basicData.isCalendar && isWord{
                 Spacer()
                 VStack{
                     VStack(alignment: .leading){
                         HStack{
                             if is24Hour{
                                 Text(dateSetting(.time, is24Hour: self.is24Hour, date: date))
-                                    .font(.custom(font.rawValue, size: 40))
+//                                Text("55:55")
+                                    .font(.custom(font.rawValue, size: 37))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 
                             } else {
                                 Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
-                                    .font(.custom(font.rawValue, size: 38))
+//                                Text("55:55")
+                                    .font(.custom(font.rawValue, size: 35))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 
                                 Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
-                                    .font(.custom(font.rawValue, size: 11))
+                                    .font(.custom(font.rawValue, size: 10))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                                    .offset(x: -4, y: 13)
+                                    .offset(x: -4, y: 6)
                                 // .opacity(0.6)
                                 
                             }
                         }
                         
                         Text(dateSetting(.date, is24Hour: self.is24Hour, date: date))
-                            .font(.custom(font.rawValue, size: 11))
+                            .font(.custom(font.rawValue, size: 12))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                             .offset(x: 8)
                     }
-                    .padding(4)
                     .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                     .cornerRadius(10)
                     .offset(y: 6)
                     
-                    Text(dateSetting(.week, is24Hour: self.is24Hour, date: date))                        .font(.custom(font.rawValue, size: 25))
+                    Text(dateSetting(.week, is24Hour: self.is24Hour, date: date))
+                        .font(.custom(font.rawValue, size: 21))
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                         .padding(3)
                         .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
@@ -64,13 +68,10 @@ struct MiddleWidgetView: View {
                 }
             }
             
-//            if (self.basicData.isCustomWord && (self.basicData.customWord1 != "" || self.basicData.customWord2 != "")){
-//                Spacer()
-//            }
-            
-            VStack(alignment: .leading){
+            if !basicData.isCalendar && basicData.isCustomWord && (basicData.customWord1 != "" ||  basicData.customWord2 != ""  ){
+                VStack(alignment: .leading){
                     Spacer()
-                    if basicData.isCustomWord && basicData.customWord1 != "" {
+                    if  basicData.customWord1 != "" {
                         Text(basicData.customWord1)
                             .font(.custom(font.rawValue, size: basicData.midCustomFont1))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
@@ -79,7 +80,7 @@ struct MiddleWidgetView: View {
                             .cornerRadius(10)
                     }
                     
-                    if basicData.isCustomWord && basicData.customWord2 != "" {
+                    if  basicData.customWord2 != "" {
                         Text(basicData.customWord2)
                             .font(.custom(font.rawValue, size: basicData.midCustomFont2))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
@@ -90,7 +91,40 @@ struct MiddleWidgetView: View {
                     }
                 }
                 .padding(12)
+            }
 
+            if basicData.isCalendar{
+                Spacer()
+                VStack(alignment: .leading){
+                    Text(returnMonth().split(separator: "/")[0] + "年" + returnMonth().split(separator: "/")[1] + "月")
+                        .font(.system(size: 15))
+                    LazyVGrid(columns: columns){
+                        ForEach(weekdays, id: \.self){ value in
+                            Text(value)
+                                .font(.system(size: 10))
+
+                        }
+                        ForEach(dateList(), id:\.self){ value in
+                            Text(value.day)
+                                .font(.system(size: 10))
+                                .background(
+                                    Group{
+                                        if value.day == returnDay(){
+                                            Circle().foregroundColor(FuncForSmallWidgets.calAntiColor(fontColor: self.basicData.fontColor)).frame(width: 15, height: 15, alignment: .center)
+                                        } else {
+                                            EmptyView()
+                                        }
+                                    }
+                                )
+                        }
+                    }
+                }
+                .padding(5)
+                .frame(maxWidth: 200)
+                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
+                .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                .cornerRadius(10)
+            }
                 
             Spacer()
             
@@ -110,6 +144,36 @@ struct MiddleWidgetView: View {
         .cornerRadius(CGFloat(Coefficients.cornerRadius))
         .environment(\.sizeCategory, .extraExtraExtraLarge)
     }
+    
+    func returnDay() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "zh_Hans_CN")
+        dateFormatter.dateStyle = .short
+        let str = dateFormatter.string(from: self.date)
+        return String(str.split(separator: "/").last!)
+    }
+    
+    func returnMonth() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "zh_Hans_CN")
+        dateFormatter.dateStyle = .short
+        let str = dateFormatter.string(from: self.date)
+        return str
+    }
+    
+    func dateList() -> [myCalendar]{
+        let range = Calendar.current.range(of: .day, in: .month, for: self.date)!
+        let firstDay = Calendar.current.firstWeekday
+        var dateList: [myCalendar] = []
+        for _ in 0..<firstDay-1{
+            dateList.append(myCalendar(day: " "))
+        }
+        for i in 1...range.count{
+            dateList.append(myCalendar(day: String(i)))
+        }
+        return dateList
+    }
+    
     
     func dateSetting(_ timeOrDate: tdSelection, is24Hour: Bool, date: Date) -> String{
         var displayString: String
@@ -131,12 +195,17 @@ struct MiddleWidgetView: View {
                 dateFormatter.dateFormat = "HH:mm"
                 let dateString = dateFormatter.string(from: date).split(separator:":")
                 var ap = ""
-                if Int(dateString.first!)! > 12 {
+                if Int(dateString.first!)! >= 12 {
                     ap = "PM"
                 } else {
                     ap = "AM"
                 }
-                let hour = Int(dateString.first!)! % 12
+                var hour: Int
+                if Int(dateString.first!)! == 12{
+                     hour = 12
+                } else {
+                     hour = Int(dateString.first!)! % 12
+                }
                 displayString = String(hour) + ":" + dateString.last! + " " + ap
             }
         case .week:

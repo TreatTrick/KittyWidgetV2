@@ -37,6 +37,9 @@ struct SmallSetting: View {
     @State var isKittyClip = false
     
     @State var img2: UIImage = UIImage(systemName: "photo")!
+    @State var isKeyboard: Bool = false
+    
+   
         
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
@@ -73,7 +76,7 @@ struct SmallSetting: View {
                     )
                     
                     Form{
-                        Section(header: Text("前景")){
+                        Section(header: Text("默认前景")){
                             KittyCluster
                         }
                         
@@ -125,6 +128,10 @@ struct SmallSetting: View {
                                 }
                             })
                             
+                            Toggle(isOn: $basicData.isCalendar){
+                                Text("在中号组件中显示日历")
+                            }
+                            
                             Toggle(isOn: $isBlur){
                                 Text("模糊文字背景")
                             }
@@ -156,6 +163,7 @@ struct SmallSetting: View {
                                     TextField("第一行", text: $basicData.customWord1)
                                     Button("确定"){
                                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                                        
                                     }
                                     .buttonStyle(BorderlessButtonStyle())
                                 }
@@ -249,12 +257,27 @@ struct SmallSetting: View {
                 }
             .navigationBarTitleDisplayMode(.inline)
             
+            if isKeyboard{
+                Button(action: {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        self.isKeyboard = false }){
+                Rectangle()
+                    .foregroundColor(.clear)
+                }
+            }
+         
+            
             if isImageClip{
                 ImageClipView(img: $img, basicData: $basicData, returnTwoImgs: true, isClip: $isImageClip, myRect: CGSize(width: 360, height: 170))
             }
             
             if isKittyClip{
                 ImageClipView(img: $img, basicData: $basicData, returnTwoImgs: false, isClip: $isKittyClip, myRect: CGSize(width: 180, height: 255))
+            }
+        }
+        .onAppear{
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { key in
+                self.isKeyboard = true
             }
         }
     }

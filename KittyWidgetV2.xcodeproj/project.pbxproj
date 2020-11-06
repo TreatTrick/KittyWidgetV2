@@ -15,7 +15,9 @@
 		973F8ADC254AD99C00438B10 /* MiddleWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */; };
 		973F8AE8254ADA3200438B10 /* MiddleWidgetView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */; };
 		974D21A52546A32000FDADF3 /* MiddleWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */; };
+		97566BEC2555029700D1264A /* MiddleWidgetTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97566BEB2555029700D1264A /* MiddleWidgetTest.swift */; };
 		97620B8A25447B9700DE61D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C2A455251F2877003BF5DE /* Assets.xcassets */; };
+		9766457225554A210072E8B2 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9766457125554A210072E8B2 /* TutorialView.swift */; };
 		9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771D1C1251FA60B004E1E15 /* SmallSetting.swift */; };
 		97996B2E253D9EB600835772 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
 		97996B2F253D9EB600835772 /* XianErTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B24253D9EB400835772 /* XianErTi-2.ttf */; };
@@ -112,6 +114,8 @@
 		97318E6E254573A7002CF887 /* SmallWidgetView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallWidgetView3.swift; sourceTree = "<group>"; };
 		973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleWidgetView2.swift; sourceTree = "<group>"; };
 		974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleWidgetView.swift; sourceTree = "<group>"; };
+		97566BEB2555029700D1264A /* MiddleWidgetTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleWidgetTest.swift; sourceTree = "<group>"; };
+		9766457125554A210072E8B2 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		9771D1C1251FA60B004E1E15 /* SmallSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallSetting.swift; sourceTree = "<group>"; };
 		97996B24253D9EB400835772 /* XianErTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XianErTi-2.ttf"; sourceTree = "<group>"; };
 		97996B25253D9EB400835772 /* QianTuXiaoTuTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "QianTuXiaoTuTi-2.ttf"; sourceTree = "<group>"; };
@@ -266,6 +270,8 @@
 				97C2A411251F2560003BF5DE /* ImagePicker.swift */,
 				97C2A3DB251F24F4003BF5DE /* ContentView.swift */,
 				974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */,
+				97566BEB2555029700D1264A /* MiddleWidgetTest.swift */,
+				9766457125554A210072E8B2 /* TutorialView.swift */,
 				973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */,
 				97C2A455251F2877003BF5DE /* Assets.xcassets */,
 				97C2A3E2251F24F6003BF5DE /* Info.plist */,
@@ -552,11 +558,13 @@
 			files = (
 				97016A5025394A5400C564CE /* SmallWidgetView2.swift in Sources */,
 				97C2A3DC251F24F4003BF5DE /* ContentView.swift in Sources */,
+				97566BEC2555029700D1264A /* MiddleWidgetTest.swift in Sources */,
 				97318E6F254573A7002CF887 /* SmallWidgetView3.swift in Sources */,
 				9707F1052552789D0028DC14 /* kittyWidgetExtension.intentdefinition in Sources */,
 				97C2A41F251F258F003BF5DE /* MyData.swift in Sources */,
 				97EA23FF25497FA600720824 /* SmallSettingExtension.swift in Sources */,
 				97C2A408251F2553003BF5DE /* SmallWidgetView.swift in Sources */,
+				9766457225554A210072E8B2 /* TutorialView.swift in Sources */,
 				97C2A412251F2560003BF5DE /* ImagePicker.swift in Sources */,
 				9771D1C2251FA60B004E1E15 /* SmallSetting.swift in Sources */,
 				97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */,

@@ -87,6 +87,7 @@ extension SmallSetting{
         self.myData.dataStream[ind2].customFont2 = self.basicData.customFont2
         self.myData.dataStream[ind2].midCustomFont1 = self.basicData.midCustomFont1
         self.myData.dataStream[ind2].midCustomFont2 = self.basicData.midCustomFont2
+        self.myData.dataStream[ind2].isCalendar = self.basicData.isCalendar
         
        
         DispatchQueue.global(qos:.userInteractive).async{
@@ -107,6 +108,7 @@ extension SmallSetting{
             self.myData.storedData[ind2].customFont2 = self.basicData.customFont2
             self.myData.storedData[ind2].midCustomFont1 = self.basicData.midCustomFont1
             self.myData.storedData[ind2].midCustomFont2 = self.basicData.midCustomFont2
+            self.myData.storedData[ind2].isCalendar = self.basicData.isCalendar
             UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
             print("start widgetcenter")
             WidgetCenter.shared.reloadAllTimelines()
@@ -165,7 +167,7 @@ extension SmallSetting{
             Button(action: {backgroundTapped(num: 1)}){
                 Image("img1" + mini)
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40, height: 20)
             }
             .buttonStyle(BorderlessButtonStyle())
             
@@ -174,7 +176,7 @@ extension SmallSetting{
             Button(action: {backgroundTapped(num: 2)}) {
                 Image("img2" + mini)
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40, height: 20)
                 
             }
             .buttonStyle(BorderlessButtonStyle())
@@ -184,7 +186,7 @@ extension SmallSetting{
             Button(action: {backgroundTapped(num: 3)}) {
                 Image("img3" + mini)
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40, height: 20)
             }
             .buttonStyle(BorderlessButtonStyle())
             
@@ -193,7 +195,7 @@ extension SmallSetting{
             Button(action: {backgroundTapped(num: 4)}) {
                 Image("img4" + mini)
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40, height: 20)
             }
             .buttonStyle(BorderlessButtonStyle())
             

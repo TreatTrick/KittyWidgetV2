@@ -91,25 +91,34 @@ extension SmallSetting{
         
        
         DispatchQueue.global(qos:.userInteractive).async{
-            self.myData.storedData[ind2].kitty = self.basicData.kitty.jpegData(compressionQuality: 0.5)!
-            self.myData.storedData[ind2].background = self.basicData.background.jpegData(compressionQuality: 0.5)!
-            self.myData.storedData[ind2].blurBackground = self.basicData.blurBackground.jpegData(compressionQuality: 0.5)!
-            self.myData.storedData[ind2].fontColor = self.basicData.fontColor
-            self.myData.storedData[ind2].isKitty = self.isKitty
-            self.myData.storedData[ind2].isWord = self.isWord
-            self.myData.storedData[ind2].isBlur = self.isBlur
-            self.myData.storedData[ind2].isAllBlur = self.isAllBlur
-            self.myData.storedData[ind2].font = self.font
-            self.myData.storedData[ind2].url = self.basicData.url
-            self.myData.storedData[ind2].isCustomWord = self.basicData.isCustomWord
-            self.myData.storedData[ind2].customWord1 = self.basicData.customWord1
-            self.myData.storedData[ind2].customWord2 = self.basicData.customWord2
-            self.myData.storedData[ind2].customFont1 = self.basicData.customFont1
-            self.myData.storedData[ind2].customFont2 = self.basicData.customFont2
-            self.myData.storedData[ind2].midCustomFont1 = self.basicData.midCustomFont1
-            self.myData.storedData[ind2].midCustomFont2 = self.basicData.midCustomFont2
-            self.myData.storedData[ind2].isCalendar = self.basicData.isCalendar
-            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData, forKey: UserDataKeys.storedData)
+            let id =   self.myData.dataStream[ind2].id
+              let kitty = self.basicData.kitty.jpegData(compressionQuality: 0.5)!
+              let background = self.basicData.background.jpegData(compressionQuality: 0.5)!
+              let blurBackground = self.basicData.blurBackground.jpegData(compressionQuality: 0.5)!
+              let fontColor = self.basicData.fontColor
+              let isKitty = self.isKitty
+              let isWord = self.isWord
+              let isBlur = self.isBlur
+              let isAllBlur = self.isAllBlur
+              let font = self.font
+              let url = self.basicData.url
+              let isCustomWord = self.basicData.isCustomWord
+              let customWord1 = self.basicData.customWord1
+              let customWord2 = self.basicData.customWord2
+              let customFont1 = self.basicData.customFont1
+              let customFont2 = self.basicData.customFont2
+              let midCustomFont1 = self.basicData.midCustomFont1
+              let midCustomFont2 = self.basicData.midCustomFont2
+            let name =   self.myData.dataStream[ind2].name
+            let isRename = self.myData.dataStream[ind2].isRename
+            let isCalendar = self.basicData.isCalendar
+        
+            let store = StoredData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBackground, isAllBlur: isAllBlur, font: font, url: url, isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar)
+            
+            let data = try? JSONEncoder().encode(store)
+            print("this is in small setting saving data")
+            print(store.id)
+            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)
             print("start widgetcenter")
             WidgetCenter.shared.reloadAllTimelines()
             print("end widgetcenter")

@@ -11,7 +11,6 @@ import Intents
 
 struct Provider: IntentTimelineProvider {
     let dateFormatter = DateFormatter()
-//    let defaultData = BasicData(background: UIImage(named:"img1")!, display: .date, kitty: UIImage(named:"kitty1")!, name: "widget 1")
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), configuration: ConfigurationIntent(), is24Hour: MyData.is24Hour, basicData: MyData.defaultData)
     }
@@ -38,17 +37,12 @@ struct Provider: IntentTimelineProvider {
     }
     
     func selectWidget(for configuration: ConfigurationIntent) -> BasicData{
-        var data: [BasicData]
-        data = MyData.getStoredData()!
-        
         if let idString = configuration.widgets?.identifier{
-            if let finalData =  data.first(where: { $0.id == idString }){
-                return finalData
+            if let data = MyData.store2basic(id: idString){
+                return data
             }
-            print("in let finalData")
             return MyData.defaultData
         }
-        print("in let idString")
         return MyData.defaultData
     }
 }
@@ -65,6 +59,7 @@ struct kittyWidgetExtensionEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
+       // Text(entry.configuration.widgets?.identifier ?? "None")
         switch family {
         case .systemSmall:
             SmallWidgetView3(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font,date: entry.date)
@@ -73,7 +68,7 @@ struct kittyWidgetExtensionEntryView : View {
         default :
             MiddleWidgetView2(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font, date: entry.date)
                 .widgetURL(URL(string: entry.basicData.url))
-        
+
         }
     }
 }

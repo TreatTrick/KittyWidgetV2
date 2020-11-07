@@ -23,8 +23,8 @@ class IntentHandler: INExtension, ConfigurationIntentHandling {
 
 
     internal func defaultWidgets(for intent: ConfigurationIntent) -> Widgets? {
-        let id = MyData.staticDataStream.first?.id ?? ""
-        let name = MyData.staticDataStream.first?.name ?? "Unknown"
+        let id = MyData.getStoredData()!.first?.id ?? ""
+        let name = MyData.getStoredData()!.first?.name ?? "Unknown"
         let widget = Widgets(identifier: id , display: name)
         return widget
     }

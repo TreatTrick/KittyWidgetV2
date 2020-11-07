@@ -132,8 +132,6 @@ struct ContentView: View {
                             let ind = self.myData.dataStream.firstIndex(where: { $0.id == self.id})!
                             self.myData.dataStream[ind].name = reName
                             self.myData.dataStream[ind].isRename = true
-                            self.myData.storedData[ind].name = reName
-                            self.myData.storedData[ind].isRename = true
                         }
                         self.reName = ""
                         self.isReName = false
@@ -210,7 +208,8 @@ struct ContentView: View {
         let id = UUID().uuidString
         let bd = BasicData(id: id, background: UIImage(named: "img1")!, kitty: UIImage(named: "kitty1")!, name: "widget " + String(i+1))
         self.myData.dataStream.append(bd)
-        self.myData.storedData.append(StoredData(id: id, name: "widget " + String(i + 1)))
+        MyData.idArray.append(id)
+//        self.myData.storedData.append(StoredData(id: id, name: "widget " + String(i + 1)))
         
     }
     
@@ -224,8 +223,8 @@ struct ContentView: View {
         for i in id{
             let ind = self.myData.dataStream.firstIndex(where: {$0.id == i})!
             self.myData.dataStream.remove(at: ind)
-            //            MyData.staticDataStream.remove(at: ind)
-            self.myData.storedData.remove(at: ind)
+            UserDefaults(suiteName: UserDataKeys.suiteName)!.removeObject(forKey: MyData.getidArray()[ind])
+            MyData.idArray.remove(at: ind)
         }
         
     }
@@ -236,7 +235,35 @@ struct ContentView: View {
         }
         self.isEdit = .inactive
         DispatchQueue.global(qos: .userInteractive).async {
-            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(self.myData.jsonData,forKey: UserDataKeys.storedData)
+            for data in self.myData.dataStream{
+                let id =   data.id
+                  let kitty = data.kitty.jpegData(compressionQuality: 0.5)!
+                  let background = data.background.jpegData(compressionQuality: 0.5)!
+                  let blurBackground = data.blurBackground.jpegData(compressionQuality: 0.5)!
+                  let fontColor = data.fontColor
+                  let isKitty = data.isKitty
+                  let isWord = data.isWord
+                  let isBlur = data.isBlur
+                  let isAllBlur = data.isAllBlur
+                  let font = data.font
+                  let url = data.url
+                  let isCustomWord = data.isCustomWord
+                  let customWord1 = data.customWord1
+                  let customWord2 = data.customWord2
+                  let customFont1 = data.customFont1
+                  let customFont2 = data.customFont2
+                  let midCustomFont1 = data.midCustomFont1
+                  let midCustomFont2 = data.midCustomFont2
+                    let name =  data.name
+                    let isRename = data.isRename
+                    let isCalendar = data.isCalendar
+            
+                let store = StoredData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBackground, isAllBlur: isAllBlur, font: font, url: url, isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar)
+                
+                let data = try? JSONEncoder().encode(store)
+                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)
+            }
+            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(MyData.idArray, forKey: UserDataKeys.idArray)
             WidgetCenter.shared.reloadAllTimelines()
         }
     }

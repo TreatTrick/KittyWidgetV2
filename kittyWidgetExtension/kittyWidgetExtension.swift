@@ -16,7 +16,17 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), configuration: configuration, is24Hour: MyData.is24Hour, basicData: MyData.defaultData)
+        var basicData: BasicData
+        if let id = MyData.getidArray().first{
+            if let data = MyData.store2basic(id: id){
+                basicData = data
+            } else {
+                basicData = MyData.defaultData
+            }
+        } else {
+            basicData = MyData.defaultData
+        }
+        let entry = SimpleEntry(date: Date(), configuration: configuration, is24Hour: MyData.is24Hour, basicData: basicData)
         completion(entry)
     }
 

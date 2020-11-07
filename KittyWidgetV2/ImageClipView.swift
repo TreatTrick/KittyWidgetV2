@@ -160,10 +160,14 @@ struct ImageClipView: View{
         if let cropped = img.cgImage?.cropping(to: inCGRect) {
            //uiimage here can write to data in png or jpeg
             var croppedIm = UIImage(cgImage: cropped)
-            let quality = 350 / min(croppedIm.size.width,croppedIm.size.height)
+            let min2 = min(croppedIm.size.width, croppedIm.size.height)
+            print("croppedIm min size is \(min2)")
+            let quality = 350 / min2
             if quality<1{
                 croppedIm = croppedIm.resized(withPercentage: quality)!
             }
+            let min3 = min(croppedIm.size.width, croppedIm.size.height)
+            print("quality is \(quality), resized image is \(min3)")
             return croppedIm
         }
         return nil

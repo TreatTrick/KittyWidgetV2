@@ -78,14 +78,14 @@ class MyData: ObservableObject{
                 let name = "widget " + String(i+1)
                 var font: FontNames
                 switch i{
-                case 0: font = .font6
+                case 0: font = .font3
                 case 1: font = .font1
-                case 2: font = .font3
+                case 2: font = .font6
                 default: font = .font4
                 }
                 let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, font: font, name: name)
                 dataStream.append(basicData)
-                let kitty2 = UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
+                let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
                 let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
                 let blurBackground2 = blurBack.jpegData(compressionQuality: 0.5)!
               let store = StoredData(id: id, background: background2, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
@@ -165,15 +165,15 @@ class MyData: ObservableObject{
                 let name = "widget " + String(i+1)
                 var font: FontNames
                 switch i{
-                case 0: font = .font6
+                case 0: font = .font3
                 case 1: font = .font1
-                case 2: font = .font3
+                case 2: font = .font6
                 default: font = .font4
                 }
                 let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, font: font, name: name)
                 dataStream.append(basicData)
 
-                  let kitty2 = UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
+                  let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
                   let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
                   let blurBackground2 = blurBack.jpegData(compressionQuality: 0.5)!
               
@@ -199,16 +199,12 @@ class MyData: ObservableObject{
                 let name = "widget " + String(i+1)
                 var font: FontNames
                 switch i{
-                case 0: font = .font6
+                case 0: font = .font3
                 case 1: font = .font1
-                case 2: font = .font3
+                case 2: font = .font6
                 default: font = .font4
                 }
-//                let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, font: font, name: name)
-//
-//                dataStream.append(basicData)
-
-                  let kitty2 = UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
+                  let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
                   let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
                   let blurBackground2 = blurBack.jpegData(compressionQuality: 0.5)!
               

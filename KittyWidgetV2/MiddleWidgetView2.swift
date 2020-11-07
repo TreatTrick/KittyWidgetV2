@@ -68,7 +68,7 @@ struct MiddleWidgetView2: View {
                             Text(basicData.customWord1)
                                 .font(.custom(font.rawValue, size: basicData.midCustomFont1))
                                 .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                               // .padding(4)
+                                .padding(4)
                                 .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                                 .cornerRadius(10)
                         }
@@ -77,7 +77,7 @@ struct MiddleWidgetView2: View {
                             Text(basicData.customWord2)
                                 .font(.custom(font.rawValue, size: basicData.midCustomFont2))
                                 .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                               // .padding(4)
+                                .padding(4)
                                 .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                                 .cornerRadius(10)
                                 .offset(y: 5)

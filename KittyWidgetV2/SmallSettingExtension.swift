@@ -116,8 +116,6 @@ extension SmallSetting{
             let store = StoredData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBackground, isAllBlur: isAllBlur, font: font, url: url, isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar)
             
             let data = try? JSONEncoder().encode(store)
-            print("this is in small setting saving data")
-            print(store.id)
             UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)
             print("start widgetcenter")
             WidgetCenter.shared.reloadAllTimelines()

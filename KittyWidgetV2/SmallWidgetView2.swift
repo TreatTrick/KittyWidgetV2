@@ -103,8 +103,9 @@ struct SmallWidgetView2: View {
                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                         .padding(4)
                         .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                        .offset(y: 6)
                         .cornerRadius(10)
+                        .offset(y: 6)
+
                     }
                 }
                 .padding(3)

@@ -381,8 +381,8 @@ struct Coefficients{
     static var cornerRadius: CGFloat = 25
     static var apSize: CGFloat = 8
     static var apOffset: CGFloat = 22
-    static var eventFontDelta: CGFloat = 8
-    static var midEventFontDelta: CGFloat = 12
+    static var eventFontDelta: CGFloat = 6
+    static var midEventFontDelta: CGFloat = 10
 }
 
 

@@ -35,14 +35,49 @@ struct Provider: IntentTimelineProvider {
         let currentDate = Date()
         var entries: [SimpleEntry] = []
         let is24 = UserDefaults(suiteName: UserDataKeys.suiteName)!.bool(forKey: UserDataKeys.is24Hour)
-
-        for secendOffset in 0 ..< 10 {
-            let entryDate = Calendar.current.date(byAdding: .minute, value: secendOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
+        var policy: TimelineReloadPolicy
+        
+        switch selectedWidget.display{
+        case .customize:
+            policy = .never
+            let entry = SimpleEntry(date: currentDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
+            entries.append(entry)
+        case .date:
+            if selectedWidget.isCalendar{
+                let dateFormatter = DateFormatter()
+                dateFormatter.locale = Locale(identifier: "zh_Hans_CN")
+                dateFormatter.dateStyle = .short
+                let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
+                let str = dateFormatter.string(from: nextDay!)
+                let dateFormatter2 = DateFormatter()
+                dateFormatter2.dateFormat = "YYYY/MM/dd"
+                let reloadDay = dateFormatter2.date(from: str)!
+                policy = .after(reloadDay)
+                let entry = SimpleEntry(date: currentDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
+                entries.append(entry)
+            } else {
+                policy = .atEnd
+                for secendOffset in 0 ..< 5 {
+                    let entryDate = Calendar.current.date(byAdding: .minute, value: secendOffset, to: currentDate)!
+                    let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
+                    entries.append(entry)
+                }
+            }
+        default:
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "zh_Hans_CN")
+            dateFormatter.dateStyle = .short
+            let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
+            let str = dateFormatter.string(from: nextDay!)
+            let dateFormatter2 = DateFormatter()
+            dateFormatter2.dateFormat = "YYYY/MM/dd"
+            let reloadDay = dateFormatter2.date(from: str)!
+            policy = .after(reloadDay)
+            let entry = SimpleEntry(date: currentDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
             entries.append(entry)
         }
 
-        let timeline = Timeline(entries: entries, policy: .atEnd)
+        let timeline = Timeline(entries: entries, policy: policy)
         completion(timeline)
     }
     

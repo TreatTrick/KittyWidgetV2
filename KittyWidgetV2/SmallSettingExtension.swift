@@ -80,7 +80,6 @@ extension SmallSetting{
         self.myData.dataStream[ind2].isAllBlur = self.isAllBlur
         self.myData.dataStream[ind2].font = self.font
         self.myData.dataStream[ind2].url = self.basicData.url
-        self.myData.dataStream[ind2].isCustomWord = self.basicData.isCustomWord
         self.myData.dataStream[ind2].customWord1 = self.basicData.customWord1
         self.myData.dataStream[ind2].customWord2 = self.basicData.customWord2
         self.myData.dataStream[ind2].customFont1 = self.basicData.customFont1
@@ -88,8 +87,13 @@ extension SmallSetting{
         self.myData.dataStream[ind2].midCustomFont1 = self.basicData.midCustomFont1
         self.myData.dataStream[ind2].midCustomFont2 = self.basicData.midCustomFont2
         self.myData.dataStream[ind2].isCalendar = self.basicData.isCalendar
+        self.myData.dataStream[ind2].eventName = self.basicData.eventName
+        self.myData.dataStream[ind2].eventDay = self.basicData.eventDay
+        self.myData.dataStream[ind2].eventFont = self.basicData.eventFont
+        self.myData.dataStream[ind2].midEventFont = self.basicData.midEventFont
+        self.myData.dataStream[ind2].display = self.basicData.display
+
         
-       
         DispatchQueue.global(qos:.userInteractive).async{
             let id =   self.myData.dataStream[ind2].id
               let kitty = self.basicData.kitty.jpegData(compressionQuality: 0.5)!
@@ -102,7 +106,6 @@ extension SmallSetting{
               let isAllBlur = self.isAllBlur
               let font = self.font
               let url = self.basicData.url
-              let isCustomWord = self.basicData.isCustomWord
               let customWord1 = self.basicData.customWord1
               let customWord2 = self.basicData.customWord2
               let customFont1 = self.basicData.customFont1
@@ -112,8 +115,13 @@ extension SmallSetting{
             let name =   self.myData.dataStream[ind2].name
             let isRename = self.myData.dataStream[ind2].isRename
             let isCalendar = self.basicData.isCalendar
+            let eventName = self.basicData.eventName
+            let eventDay = self.basicData.eventDay
+            let eventFont = self.basicData.eventFont
+            let midEventFont = self.basicData.midEventFont
+            let display = self.basicData.display
         
-            let store = StoredData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBackground, isAllBlur: isAllBlur, font: font, url: url, isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar)
+            let store = StoredData(id: id, background: background, display: display, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBackground, isAllBlur: isAllBlur, font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar, eventName: eventName, eventDay: eventDay,eventFont: eventFont,midEventFont: midEventFont)
             
             let data = try? JSONEncoder().encode(store)
             UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)

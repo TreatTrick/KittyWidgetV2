@@ -52,7 +52,6 @@ class MyData: ObservableObject{
                     let isAllBlur = data.isAllBlur
                     let font = data.font
                     let url = data.url
-                    let isCustomWord = data.isCustomWord
                     let customWord1 = data.customWord1
                     let customWord2 = data.customWord2
                     let customFont1 = data.customFont1
@@ -62,7 +61,12 @@ class MyData: ObservableObject{
                     let name = data.name
                     let isRename = data.isRename
                     let isCalendar = data.isCalendar
-                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar)
+                    let eventName = data.eventName
+                    let eventDay = data.eventDay
+                    let eventFont = data.eventFont
+                    let midEventFont = data.midEventFont
+                    let display = data.display
+                    let bd = BasicData(id: id, background: background, display: display, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar,eventName: eventName,eventDay: eventDay,eventFont: eventFont,midEventFont: midEventFont)
                     self.dataStream.append(bd)
 
                 }
@@ -141,7 +145,6 @@ class MyData: ObservableObject{
                     let isAllBlur = data.isAllBlur
                     let font = data.font
                     let url = data.url
-                    let isCustomWord = data.isCustomWord
                     let customWord1 = data.customWord1
                     let customWord2 = data.customWord2
                     let customFont1 = data.customFont1
@@ -151,7 +154,12 @@ class MyData: ObservableObject{
                     let name = data.name
                     let isRename = data.isRename
                     let isCalendar = data.isCalendar
-                    let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar)
+                    let eventName = data.eventName
+                    let eventDay = data.eventDay
+                    let eventFont = data.eventFont
+                    let midEventFont = data.midEventFont
+                    let display = data.display
+                    let bd = BasicData(id: id, background: background, display: display, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar,eventName: eventName,eventDay: eventDay,eventFont: eventFont,midEventFont: midEventFont)
                     dataStream.append(bd)
 
                 }
@@ -186,6 +194,13 @@ class MyData: ObservableObject{
         return dataStream
     }
     
+    static func getMyDate() -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY/MM/dd"
+        let myDate = dateFormatter.date(from: "2020/11/02")!
+        return myDate
+    }
+
     
     static func getidArray() -> [String]{
         if let idArray = UserDefaults(suiteName: UserDataKeys.suiteName)!.stringArray(forKey: UserDataKeys.idArray){
@@ -234,7 +249,6 @@ class MyData: ObservableObject{
                 let isAllBlur = data.isAllBlur
                 let font = data.font
                 let url = data.url
-                let isCustomWord = data.isCustomWord
                 let customWord1 = data.customWord1
                 let customWord2 = data.customWord2
                 let customFont1 = data.customFont1
@@ -244,7 +258,12 @@ class MyData: ObservableObject{
                 let name = data.name
                 let isRename = data.isRename
                 let isCalendar = data.isCalendar
-                let bd = BasicData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url,isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar)
+                let eventName = data.eventName
+                let eventDay = data.eventDay
+                let eventFont = data.eventFont
+                let midEventFont = data.midEventFont
+                let display = data.display
+                let bd = BasicData(id: id, background: background, display: display, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBack, isAllBlur: isAllBlur,font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar,eventName: eventName,eventDay: eventDay,eventFont: eventFont,midEventFont: midEventFont)
                 return bd
             }
             return nil
@@ -287,7 +306,6 @@ struct ColorSeries{
     var isAllBlur: Bool = false
     var font: FontNames = .font4
     var url: String = ""
-    var isCustomWord = false
     var customWord1 = ""
     var customWord2 = ""
     var customFont1: CGFloat = 14
@@ -297,6 +315,10 @@ struct ColorSeries{
     var name : String
     var isRename: Bool = false
     var isCalendar: Bool = false
+    var eventName = "相恋"
+    var eventDay = MyData.getMyDate()
+    var eventFont: CGFloat = 11
+    var midEventFont: CGFloat = 18
 }
 
 struct BasicData:Hashable{
@@ -313,7 +335,6 @@ struct BasicData:Hashable{
     var isAllBlur: Bool = false
     var font: FontNames = .font4
     var url: String = ""
-    var isCustomWord = false
     var customWord1 = ""
     var customWord2 = ""
     var customFont1: CGFloat = 14
@@ -323,31 +344,10 @@ struct BasicData:Hashable{
     var name : String
     var isRename: Bool = false
     var isCalendar: Bool = false
-}
-
-struct  StaticBasicData:Hashable{
-    var id = UUID().uuidString
-   var background: UIImage
-    var display: displayMode = .date
-   var kitty: UIImage
-   var isChecked: Bool = false
-    var isKitty: Bool = true
-    var fontColor: FontColor = .blue
-    var isWord: Bool = true
-    var isBlur: Bool = true
-    var blurBackground: UIImage = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!
-    var isAllBlur: Bool = false
-    var font: FontNames = .font4
-    var url: String = ""
-    var isCustomWord = false
-    var customWord1 = ""
-    var customWord2 = ""
-    var customFont1: CGFloat = 14
-    var customFont2: CGFloat = 11
-    var midCustomFont1: CGFloat = 18
-    var midCustomFont2: CGFloat = 13
-    var name : String
-    var isRename: Bool = false
+    var eventName = "相恋"
+    var eventDay = MyData.getMyDate()
+    var eventFont: CGFloat = 11
+    var midEventFont: CGFloat = 18
 }
 
 struct WidgetInfo: Codable{
@@ -357,9 +357,8 @@ struct WidgetInfo: Codable{
 
 enum displayMode: String, Codable{
     case date = "date"
-    case time = "time"
     case customize = "customize"
-    case weekday = "weekday"
+    case event = "event"
 }
 
 enum MyColorScheme: String, Codable{
@@ -382,6 +381,8 @@ struct Coefficients{
     static var cornerRadius: CGFloat = 25
     static var apSize: CGFloat = 8
     static var apOffset: CGFloat = 22
+    static var eventFontDelta: CGFloat = 8
+    static var midEventFontDelta: CGFloat = 12
 }
 
 
@@ -486,4 +487,11 @@ struct FuncForSmallWidgets{
 struct myCalendar: Hashable{
     var id = UUID()
     var day: String
+}
+
+extension Date{
+    func deltaDay(to endDay: Date) -> Int{
+        let components = Calendar.current.dateComponents([.day], from: self, to: endDay)
+        return components.day!
+    }
 }

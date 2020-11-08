@@ -248,7 +248,6 @@ struct ContentView: View {
                   let isAllBlur = data.isAllBlur
                   let font = data.font
                   let url = data.url
-                  let isCustomWord = data.isCustomWord
                   let customWord1 = data.customWord1
                   let customWord2 = data.customWord2
                   let customFont1 = data.customFont1
@@ -259,7 +258,7 @@ struct ContentView: View {
                     let isRename = data.isRename
                     let isCalendar = data.isCalendar
             
-                let store = StoredData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBackground, isAllBlur: isAllBlur, font: font, url: url, isCustomWord: isCustomWord, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar)
+                let store = StoredData(id: id, background: background, display: .date, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBackground, isAllBlur: isAllBlur, font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar)
                 
                 let data = try? JSONEncoder().encode(store)
                 UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)
@@ -322,7 +321,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ContentView(is24Hour: true, myColorScheme: .system).environmentObject(MyData())
-                .environment(\.colorScheme, .light)
+                .environment(\.colorScheme, .dark)
         }
     }
 }

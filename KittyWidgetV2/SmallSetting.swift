@@ -25,7 +25,6 @@ struct SmallSetting: View {
     @State var isAllBlur: Bool
     var is24Hour: Bool
     @State var font: FontNames
-//    @State var customURL: String
     @State var img: UIImage = UIImage(systemName: "photo")!
     @State var isImageClip = false
     
@@ -35,11 +34,7 @@ struct SmallSetting: View {
     @State var finalZoomScale: CGFloat = 1.0
     @State var isCustomKitty = false
     @State var isKittyClip = false
-    
-    @State var img2: UIImage = UIImage(systemName: "photo")!
     @State var isKeyboard: Bool = false
-    
-   
         
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
@@ -119,18 +114,6 @@ struct SmallSetting: View {
                                 Text("显示前景")
                             }
                             
-                            Toggle(isOn: $isWord){
-                                Text("显示时间日期")
-                            }
-                            .onChange(of: isWord, perform: { value in
-                                if value && self.basicData.isCustomWord{
-                                    self.basicData.isCustomWord = false
-                                }
-                            })
-                            
-                            Toggle(isOn: $basicData.isCalendar){
-                                Text("在中号组件中显示日历")
-                            }
                             
                             Toggle(isOn: $isBlur){
                                 Text("模糊文字背景")
@@ -140,84 +123,132 @@ struct SmallSetting: View {
                                 Text("模糊背景")
                             }
                             
-                            Toggle(isOn: $basicData.isCustomWord){
-                                Text("自定义文字")
+                            Toggle(isOn: $isWord){
+                                Text("显示文字")
                             }
-                            .onChange(of: basicData.isCustomWord, perform: { value in
-                                if value && self.isWord{
-                                    self.isWord = false
-                                }
-                            })
                         }
                         
-                        if basicData.isCustomWord{
-                            Section(header:
+                        Section(header: Text("展示样式")){
+                            Picker("选择展示样式", selection: $basicData.display){
+                                Text("时间").tag(displayMode.date)
+                                Text("自定义").tag(displayMode.customize)
+                                Text("事件").tag(displayMode.event)
+                            }
+                            .pickerStyle(SegmentedPickerStyle())
+                            HStack{
+                                Spacer()
+                                Image(systemName: "chevron.forward")
+                                    .rotationEffect(.degrees(90))
+                                Spacer()
+                            }
+                            switch self.basicData.display{
+                            case .date:
+                                
+                                Toggle(isOn: $basicData.isCalendar){
+                                    Text("显示日历")
+                                }
+//
+                            case .customize:
                                         HStack{
-                                            Spacer()
-                                            Image(systemName: "chevron.forward")
-                                                .rotationEffect(.degrees(90))
-                                            Spacer()
+                                            Text("点击编辑：")
+                                            TextField("第一行", text: $basicData.customWord1)
+                                            Button("确定"){
+                                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+
+                                            }
+                                            .buttonStyle(BorderlessButtonStyle())
                                         }
-                            ){
+
+                                        HStack{
+                                            Stepper("小号组件第一行字体大小：" + String(Int(self.basicData.customFont1)), onIncrement:{self.basicData.customFont1 += 1},
+                                                    onDecrement:{
+                                                        self.basicData.customFont1 -= 1
+                                                        if self.basicData.customFont1 < 1 {
+                                                            self.basicData.customFont1 = 1
+                                                        }
+                                                    })
+                                        }
+
+                                        HStack{
+                                            Stepper("中号组件第一行字体大小：" + String(Int(self.basicData.midCustomFont1)), onIncrement:{self.basicData.midCustomFont1 += 1},
+                                                    onDecrement:{
+                                                        self.basicData.midCustomFont1 -= 1
+                                                        if self.basicData.midCustomFont1 < 1 {
+                                                            self.basicData.midCustomFont1 = 1
+                                                        }
+                                                    })
+                                        }
+
+                                        HStack{
+                                            Text("点击编辑：")
+                                            TextField("第二行", text: $basicData.customWord2)
+                                            Button("确定"){
+                                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                                            }
+                                            .buttonStyle(BorderlessButtonStyle())
+                                        }
+
+                                        HStack{
+                                            Stepper("小号组件第二行字体大小：" + String(Int(self.basicData.customFont2)), onIncrement:{self.basicData.customFont2 += 1},
+                                                    onDecrement:{
+                                                        self.basicData.customFont2 -= 1
+                                                        if self.basicData.customFont2 < 1 {
+                                                            self.basicData.customFont2 = 1
+                                                        }
+                                                    })
+                                        }
+
+                                        HStack{
+                                            Stepper("中号组件第二行字体大小：" + String(Int(self.basicData.midCustomFont2)), onIncrement:{self.basicData.midCustomFont2 += 1},
+                                                    onDecrement:{
+                                                        self.basicData.midCustomFont2 -= 1
+                                                        if self.basicData.midCustomFont2 < 1 {
+                                                            self.basicData.midCustomFont2 = 1
+                                                        }
+                                                    })
+                                        }
+                             
+                           
+                            default:
                                 HStack{
-                                    TextField("第一行", text: $basicData.customWord1)
+                                    Text("输入事件名称：")
+                                    TextField("相恋", text: $basicData.eventName)
                                     Button("确定"){
                                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
-                                        
+
                                     }
                                     .buttonStyle(BorderlessButtonStyle())
                                 }
                                 
                                 HStack{
-                                    Stepper("小号组件第一行字体大小：" + String(Int(self.basicData.customFont1)), onIncrement:{self.basicData.customFont1 += 1},
+                                    Text("选择事件日期：")
+                                    Spacer()
+                                    DatePickerView(date: $basicData.eventDay)
+                                }
+                                
+                                HStack{
+                                    Stepper("小号组件字体大小：" + String(Int(self.basicData.eventFont)), onIncrement:{self.basicData.eventFont += 1},
                                             onDecrement:{
-                                                self.basicData.customFont1 -= 1
-                                                if self.basicData.customFont1 < 1 {
-                                                    self.basicData.customFont1 = 1
+                                                self.basicData.eventFont -= 1
+                                                if self.basicData.eventFont < 1 {
+                                                    self.basicData.eventFont = 1
                                                 }
                                             })
                                 }
-                                
                                 HStack{
-                                    Stepper("中号组件第一行字体大小：" + String(Int(self.basicData.midCustomFont1)), onIncrement:{self.basicData.midCustomFont1 += 1},
+                                    Stepper("中号组件字体大小：" + String(Int(self.basicData.midEventFont)), onIncrement:{self.basicData.midEventFont += 1},
                                             onDecrement:{
-                                                self.basicData.midCustomFont1 -= 1
-                                                if self.basicData.midCustomFont1 < 1 {
-                                                    self.basicData.midCustomFont1 = 1
-                                                }
-                                            })
-                                }
-                                
-                                HStack{
-                                    TextField("第二行", text: $basicData.customWord2)
-                                    Button("确定"){
-                                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
-                                    }
-                                    .buttonStyle(BorderlessButtonStyle())
-                                }
-                                
-                                HStack{
-                                    Stepper("小号组件第二行字体大小：" + String(Int(self.basicData.customFont2)), onIncrement:{self.basicData.customFont2 += 1},
-                                            onDecrement:{
-                                                self.basicData.customFont2 -= 1
-                                                if self.basicData.customFont2 < 1 {
-                                                    self.basicData.customFont2 = 1
-                                                }
-                                            })
-                                }
-                                
-                                HStack{
-                                    Stepper("中号组件第二行字体大小：" + String(Int(self.basicData.midCustomFont2)), onIncrement:{self.basicData.midCustomFont2 += 1},
-                                            onDecrement:{
-                                                self.basicData.midCustomFont2 -= 1
-                                                if self.basicData.midCustomFont2 < 1 {
-                                                    self.basicData.midCustomFont2 = 1
+                                                self.basicData.midEventFont -= 1
+                                                if self.basicData.midEventFont < 1 {
+                                                    self.basicData.midEventFont = 1
                                                 }
                                             })
                                 }
                             }
-
                         }
+                        
+                        
+                       
                         
                         Section{
                             Picker( "小组件对应快捷方式", selection: $basicData.url,content: {
@@ -234,7 +265,6 @@ struct SmallSetting: View {
                             HStack{
                                 TextField("自定义URLScheme快捷方式", text: $basicData.url)
                                 Button("确定"){
-//                                    self.basicData.url = self.customURL
                                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
                                 }
                                 .buttonStyle(BorderlessButtonStyle())
@@ -289,7 +319,7 @@ struct SmallSetting: View {
 struct SmallSetting_Previews: PreviewProvider {
     static var previews: some View {
         SmallSetting(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img2")!, kitty: UIImage(named: "kitty2")!, name: "widget 1"), isKitty: true, selectedCircle: .blue, isWord: true,isBlur: true, isAllBlur: true, is24Hour: true, font: .font4)
-            .environment(\.colorScheme, .dark)
+            //.environment(\.colorScheme, .dark)
     }
 }
 

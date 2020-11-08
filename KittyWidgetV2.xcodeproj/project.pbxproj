@@ -38,6 +38,7 @@
 		97996B3F253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */; };
 		97996B40253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */; };
 		97996B41253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */; };
+		97AFF4172557E59200F6D2A2 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AFF4162557E59200F6D2A2 /* DatePickerView.swift */; };
 		97B3D50A254090FD00F6052D /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B3D509254090FD00F6052D /* IntentHandler.swift */; };
 		97B3D50E254090FD00F6052D /* DynamicIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 97B3D507254090FD00F6052D /* DynamicIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		97C2A3DA251F24F4003BF5DE /* KittyWidgetV2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C2A3D9251F24F4003BF5DE /* KittyWidgetV2App.swift */; };
@@ -125,6 +126,7 @@
 		97996B2B253D9EB600835772 /* SourceHanSansCN-Bold-2.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceHanSansCN-Bold-2.otf"; sourceTree = "<group>"; };
 		97996B2C253D9EB600835772 /* YaoSuiXinShouXieTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YaoSuiXinShouXieTi-2.ttf"; sourceTree = "<group>"; };
 		97996B2D253D9EB600835772 /* ZhanKuKuaiLeTi2016XiuDingBan-1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZhanKuKuaiLeTi2016XiuDingBan-1.ttf"; sourceTree = "<group>"; };
+		97AFF4162557E59200F6D2A2 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		97B3D33125407F8500F6052D /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		97B3D507254090FD00F6052D /* DynamicIntent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DynamicIntent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		97B3D509254090FD00F6052D /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				97C2A411251F2560003BF5DE /* ImagePicker.swift */,
 				97C2A3DB251F24F4003BF5DE /* ContentView.swift */,
 				974D21A42546A32000FDADF3 /* MiddleWidgetView.swift */,
+				97AFF4162557E59200F6D2A2 /* DatePickerView.swift */,
 				9766457125554A210072E8B2 /* TutorialView.swift */,
 				973F8ADB254AD99C00438B10 /* MiddleWidgetView2.swift */,
 				97C2A455251F2877003BF5DE /* Assets.xcassets */,
@@ -559,6 +562,7 @@
 				9707F1052552789D0028DC14 /* kittyWidgetExtension.intentdefinition in Sources */,
 				97C2A41F251F258F003BF5DE /* MyData.swift in Sources */,
 				97EA23FF25497FA600720824 /* SmallSettingExtension.swift in Sources */,
+				97AFF4172557E59200F6D2A2 /* DatePickerView.swift in Sources */,
 				97C2A408251F2553003BF5DE /* SmallWidgetView.swift in Sources */,
 				9766457225554A210072E8B2 /* TutorialView.swift in Sources */,
 				97C2A412251F2560003BF5DE /* ImagePicker.swift in Sources */,

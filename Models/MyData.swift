@@ -21,8 +21,6 @@ class MyData: ObservableObject{
     }
     
     @Published var dataStream: [BasicData] = []
-    //var isEdit = false
-    //var storedData: [StoredData] = []
     @Published var is24Hour: Bool = false
     @Published var myColorScheme: MyColorScheme = .system
     static let context = CIContext()
@@ -75,7 +73,6 @@ class MyData: ObservableObject{
             }
         } else {
             dataStream = []
-//            storedData = []
             for i in 0..<4{
                 let id = MyData.getidArray()[i]
                 let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!)!
@@ -92,7 +89,7 @@ class MyData: ObservableObject{
                 let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
                 let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
                 let blurBackground2 = blurBack.jpegData(compressionQuality: 0.5)!
-              let store = StoredData(id: id, background: background2, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
+                let store = StoredData(id: id, background: background2, display: .date, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
               let data = try? JSONEncoder().encode(store)
               UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)
             }
@@ -186,7 +183,7 @@ class MyData: ObservableObject{
                   let blurBackground2 = blurBack.jpegData(compressionQuality: 0.5)!
               
             
-                let store = StoredData(id: id, background: background2, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
+                let store = StoredData(id: id, background: background2, display: .date, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
                 let data = try? JSONEncoder().encode(store)
                 UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)
             }
@@ -195,10 +192,13 @@ class MyData: ObservableObject{
     }
     
     static func getMyDate() -> Date{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY/MM/dd"
-        let myDate = dateFormatter.date(from: "2020/11/02")!
-        return myDate
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "YYYY/MM/dd"
+//        let loveDay = dateFormatter.date(from: "2020/11/02")!
+//        return loveDay
+        let date = Date()
+        let loveDay = Calendar.current.date(byAdding: .day, value: 34, to: date)!
+        return loveDay
     }
 
     
@@ -224,7 +224,7 @@ class MyData: ObservableObject{
                   let blurBackground2 = blurBack.jpegData(compressionQuality: 0.5)!
               
             
-                let store = StoredData(id: id, background: background2, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
+                let store = StoredData(id: id, background: background2, display: .date, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
                 let data = try? JSONEncoder().encode(store)
                 print("getArray \(String(describing: data))")
                 UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)
@@ -271,6 +271,39 @@ class MyData: ObservableObject{
         return nil
     }
     
+    static func basic2store(from data: BasicData){
+        let id = data.id
+        let kitty = data.kitty.jpegData(compressionQuality: 0.5)!
+        let background = data.background.jpegData(compressionQuality: 0.5)!
+        let blurBackground = data.blurBackground.jpegData(compressionQuality: 0.5)!
+        let fontColor = data.fontColor
+        let isKitty = data.isKitty
+        let isWord = data.isWord
+        let isBlur = data.isBlur
+        let isAllBlur = data.isAllBlur
+        let font = data.font
+        let url = data.url
+        let customWord1 = data.customWord1
+        let customWord2 = data.customWord2
+        let customFont1 = data.customFont1
+        let customFont2 = data.customFont2
+        let midCustomFont1 = data.midCustomFont1
+        let midCustomFont2 = data.midCustomFont2
+        let name =  data.name
+        let isRename = data.isRename
+        let isCalendar = data.isCalendar
+        let display = data.display
+        let eventName = data.eventName
+        let eventDay = data.eventDay
+        let eventFont = data.eventFont
+        let midEventFont = data.midEventFont
+
+        let store = StoredData(id: id, background: background, display: display, kitty: kitty, isKitty: isKitty, fontColor: fontColor, isWord: isWord, isBlur: isBlur, blurBackground: blurBackground, isAllBlur: isAllBlur, font: font, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, midCustomFont1: midCustomFont1, midCustomFont2: midCustomFont2, name: name, isRename: isRename, isCalendar: isCalendar, eventName: eventName, eventDay: eventDay,eventFont: eventFont,midEventFont: midEventFont)
+
+        let data = try? JSONEncoder().encode(store)
+        UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)
+    }
+    
 }
 
 struct MyColor{
@@ -296,7 +329,7 @@ struct ColorSeries{
  struct StoredData:Hashable, Codable{
     var id : String
     var background: Data = UIImage(named: "img1")!.jpegData(compressionQuality: 0.5)!
-    var display: displayMode = .date
+    var display: displayMode
     var kitty: Data = UIImage(named: "kitty1")!.jpegData(compressionQuality: 0.5)!
     var isKitty: Bool = true
     var fontColor: FontColor = .white
@@ -315,17 +348,17 @@ struct ColorSeries{
     var name : String
     var isRename: Bool = false
     var isCalendar: Bool = false
-    var eventName = "相恋"
+    var eventName = "恋爱"
     var eventDay = MyData.getMyDate()
     var eventFont: CGFloat = 11
-    var midEventFont: CGFloat = 18
+    var midEventFont: CGFloat = 16
 }
 
 struct BasicData:Hashable{
     var id: String
    var background: UIImage
-    var display: displayMode = .date
-   var kitty: UIImage
+    var display: displayMode
+    var kitty: UIImage
    var isChecked: Bool = false
     var isKitty: Bool = true
     var fontColor: FontColor = .white
@@ -344,10 +377,10 @@ struct BasicData:Hashable{
     var name : String
     var isRename: Bool = false
     var isCalendar: Bool = false
-    var eventName = "相恋"
+    var eventName = "恋爱"
     var eventDay = MyData.getMyDate()
     var eventFont: CGFloat = 11
-    var midEventFont: CGFloat = 18
+    var midEventFont: CGFloat = 16
 }
 
 struct WidgetInfo: Codable{
@@ -382,7 +415,7 @@ struct Coefficients{
     static var apSize: CGFloat = 8
     static var apOffset: CGFloat = 22
     static var eventFontDelta: CGFloat = 6
-    static var midEventFontDelta: CGFloat = 10
+    static var midEventFontDelta: CGFloat = 9
 }
 
 

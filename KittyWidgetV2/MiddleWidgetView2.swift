@@ -25,12 +25,12 @@ struct MiddleWidgetView2: View {
                             HStack{
                                 if is24Hour{
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date))
-                                        .font(.custom(font.rawValue, size: 37))
+                                        .font(.custom(font.rawValue, size: 32))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
 
                                 } else {
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
-                                        .font(.custom(font.rawValue, size: 35))
+                                        .font(.custom(font.rawValue, size: 30))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
 
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)

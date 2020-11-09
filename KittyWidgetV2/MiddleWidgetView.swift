@@ -31,13 +31,13 @@ struct MiddleWidgetView: View {
                             if is24Hour{
                                 Text(dateSetting(.time, is24Hour: self.is24Hour, date: date))
 //                                Text("55:55")
-                                    .font(.custom(font.rawValue, size: 37))
+                                    .font(.custom(font.rawValue, size: 32))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 
                             } else {
                                 Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
 //                                Text("55:55")
-                                    .font(.custom(font.rawValue, size: 35))
+                                    .font(.custom(font.rawValue, size: 30))
                                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 
                                 Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)

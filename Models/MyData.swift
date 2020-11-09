@@ -30,8 +30,7 @@ class MyData: ObservableObject{
     static var idArray: [String] = getidArray()
     
     init(){
-        
-        if let idArray = UserDefaults(suiteName: UserDataKeys.suiteName)!.stringArray(forKey: UserDataKeys.idArray) {
+            let idArray = MyData.getidArray()
             print("String Array is \(idArray)")
             do{
                 print("in reload data")
@@ -71,29 +70,6 @@ class MyData: ObservableObject{
             } catch let error as Error?{
                 print("读取本地数据出现错误!",error as Any)
             }
-        } else {
-            dataStream = []
-            for i in 0..<4{
-                let id = MyData.getidArray()[i]
-                let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!)!
-                let name = "widget " + String(i+1)
-                var font: FontNames
-                switch i{
-                case 0: font = .font3
-                case 1: font = .font1
-                case 2: font = .font6
-                default: font = .font4
-                }
-                let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, font: font, name: name)
-                dataStream.append(basicData)
-                let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
-                let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
-                let blurBackground2 = blurBack.jpegData(compressionQuality: 0.8)!
-                let store = StoredData(id: id, background: background2, display: .date, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
-              let data = try? JSONEncoder().encode(store)
-              UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)
-            }
-        }
         if let loadColorScheme = UserDefaults(suiteName: UserDataKeys.suiteName)!.string(forKey: UserDataKeys.myColorScheme){
             myColorScheme = MyColorScheme(rawValue: loadColorScheme)!
         }
@@ -125,7 +101,7 @@ class MyData: ObservableObject{
     
     static func getStoredData() -> [BasicData]?{
         var dataStream: [BasicData] = []
-        if let idArray = UserDefaults(suiteName: UserDataKeys.suiteName)!.stringArray(forKey: UserDataKeys.idArray) {
+            let idArray = MyData.getidArray()
             do{
                 print("in reload data")
                 for oneid in idArray{
@@ -163,31 +139,6 @@ class MyData: ObservableObject{
             } catch let error as Error?{
                 print("读取本地数据出现错误!",error as Any)
             }
-        } else {
-            for i in 0..<4{
-                let id = MyData.getidArray()[i]
-                let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!)!
-                let name = "widget " + String(i+1)
-                var font: FontNames
-                switch i{
-                case 0: font = .font3
-                case 1: font = .font1
-                case 2: font = .font6
-                default: font = .font4
-                }
-                let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, font: font, name: name)
-                dataStream.append(basicData)
-
-                  let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
-                  let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
-                  let blurBackground2 = blurBack.jpegData(compressionQuality: 0.8)!
-              
-            
-                let store = StoredData(id: id, background: background2, display: .date, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
-                let data = try? JSONEncoder().encode(store)
-                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)
-            }
-        }
         return dataStream
     }
     
@@ -206,28 +157,88 @@ class MyData: ObservableObject{
         if let idArray = UserDefaults(suiteName: UserDataKeys.suiteName)!.stringArray(forKey: UserDataKeys.idArray){
             return idArray
         } else {
-           // var dataStream: [BasicData] = []
-            let idArray = [UUID().uuidString,UUID().uuidString,UUID().uuidString,UUID().uuidString]
+            var idArray = [UUID().uuidString,UUID().uuidString,UUID().uuidString,UUID().uuidString]
             for i in 0..<4{
                 let id = idArray[i]
                 let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!)!
                 let name = "widget " + String(i+1)
+                let customWord1 = "Love you like movies"
                 var font: FontNames
+                var display: displayMode
+                var isCalendar = false
+                var isKitty = true
                 switch i{
-                case 0: font = .font3
-                case 1: font = .font1
-                case 2: font = .font6
-                default: font = .font4
+                case 0:
+                    font = .font3
+                    display = .date
+                case 1:
+                    font = .font1
+                    display = .event
+                case 2:
+                    font = .font6
+                    display = .date
+                    isCalendar = true
+                default:
+                    font = .font4
+                    display = .customize
+                    isKitty = false
                 }
                   let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
                   let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
                   let blurBackground2 = blurBack.jpegData(compressionQuality: 0.8)!
               
-            
-                let store = StoredData(id: id, background: background2, display: .date, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
+                let store = StoredData(id: id, background: background2, display: display, kitty: kitty2, isKitty: isKitty, blurBackground: blurBackground2, font: font, customWord1: customWord1, name: name, isCalendar: isCalendar)
                 let data = try? JSONEncoder().encode(store)
                 print("getArray \(String(describing: data))")
-                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)
+                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: id)
+            }
+            
+            for i in 0..<3{
+                let id = UUID().uuidString
+                idArray.append(id)
+                var imgNum: Int
+                var name: String
+                var url: String
+                var customWord1: String
+                var customWord2: String
+                var customFont1: CGFloat
+                var customFont2: CGFloat
+
+                switch i {
+                case 0:
+                    imgNum = 9
+                    name = "微信扫一扫"
+                    url = "weixin://scanqrcode"
+                    customWord1 = "微信"
+                    customWord2 = "扫一扫"
+                    customFont1 = 20
+                    customFont2 = 26
+
+                case 1:
+                    imgNum = 8
+                    name = "网易云听歌识曲"
+                    url = "orpheuswidget://recognize"
+                    customWord1 = "网易云音乐"
+                    customWord2 = "听歌识曲"
+                    customFont1 = 14
+                    customFont2 = 22
+                    
+                default:
+                    imgNum = 7
+                    name = "支付宝付款码"
+                    url = "alipay://platformapi/startapp?appId=20000056"
+                    customWord1 = "支付宝"
+                    customWord2 = "付款码"
+                    customFont1 = 23
+                    customFont2 = 16
+                }
+                let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(imgNum))!.resized(withPercentage: 0.5)!)!.jpegData(compressionQuality: 0.8)!
+                let background = UIImage(named: "img" + String(imgNum))!.jpegData(compressionQuality: 0.8)!
+            
+                let store = StoredData(id: id, background: background, display: .customize, isKitty: false, fontColor: .white, isWord: true, isBlur: false, blurBackground: blurBack, isAllBlur: false, font: .font4, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: true)
+                let data = try? JSONEncoder().encode(store)
+                print("getArray \(String(describing: data))")
+                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: id)
             }
             UserDefaults(suiteName: UserDataKeys.suiteName)!.set(idArray, forKey: UserDataKeys.idArray)
             return idArray
@@ -350,9 +361,9 @@ struct ColorSeries{
     var url: String = ""
     var customWord1 = ""
     var customWord2 = ""
-    var customFont1: CGFloat = 14
+    var customFont1: CGFloat = 11
     var customFont2: CGFloat = 11
-    var midCustomFont1: CGFloat = 18
+    var midCustomFont1: CGFloat = 14
     var midCustomFont2: CGFloat = 13
     var name : String
     var isRename: Bool = false
@@ -379,9 +390,9 @@ struct BasicData:Hashable{
     var url: String = ""
     var customWord1 = ""
     var customWord2 = ""
-    var customFont1: CGFloat = 14
+    var customFont1: CGFloat = 11
     var customFont2: CGFloat = 11
-    var midCustomFont1: CGFloat = 18
+    var midCustomFont1: CGFloat = 14
     var midCustomFont2: CGFloat = 13
     var name : String
     var isRename: Bool = false

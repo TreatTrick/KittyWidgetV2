@@ -120,6 +120,7 @@ struct MiddleWidgetView2: View {
                 if isWord && basicData.display == .event{
                     Spacer()
                     VStack{
+                        Spacer()
                         HStack(alignment: .center){
                             let date0 = MyData.date2zero(date: self.date)
                             let deltaDay = date0.deltaDay(to: basicData.eventDay)
@@ -160,6 +161,30 @@ struct MiddleWidgetView2: View {
                         .padding(4)
                         .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                         .cornerRadius(10)
+                        
+                        Spacer()
+                        
+                        HStack{
+                            let date0 = MyData.date2zero(date: self.date)
+                            let deltaDay = date0.deltaDay(to: basicData.eventDay)
+                            if deltaDay >= 0{
+                                Text("目标日: \(returnFullDate())")
+                                    .font(.custom(font.rawValue, size: 8))
+                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                    .padding(3)
+                                    .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                                    .cornerRadius(10)
+                            } else {
+                                Text("始于: \(returnFullDate())")
+                                    .font(.custom(font.rawValue, size: 8))
+                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                    .padding(3)
+                                    .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                                    .cornerRadius(10)
+                            }
+                            Spacer()
+                        }
+                        .padding(4)
                     }
                 }
                     
@@ -185,6 +210,14 @@ struct MiddleWidgetView2: View {
         dateFormatter.dateStyle = .short
         let str = dateFormatter.string(from: self.date)
         return String(str.split(separator: "/").last!)
+    }
+    
+    func returnFullDate() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "zh_Hans_CN")
+        dateFormatter.dateStyle = .full
+        let str = dateFormatter.string(from: self.basicData.eventDay)
+        return str
     }
     
     func returnMonth() -> String{

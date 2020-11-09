@@ -86,7 +86,7 @@ struct ContentView: View {
                                 VStack(alignment: .center){
                                     Text("PicWidgets V1.0.0").font(.headline).padding()
                                     Text("Developed by SORA").padding()
-                                    Text("Special appreciation to Roujiangrong for providing photos").padding()
+                                    Text("Special appreciation to Roujiangrong for providing photos.").padding()
                                 }
                             }
                         }

@@ -180,22 +180,23 @@ struct SmallWidgetView2: View {
                 HStack{
                     VStack(alignment: .leading){
                         Spacer()
-                        Text(basicData.customWord1)
-                            .font(.custom(font.rawValue, size: basicData.customFont1))
-                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                            .padding(3)
-                            .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-
-                            .cornerRadius(10)
+                        if basicData.customWord1 != ""{
+                            Text(basicData.customWord1)
+                                .font(.custom(font.rawValue, size: basicData.customFont1))
+                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                .padding(3)
+                                .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                                .cornerRadius(10)
+                        }
                         
-                        Text(basicData.customWord2)
-                            .font(.custom(font.rawValue, size: basicData.customFont2))
-                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                            .padding(3)
-                            .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-
-                            .cornerRadius(10)
-                        //.offset(y: 5)
+                        if basicData.customWord2 != ""{
+                            Text(basicData.customWord2)
+                                .font(.custom(font.rawValue, size: basicData.customFont2))
+                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                .padding(3)
+                                .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                                .cornerRadius(10)
+                        }
                     }
                     Spacer()
                 }

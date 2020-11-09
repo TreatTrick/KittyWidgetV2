@@ -228,7 +228,9 @@ struct ContentView: View {
         for i in id{
             let ind = self.myData.dataStream.firstIndex(where: {$0.id == i})!
             self.myData.dataStream.remove(at: ind)
-            UserDefaults(suiteName: UserDataKeys.suiteName)!.removeObject(forKey: i)
+            DispatchQueue.global(qos: .userInitiated).async {
+                UserDefaults(suiteName: UserDataKeys.suiteName)!.removeObject(forKey: i)
+            }
             print("remove \(i)")
             MyData.idArray.remove(at: ind)
         }
@@ -240,8 +242,10 @@ struct ContentView: View {
             self.myData.dataStream[i].isChecked = false
         }
         self.isEdit = .inactive
-        UserDefaults(suiteName: UserDataKeys.suiteName)!.set(MyData.idArray, forKey: UserDataKeys.idArray)
-        WidgetCenter.shared.reloadAllTimelines()
+        DispatchQueue.global(qos: .userInitiated).async {
+            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(MyData.idArray, forKey: UserDataKeys.idArray)
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
 }
 

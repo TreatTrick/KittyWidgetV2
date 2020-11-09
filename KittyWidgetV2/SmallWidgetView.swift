@@ -190,38 +190,41 @@ struct SmallWidgetView: View {
                 HStack{
                     VStack(alignment: .leading){
                         Spacer()
-                        Text(basicData.customWord1)
-                            .font(.custom(font.rawValue, size: basicData.customFont1))
-                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                            .padding(3)
-                            .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                            .cornerRadius(10)
+                        if basicData.customWord1 != ""{
+                            Text(basicData.customWord1)
+                                .font(.custom(font.rawValue, size: basicData.customFont1))
+                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                .padding(3)
+                                .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                                .cornerRadius(10)
+                        }
                         
-                        Text(basicData.customWord2)
-                            .font(.custom(font.rawValue, size: basicData.customFont2))
-                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
-                            .padding(3)
-                            .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
-                            .cornerRadius(10)
+                        if basicData.customWord2 != ""{
+                            Text(basicData.customWord2)
+                                .font(.custom(font.rawValue, size: basicData.customFont2))
+                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                .padding(3)
+                                .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                                .cornerRadius(10)
                             //.offset(y: 5)
+                        }
                     }
                     Spacer()
                 }
                 .padding(10)
                 .frame(width: 150, height: 150)
                 .background(calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData) )
-                .environment(\.sizeCategory, .extraExtraExtraLarge)
                 .cornerRadius(CGFloat(Coefficients.cornerRadius))
                 .animation(.easeInOut)
             }
             
-            if editMode?.wrappedValue != .inactive && !isWord{
+            if editMode?.wrappedValue != .inactive && basicData.display != .date{
                 Image(systemName: withAnimation(.easeInOut){self.basicData.isChecked ? "checkmark.circle.fill" :  "circle"})
                     .foregroundColor(.red)
                     .padding(4)
                     .background(calBlurBackground(isBlur: true, basicData: self.basicData))
                     .cornerRadius(10)
-                    .offset(x:60, y: -60)
+                    .offset(x:50, y: -50)
             }
             
             if editMode?.wrappedValue == .active{
@@ -234,6 +237,8 @@ struct SmallWidgetView: View {
             
         }
         .animation(.easeInOut)
+        .environment(\.sizeCategory, .extraExtraExtraLarge)
+
     }
     
     func returnMonth() -> String{

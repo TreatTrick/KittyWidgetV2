@@ -86,9 +86,9 @@ class MyData: ObservableObject{
                 }
                 let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, font: font, name: name)
                 dataStream.append(basicData)
-                let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
-                let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
-                let blurBackground2 = blurBack.jpegData(compressionQuality: 0.5)!
+                let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
+                let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
+                let blurBackground2 = blurBack.jpegData(compressionQuality: 0.8)!
                 let store = StoredData(id: id, background: background2, display: .date, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
               let data = try? JSONEncoder().encode(store)
               UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: store.id)
@@ -178,9 +178,9 @@ class MyData: ObservableObject{
                 let basicData = BasicData(id: id, background: UIImage(named: "img" + String(i+1))!, display: .date, kitty: UIImage(named: "kitty" + String(i+1))!, blurBackground: blurBack, font: font, name: name)
                 dataStream.append(basicData)
 
-                  let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
-                  let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
-                  let blurBackground2 = blurBack.jpegData(compressionQuality: 0.5)!
+                  let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
+                  let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
+                  let blurBackground2 = blurBack.jpegData(compressionQuality: 0.8)!
               
             
                 let store = StoredData(id: id, background: background2, display: .date, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
@@ -197,7 +197,7 @@ class MyData: ObservableObject{
 //        let loveDay = dateFormatter.date(from: "2020/11/02")!
 //        return loveDay
         let date = Date()
-        let loveDay = Calendar.current.date(byAdding: .day, value: 34, to: date)!
+        let loveDay = Calendar.current.date(byAdding: .day, value: 33, to: date)!
         return MyData.date2zero(date: loveDay) 
     }
 
@@ -219,9 +219,9 @@ class MyData: ObservableObject{
                 case 2: font = .font6
                 default: font = .font4
                 }
-                  let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
-                  let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.5)!
-                  let blurBackground2 = blurBack.jpegData(compressionQuality: 0.5)!
+                  let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
+                  let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
+                  let blurBackground2 = blurBack.jpegData(compressionQuality: 0.8)!
               
             
                 let store = StoredData(id: id, background: background2, display: .date, kitty: kitty2, blurBackground: blurBackground2, font: font, name: name)
@@ -282,9 +282,9 @@ class MyData: ObservableObject{
     
     static func basic2store(from data: BasicData){
         let id = data.id
-        let kitty = data.kitty.jpegData(compressionQuality: 0.5)!
-        let background = data.background.jpegData(compressionQuality: 0.5)!
-        let blurBackground = data.blurBackground.jpegData(compressionQuality: 0.5)!
+        let kitty = data.kitty.jpegData(compressionQuality: 0.8)!
+        let background = data.background.jpegData(compressionQuality: 0.8)!
+        let blurBackground = data.blurBackground.jpegData(compressionQuality: 0.8)!
         let fontColor = data.fontColor
         let isKitty = data.isKitty
         let isWord = data.isWord
@@ -337,14 +337,14 @@ struct ColorSeries{
 
  struct StoredData:Hashable, Codable{
     var id : String
-    var background: Data = UIImage(named: "img1")!.jpegData(compressionQuality: 0.5)!
+    var background: Data = UIImage(named: "img1")!.jpegData(compressionQuality: 0.8)!
     var display: displayMode
-    var kitty: Data = UIImage(named: "kitty1")!.jpegData(compressionQuality: 0.5)!
+    var kitty: Data = UIImage(named: "kitty1")!.jpegData(compressionQuality: 0.8)!
     var isKitty: Bool = true
     var fontColor: FontColor = .white
     var isWord: Bool = true
     var isBlur: Bool = true
-    var blurBackground: Data = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!.jpegData(compressionQuality: 0.5)!
+    var blurBackground: Data = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!.jpegData(compressionQuality: 0.8)!
     var isAllBlur: Bool = false
     var font: FontNames = .font4
     var url: String = ""
@@ -423,8 +423,8 @@ struct Coefficients{
     static var cornerRadius: CGFloat = 25
     static var apSize: CGFloat = 8
     static var apOffset: CGFloat = 22
-    static var eventFontDelta: CGFloat = 6
-    static var midEventFontDelta: CGFloat = 8
+    static var eventFontDelta: CGFloat = 5
+    static var midEventFontDelta: CGFloat = 7
     static var locale = "zh_Hans_CN"
 }
 

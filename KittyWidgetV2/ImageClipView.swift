@@ -158,7 +158,6 @@ struct ImageClipView: View{
     
 
         if let cropped = img.cgImage?.cropping(to: inCGRect) {
-           //uiimage here can write to data in png or jpeg
             var croppedIm = UIImage(cgImage: cropped)
             let min2 = min(croppedIm.size.width, croppedIm.size.height)
             print("croppedIm min size is \(min2)")

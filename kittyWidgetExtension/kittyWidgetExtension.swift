@@ -57,13 +57,17 @@ struct Provider: IntentTimelineProvider {
                 entries.append(entry)
             } else {
                 policy = .atEnd
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "YYYY:MM:dd:HH:mm"
+                let str = dateFormatter.string(from: currentDate)
+                let date0 = dateFormatter.date(from: str)!
                 for secendOffset in 0 ..< 5 {
-                    let entryDate = Calendar.current.date(byAdding: .minute, value: secendOffset, to: currentDate)!
+                    let entryDate = Calendar.current.date(byAdding: .minute, value: secendOffset, to: date0)!
                     let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
                     entries.append(entry)
                 }
             }
-        default:
+        case .event:
             let dateFormatter = DateFormatter()
             dateFormatter.locale = Locale(identifier: "zh_Hans_CN")
             dateFormatter.dateStyle = .short

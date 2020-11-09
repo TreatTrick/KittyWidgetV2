@@ -76,7 +76,8 @@ struct SmallWidgetView3: View {
                 
                     if isWord && basicData.display == .event{
                         HStack(alignment: .center){
-                            let deltaDay = date.deltaDay(to: basicData.eventDay)
+                            let date0 = MyData.date2zero(date: self.date)
+                            let deltaDay = date0.deltaDay(to: basicData.eventDay)
                             if deltaDay >= 0{
                                 Text("离")
                                     .font(.custom(font.rawValue, size: basicData.eventFont))
@@ -137,7 +138,8 @@ struct SmallWidgetView3: View {
                     if isWord && basicData.display == .event{
                         Spacer()
                         HStack(alignment: .center){
-                            let deltaDay = date.deltaDay(to: basicData.eventDay)
+                            let date0 = MyData.date2zero(date: self.date)
+                            let deltaDay = date0.deltaDay(to: basicData.eventDay)
                             Text(String(abs(deltaDay)))
                                 .font(.custom(font.rawValue, size: basicData.eventFont + Coefficients.eventFontDelta))
                             +

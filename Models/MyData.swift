@@ -198,7 +198,7 @@ class MyData: ObservableObject{
 //        return loveDay
         let date = Date()
         let loveDay = Calendar.current.date(byAdding: .day, value: 34, to: date)!
-        return loveDay
+        return MyData.date2zero(date: loveDay) 
     }
 
     
@@ -269,6 +269,15 @@ class MyData: ObservableObject{
             return nil
         }
         return nil
+    }
+    
+    static func date2zero(date: Date) -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "zh_Hans_CN")
+        dateFormatter.dateStyle = .short
+        let str = dateFormatter.string(from: date)
+        let date0 = dateFormatter.date(from: str)
+        return date0!
     }
     
     static func basic2store(from data: BasicData){
@@ -350,8 +359,8 @@ struct ColorSeries{
     var isCalendar: Bool = false
     var eventName = "恋爱"
     var eventDay = MyData.getMyDate()
-    var eventFont: CGFloat = 11
-    var midEventFont: CGFloat = 16
+    var eventFont: CGFloat = 9
+    var midEventFont: CGFloat = 14
 }
 
 struct BasicData:Hashable{
@@ -379,8 +388,8 @@ struct BasicData:Hashable{
     var isCalendar: Bool = false
     var eventName = "恋爱"
     var eventDay = MyData.getMyDate()
-    var eventFont: CGFloat = 11
-    var midEventFont: CGFloat = 16
+    var eventFont: CGFloat = 9
+    var midEventFont: CGFloat = 14
 }
 
 struct WidgetInfo: Codable{
@@ -415,7 +424,8 @@ struct Coefficients{
     static var apSize: CGFloat = 8
     static var apOffset: CGFloat = 22
     static var eventFontDelta: CGFloat = 6
-    static var midEventFontDelta: CGFloat = 9
+    static var midEventFontDelta: CGFloat = 8
+    static var locale = "zh_Hans_CN"
 }
 
 

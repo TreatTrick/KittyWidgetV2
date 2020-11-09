@@ -17,6 +17,7 @@ struct SmallWidgetView2: View {
     var isAllBlur: Bool
     var is24Hour: Bool
     var font: FontNames
+    var date = Date()
     
     var body: some View {
         ZStack{
@@ -80,7 +81,8 @@ struct SmallWidgetView2: View {
                     
                     if isWord && basicData.display == .event{
                         HStack(alignment: .center){
-                            let deltaDay = Date().deltaDay(to: basicData.eventDay)
+                            let date0 = MyData.date2zero(date: self.date)
+                            let deltaDay = date0.deltaDay(to: basicData.eventDay)
                             if deltaDay >= 0{
                                 Text("离")
                                     .font(.custom(font.rawValue, size: basicData.eventFont))
@@ -144,7 +146,8 @@ struct SmallWidgetView2: View {
                     if isWord && basicData.display == .event{
                         Spacer()
                         HStack(alignment: .center){
-                            let deltaDay = Date().deltaDay(to: basicData.eventDay)
+                            let date0 = MyData.date2zero(date: self.date)
+                            let deltaDay = date0.deltaDay(to: basicData.eventDay)
                             Text(String(abs(deltaDay)))
                                 .font(.custom(font.rawValue, size: basicData.eventFont + Coefficients.eventFontDelta))
                             +
@@ -210,7 +213,7 @@ struct SmallWidgetView2: View {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "zh_Hans_CN")
         dateFormatter.dateStyle = .short
-        let str = dateFormatter.string(from: Date())
+        let str = dateFormatter.string(from: self.date)
         return str
     }
     

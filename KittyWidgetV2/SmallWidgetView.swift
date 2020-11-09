@@ -7,6 +7,7 @@
 
 import SwiftUI
 import WidgetKit
+import UIKit
 
 struct SmallWidgetView: View {
     @EnvironmentObject var myData: MyData
@@ -19,6 +20,7 @@ struct SmallWidgetView: View {
     var isAllBlur: Bool
     var is24Hour: Bool
     var font: FontNames
+    var date = Date()
     
     var body: some View {
         
@@ -86,7 +88,8 @@ struct SmallWidgetView: View {
                     
                     if isWord && basicData.display == .event{
                         HStack(alignment: .center){
-                            let deltaDay = Date().deltaDay(to: basicData.eventDay)
+                            let date0 = MyData.date2zero(date: self.date)
+                            let deltaDay = date0.deltaDay(to: basicData.eventDay)
                             if deltaDay >= 0{
                                 Text("离")
                                     .font(.custom(font.rawValue, size: basicData.eventFont))
@@ -147,7 +150,8 @@ struct SmallWidgetView: View {
                     if isWord && basicData.display == .event{
                         Spacer()
                         HStack(alignment: .center){
-                            let deltaDay = Date().deltaDay(to: basicData.eventDay)
+                            let date0 = MyData.date2zero(date: self.date)
+                            let deltaDay = date0.deltaDay(to: basicData.eventDay)
                             Text(String(abs(deltaDay)))
                                 .font(.custom(font.rawValue, size: basicData.eventFont + Coefficients.eventFontDelta))
                             +
@@ -236,7 +240,7 @@ struct SmallWidgetView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "zh_Hans_CN")
         dateFormatter.dateStyle = .short
-        let str = dateFormatter.string(from: Date())
+        let str = dateFormatter.string(from: self.date)
         return str
     }
     
@@ -321,12 +325,8 @@ struct Time: View{
                 let ymd = dateString.split(separator: ":")
                 displayString = ymd[0] + ":" + ymd[1]
             } else {
-//                dateFormatter.timeStyle = .short
-//                dateFormatter.dateStyle = .none
                 dateFormatter.dateFormat = "HH:mm"
                 let dateString = dateFormatter.string(from: date)
-//                let ymd = dateString.split(separator:":")
-//                displayString = ymd[0] + ":" + ymd[1] + ":" + ymd[2]
                 displayString = dateString
             }
         case .week:

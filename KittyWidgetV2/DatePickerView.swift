@@ -15,7 +15,7 @@ struct DatePickerView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> UIDatePicker {
         datePicker.datePickerMode = .date
-        datePicker.locale = Locale(identifier: "zh_CN")
+        datePicker.locale = Locale(identifier: "zh_Hans_CN")
         datePicker.preferredDatePickerStyle = .automatic
         datePicker.addTarget(context.coordinator, action: #selector(Coordinator.changed(_:)), for: .valueChanged)
         return datePicker
@@ -37,7 +37,12 @@ struct DatePickerView: UIViewRepresentable {
         }
 
         @objc func changed(_ sender: UIDatePicker) {
-            self.date.wrappedValue = sender.date
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: Coefficients.locale)
+            dateFormatter.dateStyle = .short
+            let str = dateFormatter.string(from: sender.date)
+            let newDay = dateFormatter.date(from: str)
+            self.date.wrappedValue = newDay!
         }
     }
 }

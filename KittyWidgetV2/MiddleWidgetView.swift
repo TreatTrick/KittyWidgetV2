@@ -129,7 +129,8 @@ struct MiddleWidgetView: View {
                 Spacer()
                 VStack{
                     HStack(alignment: .center){
-                        let deltaDay = Date().deltaDay(to: basicData.eventDay)
+                        let date0 = MyData.date2zero(date: self.date)
+                        let deltaDay = date0.deltaDay(to: basicData.eventDay)
                         if deltaDay >= 0{
                             Text("离")
                                 .font(.custom(font.rawValue, size: basicData.midEventFont))
@@ -155,7 +156,8 @@ struct MiddleWidgetView: View {
                     .cornerRadius(10)
 
                     HStack(alignment: .center){
-                        let deltaDay = Date().deltaDay(to: basicData.eventDay)
+                        let date0 = MyData.date2zero(date: self.date)
+                        let deltaDay = date0.deltaDay(to: basicData.eventDay)
                         Text(String(abs(deltaDay)))
                             .font(.custom(font.rawValue, size: basicData.midEventFont + Coefficients.midEventFontDelta))
                         +

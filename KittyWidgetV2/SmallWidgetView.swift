@@ -33,11 +33,11 @@ struct SmallWidgetView: View {
                             if !basicData.isCalendar{
                                 if is24Hour{
                                     Time(dateSetting: .time,a: false, is24Hour: is24Hour)
-                                        .font(.custom(font.rawValue, size: 20))
+                                        .font(.custom(font.rawValue, size: 25))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 } else {
                                     Time(dateSetting: .time,a: false, is24Hour: is24Hour)
-                                        .font(.custom(font.rawValue, size: 20))
+                                        .font(.custom(font.rawValue, size: 25))
                                         .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                     Time(dateSetting: .time, a: true, is24Hour: is24Hour)
                                         .font(.custom(font.rawValue, size: Coefficients.apSize))

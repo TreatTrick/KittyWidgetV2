@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
-import Combine
+//import Combine
 import UIKit
 import WidgetKit
+import EventKit
 
 struct SmallSetting: View {
     @EnvironmentObject var myData: MyData
@@ -35,6 +36,7 @@ struct SmallSetting: View {
     @State var isCustomKitty = false
     @State var isKittyClip = false
     @State var isKeyboard: Bool = false
+    @State var isAlert: Bool = false
         
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
@@ -147,6 +149,31 @@ struct SmallSetting: View {
                                 Toggle(isOn: $basicData.isCalendar){
                                     Text("显示日历")
                                 }
+                                .alert(isPresented: $isAlert, content: { getAlertView() })
+                                .onChange(of: basicData.isCalendar){_ in
+                                    if EKEventStore.authorizationStatus(for: .event) != .authorized {
+                                        self.isAlert = true
+                                    }
+//                                    if value{
+//                                        if UserDefaults(suiteName: UserDataKeys.suiteName)!.bool(forKey: UserDataKeys.access){
+//                                            if EKEventStore.authorizationStatus(for: .event) != .authorized {
+//                                                self.isAlert = true
+//                                            }
+//                                        } else {
+//                                            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(true, forKey: UserDataKeys.access)
+//                                            let store = EKEventStore()
+//                                            store.requestAccess(to:.event){ (granted, error) in
+//                                                if !granted {
+//                                                    print("Access to store not granted")
+//                                                    self.basicData.isCalendar = false
+//                                                    if EKEventStore.authorizationStatus(for: .event) != .authorized {
+//                                                        self.isAlert = true
+//                                                    }
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+                                }
 //
                             case .customize:
                                         HStack{
@@ -246,9 +273,7 @@ struct SmallSetting: View {
                                 }
                             }
                         }
-                        
-                        
-                       
+
                         
                         Section{
                             Picker( "小组件对应快捷方式", selection: $basicData.url,content: {

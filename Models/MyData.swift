@@ -6,6 +6,7 @@ import UIKit
 import SwiftUI
 import CoreImage
 import CoreImage.CIFilterBuiltins
+import EventKit
 
 class MyData: ObservableObject{
 //    var jsonData: Data?{
@@ -26,8 +27,8 @@ class MyData: ObservableObject{
     static let context = CIContext()
     static var is24Hour: Bool = UserDefaults(suiteName: UserDataKeys.suiteName)!.bool(forKey: UserDataKeys.is24Hour)
     static var defaultData = BasicData(id: UUID().uuidString, background: UIImage(named:"img1")!, display: .date, kitty: UIImage(named:"kitty1")!, name: "default widget")
-   // static var staticDataStream: [BasicData] = MyData.getStoredData() ?? []
     static var idArray: [String] = getidArray()
+   
     
     init(){
             let idArray = MyData.getidArray()
@@ -177,6 +178,7 @@ class MyData: ObservableObject{
                 case 2:
                     font = .font6
                     display = .date
+                    isKitty = false
                     isCalendar = true
                 default:
                     font = .font4
@@ -428,6 +430,7 @@ struct UserDataKeys{
     static var idName = "idName"
     static var kind = "kittyWidgetExtension"
     static var idArray = "idArray"
+    static var access = "access"
 }
 
 struct Coefficients{

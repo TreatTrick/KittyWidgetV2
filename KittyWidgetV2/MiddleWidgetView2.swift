@@ -1,5 +1,6 @@
 import SwiftUI
 import WidgetKit
+import EventKit
 
 struct MiddleWidgetView2: View {
     @Environment(\.colorScheme) var colorScheme
@@ -111,7 +112,7 @@ struct MiddleWidgetView2: View {
                         }
                     }
                     .padding(5)
-                    .frame(maxWidth: 200)
+                    .frame(minWidth:170 ,maxWidth: 200)
                     .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                     .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                     .cornerRadius(10)
@@ -198,10 +199,71 @@ struct MiddleWidgetView2: View {
                             .clipped()
                     }
                 }
+                
+                if !isKitty && isWord && basicData.isCalendar && basicData.display == .date{
+                    VStack(alignment: .leading){
+                        if EKEventStore.authorizationStatus(for: .event) == .authorized{
+                            Text("今日：")
+                            if let events = self.getEvents(date: self.date){
+                                if (events.first != nil){
+                                    ForEach(events, id:\.eventIdentifier){ event in
+                                        Text(event.title)
+                                    }
+                                } else {
+                                    Text("今日无例程")
+                                }
+                            }
+                            Spacer()
+
+                            Text("明日：")
+                                .font(.custom(font.rawValue, size: 8))
+
+                            if let events2 = self.getEvents(date: Calendar.current.date(byAdding: .day, value: 1, to: self.date)!){
+                                if (events2.first != nil){
+                                    ForEach(events2, id:\.eventIdentifier ){ event in
+                                        Text(event.title)
+                                            .font(.custom(font.rawValue, size: 8))
+                                    }
+                                } else {
+                                    Text("明日无例程")
+                                        .font(.custom(font.rawValue, size: 8))
+                                }
+                            }
+                        } else {
+                            Text("无法访问日历")
+                        }
+                    }
+                    .font(.custom(font.rawValue, size: 10))
+                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                    .padding(4)
+                    .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                    .cornerRadius(10)
+                    .frame(maxHeight:100)
+
+                    Spacer()
+                }
 
             }
         }
         .environment(\.sizeCategory, .extraExtraExtraLarge)
+    }
+    
+    func getEvents(date: Date) -> [EKEvent]?{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY/MM/dd"
+        let str = dateFormatter.string(from: date)
+        let oldDay = dateFormatter.date(from: str)!
+        let newDay = Calendar.current.date(byAdding: .day,value: 1, to: oldDay)!
+        let store = EKEventStore()
+        var predicate: NSPredicate? = nil
+        var events: [EKEvent]? = nil
+        
+        predicate = store.predicateForEvents(withStart: oldDay, end: newDay, calendars: nil)
+        if let aPredicate = predicate {
+            events = store.events(matching: aPredicate)
+        }
+        
+        return events
     }
     
     func returnDay() -> String{

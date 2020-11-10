@@ -8,6 +8,7 @@
 import SwiftUI
 import WidgetKit
 import UIKit
+import EventKit
 
 struct ContentView: View {
     @State var tabSelection: Tabs = .smallWidget
@@ -26,6 +27,14 @@ struct ContentView: View {
                 TabView(selection: $tabSelection){
                     ZStack{
                         VStack{
+                            HStack{
+                                Spacer()
+                                NavigationLink(destination: TutorialView()){
+                                    Image(systemName: "questionmark.circle.fill")
+                                        .imageScale(.large)
+                                }
+                            }
+                            .padding(.trailing, 4)
                             if isEdit == .active{
                                 EditButtons
                             }
@@ -98,6 +107,7 @@ struct ContentView: View {
                 }
                 .navigationBarTitle(naviBarTitle(tabSelection: self.tabSelection), displayMode: .automatic)
                 .navigationBarItems(trailing: EditMode)
+
             }
             .onOpenURL(perform: { url in
                 UIApplication.shared.open(url)
@@ -107,6 +117,17 @@ struct ContentView: View {
             }
         }
         .environment(\.colorScheme, MyData.slTheme(sc: self.myData.myColorScheme, colorScheme: colorScheme))
+        .onAppear{
+            if !UserDefaults(suiteName: UserDataKeys.suiteName)!.bool(forKey: UserDataKeys.access){
+                UserDefaults(suiteName: UserDataKeys.suiteName)!.set(true, forKey: UserDataKeys.access)
+                let store = EKEventStore()
+                store.requestAccess(to:.event){ (granted, error) in
+                    if !granted {
+                        print("Access to store not granted")
+                    }
+                }
+            }
+        }
     }
     
     var ReNameView: some View{

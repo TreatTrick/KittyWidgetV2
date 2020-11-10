@@ -61,7 +61,7 @@ struct Provider: IntentTimelineProvider {
                 dateFormatter.dateFormat = "YYYY:MM:dd:HH:mm"
                 let str = dateFormatter.string(from: currentDate)
                 let date0 = dateFormatter.date(from: str)!
-                for secendOffset in 0 ..< 5 {
+                for secendOffset in 0 ..< 10 {
                     let entryDate = Calendar.current.date(byAdding: .minute, value: secendOffset, to: date0)!
                     let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
                     entries.append(entry)
@@ -108,7 +108,6 @@ struct kittyWidgetExtensionEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-       // Text(entry.configuration.widgets?.identifier ?? "None")
         switch family {
         case .systemSmall:
             SmallWidgetView3(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font,date: entry.date)

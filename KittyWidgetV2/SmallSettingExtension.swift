@@ -4,6 +4,20 @@ import WidgetKit
 //MARK: - Function Extension of SmallSetting
 extension SmallSetting{
     
+     func getAlertView() -> Alert{
+        let primaryButton = Alert.Button.default(Text("设置")){
+            if let url = URL(string: UIApplication.openSettingsURLString){
+             if (UIApplication.shared.canOpenURL(url)){
+              UIApplication.shared.open(url)
+              }
+            }
+        }
+        
+        let cancelButton = Alert.Button.cancel(Text("取消"))
+        let myAlert = Alert(title: Text("无法访问日历"), message: Text("无法获得日历的访问权限，请前往设置中心设置访问权限") , primaryButton: primaryButton, secondaryButton: cancelButton)
+        return myAlert
+    }
+    
     private func kittyTapped(num: Int){
         self.basicData.kitty = UIImage(named: "kitty" + String(num))!
     }

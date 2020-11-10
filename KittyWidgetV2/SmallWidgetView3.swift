@@ -23,12 +23,12 @@ struct SmallWidgetView3: View {
                                 if !basicData.isCalendar{
                                     if is24Hour{
                                         Text(dateSetting(.time, is24Hour: self.is24Hour, date: date))
-                                            .font(.custom(font.rawValue, size: 20))
+                                            .font(.custom(font.rawValue, size: 25))
                                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
 
                                     } else {
                                         Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
-                                            .font(.custom(font.rawValue, size: 20))
+                                            .font(.custom(font.rawValue, size: 25))
                                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
 
                                         Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
@@ -36,6 +36,7 @@ struct SmallWidgetView3: View {
                                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                             .offset(x: -4, y: 5)
                                     }
+                     
                                 } else {
                                     Text(returnMonth().split(separator: "/")[1] + "月" + returnMonth().split(separator: "/")[2] + "日")
                                         .font(.custom(font.rawValue, size: 20))

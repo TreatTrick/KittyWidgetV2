@@ -144,6 +144,26 @@ class MyData: ObservableObject{
         return dataStream
     }
     
+    
+    static func getIdName() -> [IDName]?{
+        var idNameArray: [IDName] = []
+            let idArray = MyData.getidArray()
+            do{
+                print("in reload data")
+                for oneid in idArray{
+                    let id = oneid
+                    let preData =  UserDefaults(suiteName: UserDataKeys.suiteName)!.data(forKey: oneid)
+                    let data = try JSONDecoder().decode(StoredData.self, from: preData!)
+                    let name = data.name
+                    let idName = IDName(id: id, name: name)
+                    idNameArray.append(idName)
+                }
+            } catch let error as Error?{
+                print("读取本地数据出现错误!",error as Any)
+            }
+        return idNameArray
+    }
+    
     static func getMyDate() -> Date{
 //        let dateFormatter = DateFormatter()
 //        dateFormatter.dateFormat = "YYYY/MM/dd"
@@ -552,4 +572,9 @@ extension Date{
         let components = Calendar.current.dateComponents([.day], from: self, to: endDay)
         return components.day!
     }
+}
+
+struct IDName{
+    var id: String
+    var name: String
 }

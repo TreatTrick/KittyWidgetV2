@@ -229,7 +229,7 @@ struct ContentView: View {
         }
         let id = UUID().uuidString
         let bd = BasicData(id: id, background: UIImage(named: "img1")!, display: .date, kitty: UIImage(named: "kitty1")!, name: "widget " + String(i+1))
-        let store = StoredData(id: id, background: UIImage(named: "img1")!.jpegData(compressionQuality: 0.8)!, display: .date, kitty: UIImage(named: "kitty1")!.jpegData(compressionQuality: 0.8)!, name: "widget " + String(i+1))
+        let store = StoredData(id: id, background: UIImage(named: "img1")!.pngData()!, display: .date, kitty: UIImage(named: "kitty1")!.pngData()!, name: "widget " + String(i+1))
         let data = try? JSONEncoder().encode(store)
         UserDefaults(suiteName: UserDataKeys.suiteName)!.set(data!, forKey: id)
         self.myData.dataStream.append(bd)

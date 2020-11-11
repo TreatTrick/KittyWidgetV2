@@ -4,7 +4,7 @@ import EventKit
 
 struct MiddleWidgetView2: View {
     @Environment(\.colorScheme) var colorScheme
-    var basicData: BasicData
+    var storedData: StoredData
     var isKitty: Bool
     var isWord: Bool
     var isBlur: Bool
@@ -17,9 +17,9 @@ struct MiddleWidgetView2: View {
     
     var body: some View {
         ZStack {
-            calBackground(isAllBlur: self.isAllBlur, basicData: self.basicData)
+            calBackground(isAllBlur: self.isAllBlur)
             HStack{
-                if !basicData.isCalendar && isWord && basicData.display == .date{
+                if !storedData.isCalendar && isWord && storedData.display == .date{
                     Spacer()
                     VStack{
                         VStack(alignment: .leading){
@@ -27,16 +27,16 @@ struct MiddleWidgetView2: View {
                                 if is24Hour{
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date))
                                         .font(.custom(font.rawValue, size: 32))
-                                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).light)
 
                                 } else {
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").first!)
                                         .font(.custom(font.rawValue, size: 30))
-                                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).light)
 
                                     Text(dateSetting(.time, is24Hour: self.is24Hour, date: date).split(separator: " ").last!)
                                         .font(.custom(font.rawValue, size: 10))
-                                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).light)
                                         .offset(x: -4, y: 6)
 
                                 }
@@ -45,47 +45,47 @@ struct MiddleWidgetView2: View {
 //
                             Text(dateSetting(.date, is24Hour: self.is24Hour, date: date))
                                 .font(.custom(font.rawValue, size: 12))
-                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
+                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).main)
                         }
-                        .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                        .background(calBlurBackground(isBlur: self.isBlur))
                         .cornerRadius(10)
                         .offset(y: 6)
 
                         Text(dateSetting(.week, is24Hour: self.is24Hour, date: date))
                             .font(.custom(font.rawValue, size: 21))
-                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
+                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).main)
                             .padding(3)
-                            .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                            .background(calBlurBackground(isBlur: self.isBlur))
                             .cornerRadius(10)
                             .padding(8)
                     }
                 }
 
-                if isWord && (basicData.customWord1 != "" ||  basicData.customWord2 != ""  ) && basicData.display == .customize{
+                if isWord && (storedData.customWord1 != "" ||  storedData.customWord2 != ""  ) && storedData.display == .customize{
                     VStack(alignment: .leading){
                         Spacer()
-                        if  basicData.customWord1 != "" {
-                            Text(basicData.customWord1)
-                                .font(.custom(font.rawValue, size: basicData.midCustomFont1))
-                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                        if  storedData.customWord1 != "" {
+                            Text(storedData.customWord1)
+                                .font(.custom(font.rawValue, size: storedData.midCustomFont1))
+                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).light)
                                 .padding(4)
-                                .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                                .background(calBlurBackground(isBlur: self.isBlur))
                                 .cornerRadius(10)
                         }
 
-                        if basicData.customWord2 != "" {
-                            Text(basicData.customWord2)
-                                .font(.custom(font.rawValue, size: basicData.midCustomFont2))
-                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                        if storedData.customWord2 != "" {
+                            Text(storedData.customWord2)
+                                .font(.custom(font.rawValue, size: storedData.midCustomFont2))
+                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).light)
                                 .padding(4)
-                                .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                                .background(calBlurBackground(isBlur: self.isBlur))
                                 .cornerRadius(10)
                         }
                     }
                     .padding(12)
                 }
                 
-                if isWord && basicData.isCalendar && basicData.display == .date{
+                if isWord && storedData.isCalendar && storedData.display == .date{
                     Spacer()
                     VStack(alignment: .leading){
                         HStack{
@@ -119,7 +119,7 @@ struct MiddleWidgetView2: View {
                                     .background(
                                         Group{
                                             if value.day == returnDay(){
-                                                Circle().foregroundColor(FuncForSmallWidgets.calAntiColor(fontColor: self.basicData.fontColor)).frame(width: 15, height: 15, alignment: .center)
+                                                Circle().foregroundColor(FuncForSmallWidgets.calAntiColor(fontColor: self.storedData.fontColor)).frame(width: 15, height: 15, alignment: .center)
                                             } else {
                                                 EmptyView()
                                             }
@@ -130,74 +130,74 @@ struct MiddleWidgetView2: View {
                     }
                     .padding(5)
                     .frame(minWidth:170 ,maxWidth: 200)
-                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
-                    .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).main)
+                    .background(calBlurBackground(isBlur: self.isBlur))
                     .cornerRadius(10)
                 }
                 
-                if isWord && basicData.display == .event{
+                if isWord && storedData.display == .event{
                     Spacer()
                     VStack{
                         Spacer()
                         HStack(alignment: .center){
                             let date0 = MyData.date2zero(date: self.date)
-                            let deltaDay = date0.deltaDay(to: basicData.eventDay)
+                            let deltaDay = date0.deltaDay(to: storedData.eventDay)
                             if deltaDay >= 0{
                                 Text("离")
-                                    .font(.custom(font.rawValue, size: basicData.midEventFont))
+                                    .font(.custom(font.rawValue, size: storedData.midEventFont))
                                 +
-                                Text(basicData.eventName)
-                                    .font(.custom(font.rawValue, size: basicData.midEventFont + Coefficients.midEventFontDelta))
+                                Text(storedData.eventName)
+                                    .font(.custom(font.rawValue, size: storedData.midEventFont + Coefficients.midEventFontDelta))
                                 +
                                 Text("还有")
-                                    .font(.custom(font.rawValue, size: basicData.midEventFont))
+                                    .font(.custom(font.rawValue, size: storedData.midEventFont))
                             } else {
     ////
-                                Text(basicData.eventName)
-                                    .font(.custom(font.rawValue, size: basicData.midEventFont + Coefficients.midEventFontDelta))
+                                Text(storedData.eventName)
+                                    .font(.custom(font.rawValue, size: storedData.midEventFont + Coefficients.midEventFontDelta))
                                 +
                                 Text("已经")
-                                    .font(.custom(font.rawValue, size: basicData.midEventFont))
+                                    .font(.custom(font.rawValue, size: storedData.midEventFont))
                             }
 
                         }
-                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).light)
                         .padding(4)
-                        .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                        .background(calBlurBackground(isBlur: self.isBlur))
                         .cornerRadius(10)
 
                         HStack(alignment: .center){
                             let date0 = MyData.date2zero(date: self.date)
-                            let deltaDay = date0.deltaDay(to: basicData.eventDay)
+                            let deltaDay = date0.deltaDay(to: storedData.eventDay)
                             Text(String(abs(deltaDay)))
-                                .font(.custom(font.rawValue, size: basicData.midEventFont + Coefficients.midEventFontDelta))
+                                .font(.custom(font.rawValue, size: storedData.midEventFont + Coefficients.midEventFontDelta))
                             +
                             Text("天")
-                                .font(.custom(font.rawValue, size: basicData.midEventFont))
+                                .font(.custom(font.rawValue, size: storedData.midEventFont))
                         }
-                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).light)
                         .padding(4)
-                        .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                        .background(calBlurBackground(isBlur: self.isBlur))
                         .cornerRadius(10)
                         
                         Spacer()
                         
                         HStack{
                             let date0 = MyData.date2zero(date: self.date)
-                            let deltaDay = date0.deltaDay(to: basicData.eventDay)
+                            let deltaDay = date0.deltaDay(to: storedData.eventDay)
                             if deltaDay >= 0{
                                 Text("目标日: \(returnFullDate())")
                                     .font(.custom(font.rawValue, size: 8))
-                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).light)
                                     .padding(3)
-                                    .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                                    .background(calBlurBackground(isBlur: self.isBlur))
                                     .cornerRadius(10)
                             } else {
                                 Text("始于: \(returnFullDate())")
                                     .font(.custom(font.rawValue, size: 8))
-                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).light)
                                     .padding(3)
-                                    .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                                    .background(calBlurBackground(isBlur: self.isBlur))
                                     .cornerRadius(10)
                             }
                             Spacer()
@@ -210,14 +210,14 @@ struct MiddleWidgetView2: View {
                 
                 if isKitty{
                     ZStack{
-                        Image(uiImage: basicData.kitty)
+                        Image(uiImage: UIImage(data:storedData.kitty)!)
                             .resizable()
                             .scaledToFit()
                             .clipped()
                     }
                 }
                 
-                if !isKitty && isWord && basicData.isCalendar && basicData.display == .date{
+                if !isKitty && isWord && storedData.isCalendar && storedData.display == .date{
                     VStack(alignment: .leading){
                         if EKEventStore.authorizationStatus(for: .event) == .authorized{
                             Text("今日：")
@@ -247,9 +247,9 @@ struct MiddleWidgetView2: View {
                         }
                     }
                     .font(.custom(font.rawValue, size: 10))
-                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.storedData.fontColor).light)
                     .padding(4)
-                    .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
+                    .background(calBlurBackground(isBlur: self.isBlur))
                     .cornerRadius(10)
                     .frame(maxHeight:100)
 
@@ -291,7 +291,7 @@ struct MiddleWidgetView2: View {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "zh_Hans_CN")
         dateFormatter.dateStyle = .full
-        let str = dateFormatter.string(from: self.basicData.eventDay)
+        let str = dateFormatter.string(from: self.storedData.eventDay)
         return str
     }
     
@@ -395,11 +395,11 @@ struct MiddleWidgetView2: View {
         case week
     }
     
-    func calBlurBackground(isBlur: Bool, basicData: BasicData) -> some View{
+    func calBlurBackground(isBlur: Bool) -> some View{
         GeometryReader{ geometry in
             if isBlur{
                 ZStack{
-                    Image(uiImage: self.basicData.blurBackground).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
+                    Image(uiImage:UIImage(data:self.storedData.blurBackground)!).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
                     Color(self.colorScheme == .light ? .white : .black).opacity(self.colorScheme == .light ? 0.3 : 0.25)
                 }
             } else {
@@ -408,15 +408,15 @@ struct MiddleWidgetView2: View {
         }
     }
     
-    func calBackground(isAllBlur: Bool, basicData: BasicData) -> some View{
+    func calBackground(isAllBlur: Bool) -> some View{
         GeometryReader{ geometry in
             if isAllBlur{
                 ZStack {
-                    Image(uiImage: basicData.blurBackground).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
+                    Image(uiImage: UIImage(data: self.storedData.blurBackground)!).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
                     Color(self.colorScheme == .light ? .white : .black).opacity(0.2)
                 }
             } else {
-                Image(uiImage: basicData.background).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
+                Image(uiImage: UIImage(data: self.storedData.background)!).resizable().scaledToFill().frame(width: geometry.size.width, height: geometry.size.height).clipped()
             }
         }
     }
@@ -424,9 +424,4 @@ struct MiddleWidgetView2: View {
     
 }
 
-struct MiddleWidgetView2_Previews: PreviewProvider {
-    static var previews: some View {
-        MiddleWidgetView2(basicData: BasicData(id: UUID().uuidString, background: UIImage(named: "img8")!, display: .date, kitty: UIImage(named: "kitty1")!, customWord1: "1222lvow", customWord2: "MEMEEMDA", name: "widget 1"), isKitty: true, isWord: true, isBlur: true, isAllBlur: false, is24Hour: false, font: .font4)
-            .previewContext(WidgetPreviewContext(family: .systemMedium))
-    }
-}
+

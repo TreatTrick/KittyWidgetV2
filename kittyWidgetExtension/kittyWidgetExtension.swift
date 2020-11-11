@@ -12,21 +12,25 @@ import Intents
 struct Provider: IntentTimelineProvider {
     let dateFormatter = DateFormatter()
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationIntent(), is24Hour: MyData.is24Hour, basicData: MyData.defaultData)
+        SimpleEntry(date: Date(), configuration: ConfigurationIntent(), is24Hour: MyData.is24Hour, storedData: MyData.defaultStore)
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        var basicData: BasicData
+        var store: StoredData
         if let id = MyData.getidArray().first{
-            if let data = MyData.store2basic(id: id){
-                basicData = data
+            if let preData =  UserDefaults(suiteName: UserDataKeys.suiteName)!.data(forKey: id){
+                if let data = try? JSONDecoder().decode(StoredData.self, from: preData){
+                    store = data
+                } else {
+                    store = MyData.defaultStore
+                }
             } else {
-                basicData = MyData.defaultData
+                store = MyData.defaultStore
             }
         } else {
-            basicData = MyData.defaultData
+            store = MyData.defaultStore
         }
-        let entry = SimpleEntry(date: Date(), configuration: configuration, is24Hour: MyData.is24Hour, basicData: basicData)
+        let entry = SimpleEntry(date: Date(), configuration: configuration, is24Hour: MyData.is24Hour, storedData: store)
         completion(entry)
     }
 
@@ -40,7 +44,7 @@ struct Provider: IntentTimelineProvider {
         switch selectedWidget.display{
         case .customize:
             policy = .never
-            let entry = SimpleEntry(date: currentDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
+            let entry = SimpleEntry(date: currentDate, configuration: configuration, is24Hour: is24, storedData: selectedWidget)
             entries.append(entry)
         case .date:
             if selectedWidget.isCalendar{
@@ -53,7 +57,7 @@ struct Provider: IntentTimelineProvider {
                 dateFormatter2.dateFormat = "YYYY/MM/dd"
                 let reloadDay = dateFormatter2.date(from: str)!
                 policy = .after(reloadDay)
-                let entry = SimpleEntry(date: currentDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
+                let entry = SimpleEntry(date: currentDate, configuration: configuration, is24Hour: is24, storedData: selectedWidget)
                 entries.append(entry)
             } else {
                 policy = .atEnd
@@ -63,7 +67,7 @@ struct Provider: IntentTimelineProvider {
                 let date0 = dateFormatter.date(from: str)!
                 for secendOffset in 0 ..< 15 {
                     let entryDate = Calendar.current.date(byAdding: .minute, value: secendOffset, to: date0)!
-                    let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
+                    let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: is24, storedData: selectedWidget)
                     entries.append(entry)
                 }
             }
@@ -77,7 +81,7 @@ struct Provider: IntentTimelineProvider {
             dateFormatter2.dateFormat = "YYYY/MM/dd"
             let reloadDay = dateFormatter2.date(from: str)!
             policy = .after(reloadDay)
-            let entry = SimpleEntry(date: currentDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
+            let entry = SimpleEntry(date: currentDate, configuration: configuration, is24Hour: is24, storedData: selectedWidget)
             entries.append(entry)
         }
 
@@ -85,14 +89,17 @@ struct Provider: IntentTimelineProvider {
         completion(timeline)
     }
     
-    func selectWidget(for configuration: ConfigurationIntent) -> BasicData{
+    func selectWidget(for configuration: ConfigurationIntent) -> StoredData{
+        
         if let idString = configuration.widgets?.identifier{
-            if let data = MyData.store2basic(id: idString){
-                return data
+            if let preData =  UserDefaults(suiteName: UserDataKeys.suiteName)!.data(forKey: idString){
+                if let data = try? JSONDecoder().decode(StoredData.self, from: preData){
+                    let store = data
+                    return store
+                } 
             }
-            return MyData.defaultData
         }
-        return MyData.defaultData
+        return MyData.defaultStore
     }
 }
 
@@ -100,7 +107,7 @@ struct SimpleEntry: TimelineEntry {
     let date: Date
     let configuration: ConfigurationIntent
     let is24Hour: Bool
-    let basicData: BasicData
+    let storedData: StoredData
 }
 
 struct kittyWidgetExtensionEntryView : View {
@@ -110,12 +117,12 @@ struct kittyWidgetExtensionEntryView : View {
     var body: some View {
         switch family {
         case .systemSmall:
-            SmallWidgetView3(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font,date: entry.date)
-                .widgetURL(URL(string: entry.basicData.url))
+            SmallWidgetView3(storedData: entry.storedData, isKitty: entry.storedData.isKitty, isWord: entry.storedData.isWord, isBlur: entry.storedData.isBlur, isAllBlur: entry.storedData.isAllBlur, is24Hour: entry.is24Hour, font: entry.storedData.font,date: entry.date)
+                .widgetURL(URL(string: entry.storedData.url))
 
         default :
-            MiddleWidgetView2(basicData: entry.basicData, isKitty: entry.basicData.isKitty, isWord: entry.basicData.isWord, isBlur: entry.basicData.isBlur, isAllBlur: entry.basicData.isAllBlur, is24Hour: entry.is24Hour, font: entry.basicData.font, date: entry.date)
-                .widgetURL(URL(string: entry.basicData.url))
+            MiddleWidgetView2(storedData: entry.storedData, isKitty: entry.storedData.isKitty, isWord: entry.storedData.isWord, isBlur: entry.storedData.isBlur, isAllBlur: entry.storedData.isAllBlur, is24Hour: entry.is24Hour, font: entry.storedData.font, date: entry.date)
+                .widgetURL(URL(string: entry.storedData.url))
 
         }
     }

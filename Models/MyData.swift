@@ -149,7 +149,7 @@ class MyData: ObservableObject{
 //        let loveDay = dateFormatter.date(from: "2020/11/02")!
 //        return loveDay
         let date = Date()
-        let loveDay = Calendar.current.date(byAdding: .day, value: 33, to: date)!
+        let loveDay = Calendar.current.date(byAdding: .day, value: 13, to: date)!
         return MyData.date2zero(date: loveDay) 
     }
 
@@ -176,18 +176,18 @@ class MyData: ObservableObject{
                     font = .font1
                     display = .event
                 case 2:
-                    font = .font6
+                    font = .font4
                     display = .date
                     isKitty = false
                     isCalendar = true
                 default:
-                    font = .font4
+                    font = .font6
                     display = .customize
                     isKitty = false
                 }
-                  let kitty2 = UIImage(named: "kitty" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
-                  let background2 =  UIImage(named: "img" + String(i + 1))!.jpegData(compressionQuality: 0.8)!
-                  let blurBackground2 = blurBack.jpegData(compressionQuality: 0.8)!
+                  let kitty2 = UIImage(named: "kitty" + String(i + 1))!.pngData()!
+                  let background2 =  UIImage(named: "img" + String(i + 1))!.pngData()!
+                  let blurBackground2 = blurBack.pngData()!
               
                 let store = StoredData(id: id, background: background2, display: display, kitty: kitty2, isKitty: isKitty, blurBackground: blurBackground2, font: font, customWord1: customWord1, name: name, isCalendar: isCalendar)
                 let data = try? JSONEncoder().encode(store)
@@ -234,8 +234,8 @@ class MyData: ObservableObject{
                     customFont1 = 23
                     customFont2 = 16
                 }
-                let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(imgNum))!.resized(withPercentage: 0.5)!)!.jpegData(compressionQuality: 0.8)!
-                let background = UIImage(named: "img" + String(imgNum))!.jpegData(compressionQuality: 0.8)!
+                let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(imgNum))!.resized(withPercentage: 0.5)!)!.pngData()!
+                let background = UIImage(named: "img" + String(imgNum))!.pngData()!
             
                 let store = StoredData(id: id, background: background, display: .customize, isKitty: false, fontColor: .white, isWord: true, isBlur: false, blurBackground: blurBack, isAllBlur: false, font: .font4, url: url, customWord1: customWord1, customWord2: customWord2, customFont1: customFont1, customFont2: customFont2, name: name, isRename: true)
                 let data = try? JSONEncoder().encode(store)
@@ -295,9 +295,9 @@ class MyData: ObservableObject{
     
     static func basic2store(from data: BasicData){
         let id = data.id
-        let kitty = data.kitty.jpegData(compressionQuality: 0.8)!
-        let background = data.background.jpegData(compressionQuality: 0.8)!
-        let blurBackground = data.blurBackground.jpegData(compressionQuality: 0.8)!
+        let kitty = data.kitty.pngData()!
+        let background = data.background.pngData()!
+        let blurBackground = data.blurBackground.pngData()!
         let fontColor = data.fontColor
         let isKitty = data.isKitty
         let isWord = data.isWord
@@ -350,14 +350,14 @@ struct ColorSeries{
 
  struct StoredData:Hashable, Codable{
     var id : String
-    var background: Data = UIImage(named: "img1")!.jpegData(compressionQuality: 0.8)!
+    var background: Data = UIImage(named: "img1")!.pngData()!
     var display: displayMode
-    var kitty: Data = UIImage(named: "kitty1")!.jpegData(compressionQuality: 0.8)!
+    var kitty: Data = UIImage(named: "kitty1")!.pngData()!
     var isKitty: Bool = true
     var fontColor: FontColor = .white
     var isWord: Bool = true
     var isBlur: Bool = true
-    var blurBackground: Data = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!.jpegData(compressionQuality: 0.8)!
+    var blurBackground: Data = MyData.blurImage(usingImage: UIImage(named: "img1")!.resized(withPercentage: 0.5)!)!.pngData()!
     var isAllBlur: Bool = false
     var font: FontNames = .font4
     var url: String = ""

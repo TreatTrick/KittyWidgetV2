@@ -46,7 +46,6 @@ struct MiddleWidgetView2: View {
                             Text(dateSetting(.date, is24Hour: self.is24Hour, date: date))
                                 .font(.custom(font.rawValue, size: 12))
                                 .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
-                                .offset(x: 8)
                         }
                         .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                         .cornerRadius(10)
@@ -89,8 +88,26 @@ struct MiddleWidgetView2: View {
                 if isWord && basicData.isCalendar && basicData.display == .date{
                     Spacer()
                     VStack(alignment: .leading){
-                        Text(returnMonth().split(separator: "/")[0] + "年" + returnMonth().split(separator: "/")[1] + "月")
-                            .font(.system(size: 15))
+                        HStack{
+                            Text(returnMonth().split(separator: "/")[1] + "月")
+                                .font(.system(size: 15))
+                            Spacer()
+                            if EKEventStore.authorizationStatus(for: .event) == .authorized{
+                                if let events:[EKEvent] = self.getEvents(date: self.date){
+                                    if (events.first != nil){
+                                    Text(events.first!.title)
+                                        .font(.system(size: 15))
+                                    } else {
+                                        Text("今日无例程")
+                                            .font(.system(size: 15))
+                                    }
+                                }
+                            } else {
+                                Text("无法访问日历")
+                                    .font(.system(size: 15))
+                            }
+                            
+                        }
                         LazyVGrid(columns: columns){
                             ForEach(weekdays, id: \.self){ value in
                                 Text(value)
@@ -216,17 +233,13 @@ struct MiddleWidgetView2: View {
                             Spacer()
 
                             Text("明日：")
-                                .font(.custom(font.rawValue, size: 8))
-
                             if let events2 = self.getEvents(date: Calendar.current.date(byAdding: .day, value: 1, to: self.date)!){
                                 if (events2.first != nil){
                                     ForEach(events2, id:\.eventIdentifier ){ event in
                                         Text(event.title)
-                                            .font(.custom(font.rawValue, size: 8))
                                     }
                                 } else {
                                     Text("明日无例程")
-                                        .font(.custom(font.rawValue, size: 8))
                                 }
                             }
                         } else {

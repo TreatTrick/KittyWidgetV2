@@ -110,9 +110,9 @@ extension SmallSetting{
         
         DispatchQueue.global(qos:.userInteractive).async{
             let id =   self.myData.dataStream[ind2].id
-              let kitty = self.basicData.kitty.jpegData(compressionQuality: 0.8)!
-              let background = self.basicData.background.jpegData(compressionQuality: 0.8)!
-              let blurBackground = self.basicData.blurBackground.jpegData(compressionQuality: 0.8)!
+              let kitty = self.basicData.kitty.pngData()!
+              let background = self.basicData.background.pngData()!
+              let blurBackground = self.basicData.blurBackground.pngData()!
               let fontColor = self.basicData.fontColor
               let isKitty = self.isKitty
               let isWord = self.isWord

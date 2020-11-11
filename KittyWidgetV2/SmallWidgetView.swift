@@ -8,6 +8,7 @@
 import SwiftUI
 import WidgetKit
 import UIKit
+import EventKit
 
 struct SmallWidgetView: View {
     @EnvironmentObject var myData: MyData
@@ -45,9 +46,23 @@ struct SmallWidgetView: View {
                                         .offset(x: -4, y: 5)
                                 }
                             } else {
-                                Text(returnMonth().split(separator: "/")[1] + "月" + returnMonth().split(separator: "/")[2] + "日")
-                                    .font(.custom(font.rawValue, size: 20))
-                                    .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                if EKEventStore.authorizationStatus(for: .event) == .authorized{
+                                    if let events:[EKEvent] = self.getEvents(date: self.date){
+                                        if (events.first != nil){
+                                        Text(events.first!.title)
+                                            .font(.custom(font.rawValue, size: 15))
+                                            .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                        } else {
+                                            Text("今日无例程")
+                                                .font(.custom(font.rawValue, size: 12))
+                                                .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                        }
+                                    }
+                                } else {
+                                    Text("无法访问日历")
+                                        .font(.custom(font.rawValue, size: 12))
+                                        .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
+                                }
                             }
                             
                             if editMode?.wrappedValue != .inactive {
@@ -60,12 +75,10 @@ struct SmallWidgetView: View {
                             Time(dateSetting: .date, a: false, is24Hour: is24Hour)
                                 .font(.custom(font.rawValue, size: 10))
                                 .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
-                                .offset(x: 8)
                         } else {
-                            Text(returnMonth().split(separator: "/")[0] + "年")
+                            Text(returnMonth().split(separator: "/")[1] + "月" + returnMonth().split(separator: "/")[2] + "日")
                                 .font(.custom(font.rawValue, size: 10))
                                 .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
-                                .offset(x: 8)
                         }
                         
                     }
@@ -239,6 +252,23 @@ struct SmallWidgetView: View {
         .animation(.easeInOut)
         .environment(\.sizeCategory, .extraExtraExtraLarge)
 
+    }
+    
+    func getEvents(date: Date) -> [EKEvent]?{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY/MM/dd"
+        let str = dateFormatter.string(from: date)
+        let oldDay = dateFormatter.date(from: str)!
+        let newDay = Calendar.current.date(byAdding: .day,value: 1, to: oldDay)!
+        let store = EKEventStore()
+        var predicate: NSPredicate? = nil
+        var events: [EKEvent]? = nil
+        
+        predicate = store.predicateForEvents(withStart: oldDay, end: newDay, calendars: nil)
+        if let aPredicate = predicate {
+            events = store.events(matching: aPredicate)
+        }
+        return events
     }
     
     func returnMonth() -> String{

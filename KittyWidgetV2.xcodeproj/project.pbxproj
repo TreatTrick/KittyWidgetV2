@@ -633,7 +633,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = DynamicIntent/DynamicIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				INFOPLIST_FILE = DynamicIntent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -655,7 +655,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = DynamicIntent/DynamicIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				INFOPLIST_FILE = DynamicIntent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -796,7 +796,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = KittyWidgetV2/KittyWidgetV2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"KittyWidgetV2/Preview Content\"";
 				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				ENABLE_PREVIEWS = YES;
@@ -822,7 +822,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = KittyWidgetV2/KittyWidgetV2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"KittyWidgetV2/Preview Content\"";
 				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				ENABLE_PREVIEWS = YES;
@@ -927,7 +927,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = kittyWidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				INFOPLIST_FILE = kittyWidgetExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -950,7 +950,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = kittyWidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				INFOPLIST_FILE = kittyWidgetExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

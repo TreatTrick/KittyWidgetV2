@@ -61,7 +61,7 @@ struct Provider: IntentTimelineProvider {
                 dateFormatter.dateFormat = "YYYY:MM:dd:HH:mm"
                 let str = dateFormatter.string(from: currentDate)
                 let date0 = dateFormatter.date(from: str)!
-                for secendOffset in 0 ..< 10 {
+                for secendOffset in 0 ..< 15 {
                     let entryDate = Calendar.current.date(byAdding: .minute, value: secendOffset, to: date0)!
                     let entry = SimpleEntry(date: entryDate, configuration: configuration, is24Hour: is24, basicData: selectedWidget)
                     entries.append(entry)

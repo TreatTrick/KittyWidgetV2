@@ -184,7 +184,7 @@ class MyData: ObservableObject{
                 let id = idArray[i]
                 let blurBack = MyData.blurImage(usingImage: UIImage(named: "img" + String(i+1))!.resized(withPercentage: 0.5)!)!
                 let name = "widget " + String(i+1)
-                let customWord1 = "Love you like movies"
+                let customWord1 = "Love you three thousand."
                 var font: FontNames
                 var display: displayMode
                 var isCalendar = false

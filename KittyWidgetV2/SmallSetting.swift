@@ -41,7 +41,7 @@ struct SmallSetting: View {
     var ind: Int{
         return self.myData.dataStream.firstIndex(where: {$0.id == self.basicData.id})!
     }
-    let padInt: CGFloat = 6
+    let padInt: CGFloat = 3
     //let padIntImg: CGFloat = 10
     let mini = "-mini"
     
@@ -154,25 +154,6 @@ struct SmallSetting: View {
                                     if EKEventStore.authorizationStatus(for: .event) != .authorized {
                                         self.isAlert = true
                                     }
-//                                    if value{
-//                                        if UserDefaults(suiteName: UserDataKeys.suiteName)!.bool(forKey: UserDataKeys.access){
-//                                            if EKEventStore.authorizationStatus(for: .event) != .authorized {
-//                                                self.isAlert = true
-//                                            }
-//                                        } else {
-//                                            UserDefaults(suiteName: UserDataKeys.suiteName)!.set(true, forKey: UserDataKeys.access)
-//                                            let store = EKEventStore()
-//                                            store.requestAccess(to:.event){ (granted, error) in
-//                                                if !granted {
-//                                                    print("Access to store not granted")
-//                                                    self.basicData.isCalendar = false
-//                                                    if EKEventStore.authorizationStatus(for: .event) != .authorized {
-//                                                        self.isAlert = true
-//                                                    }
-//                                                }
-//                                            }
-//                                        }
-//                                    }
                                 }
 //
                             case .customize:

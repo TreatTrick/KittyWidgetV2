@@ -54,6 +54,7 @@ struct MiddleWidgetView: View {
                             .font(.custom(font.rawValue, size: 12))
                             .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).main)
                     }
+                    .padding(4)
                     .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                     .cornerRadius(10)
                     .offset(y: 6)
@@ -195,14 +196,14 @@ struct MiddleWidgetView: View {
                         let deltaDay = date0.deltaDay(to: basicData.eventDay)
                         if deltaDay >= 0{
                             Text("目标日: \(returnFullDate())")
-                                .font(.custom(font.rawValue, size: 10))
+                                .font(.custom(font.rawValue, size: 9))
                                 .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 .padding(3)
                                 .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
                                 .cornerRadius(10)
                         } else {
                             Text("始于: \(returnFullDate())")
-                                .font(.custom(font.rawValue, size: 10))
+                                .font(.custom(font.rawValue, size: 9))
                                 .foregroundColor(FuncForSmallWidgets.calColor(fontColor: self.basicData.fontColor).light)
                                 .padding(3)
                                 .background(calBlurBackground(isBlur: self.isBlur, basicData: self.basicData))
